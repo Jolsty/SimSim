@@ -6,6 +6,8 @@
  *  Button C: 7451033
  *  Button D: 7451034
  *
+ * Ad ogni bottone verrà assegnato un compito diverso nel futuro.. 
+ *
  */
 
 // Objects
