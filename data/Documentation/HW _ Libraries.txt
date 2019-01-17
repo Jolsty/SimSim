@@ -1,0 +1,67 @@
+﻿Software Serial - comunicazione seriale hw - sw
+
+	https://www.arduino.cc/en/Reference/SoftwareSerial
+	Pin 0 e 1 di base per rx/tx, con softwareserial si può estendere
+
+RFID
+
+	https://playground.arduino.cc/Learning/MFRC522
+	https://github.com/song940/RFID-RC522
+	https://howtomechatronics.com/tutorials/arduino/rfid-works-make-arduino-based-rfid-door-lock/
+	
+Wire - write to eeprom - da usare per la eeprom del modulo tiny rtc
+
+	https://www.arduino.cc/en/Reference/Wire	
+	
+Display - va usato con wire ?
+
+	https://playground.arduino.cc/Main/PCF8574Class
+	A library for driving LiquidCrystal displays (LCD) by using the I2C bus and an PCF8574 I2C adapter.
+	This library is derived from the original Arduino LiquidCrystal library and uses the original Wire library for communication.
+	https://github.com/mathertel/LiquidCrystal_PCF8574
+	https://www.mathertel.de/Arduino/LiquidCrystal_PCF8574.aspx
+	Want to free up some ports of your Arduino but don't want to buy a new LCD?
+	https://www.instructables.com/id/Using-PCF8574-backpacks-with-LCD-modules-and-Ardui/
+	
+RTC - real time clock (track time even if arduino powered down)
+Ha anche 4KB di memoria EEPROM .. I2C?
+
+	https://github.com/adafruit/RTClib
+	http://henrysbench.capnfatz.com/henrys-bench/arduino-sensors-and-input/arduino-tiny-rtc-d1307-tutorial/
+	https://www.elecrow.com/wiki/index.php?title=Tiny_RTC
+	http://www.brescianet.com/appunti/Elettronica/Arduino/corso/Esempio_RTC.htm
+	https://www.e-gizmo.net/oc/kits%20documents/TinyRTC%20I2C%20module/TinyRTC%20i2c%20module%20%20Techincal%20Manual%20rev1.pdf
+	
+Keypad - da fare con I2C
+
+	https://playground.arduino.cc/code/keypad
+	
+Memoria EEPROM Arduino
+
+	https://www.arduino.cc/en/Reference/EEPROM
+	
+Wi-Fi.. alternative?
+
+	https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/readme.html
+	
+Cloud - API thingspeak - altre?
+
+	https://blogs.mathworks.com/iot/2015/10/09/official-thingspeak-library-for-arduino-and-particle/
+	
+Remote control antenna - RF module && RCSwitch lib
+	
+	https://arduinobasics.blogspot.com/2014/06/433-mhz-rf-module-with-arduino-tutorial.html
+	https://www.princetronics.com/how-to-read-433-mhz-codes-w-arduino-433-mhz-receiver/
+	https://github.com/sui77/rc-switch
+	
+Library management
+
+	https://www.arduino.cc/en/Hacking/LibraryTutorial
+	
+SPI
+
+	https://www.arduino.cc/en/Reference/SPI
+	
+Relay
+
+	http://www.circuitbasics.com/setting-up-a-5v-relay-on-the-arduino/
