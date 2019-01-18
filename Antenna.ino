@@ -23,7 +23,7 @@ void rfSetup(void) {
 void rfLoop(void) {
    if ( rfReceiver.available() && rfReceiver.getReceivedProtocol() == 1 ) {
       switch ( rfReceiver.getReceivedValue() ) {
-         case 7451031: // hash the values? more security
+         case 7451031: 
             Serial.print(F("Pressed A at "));
             rtcPrintNow();
             relayIntervalON(1);
