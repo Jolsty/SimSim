@@ -1,6 +1,7 @@
 // RFID global variables
 
 String currentCardNumber;
+
 // Objects
 
 MFRC522 rfid(SS_PIN, RST_PIN);
