@@ -1,6 +1,5 @@
 // RFID global variables
 
-uint16_t cardCounter = 4; // change
 String currentCardNumber;
 // Objects
 
