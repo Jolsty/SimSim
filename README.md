@@ -8,7 +8,7 @@ le API a cui accede l'Arduino me lo chieda..
 Il codice attualmente flashato sull'ESP-01 sta sotto la cartella ESP-01_CODE
 
 
-
+Leggere il wiki
 
 * DONE * Fritzing
 * TO DO * Relazione
