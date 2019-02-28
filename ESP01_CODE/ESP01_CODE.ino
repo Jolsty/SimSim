@@ -26,7 +26,7 @@ void loop() {
    
    if ( WiFi.status() == WL_CONNECTED ) { // Check WiFi connection status
       
-      if ( Serial.available() ) { // provo con if
+      if ( Serial.available() ) { 
          String from_arduinoJSON = Serial.readString();
          if (from_arduinoJSON.startsWith("check")) {
             checkTesseraAPI(from_arduinoJSON.substring(5));
