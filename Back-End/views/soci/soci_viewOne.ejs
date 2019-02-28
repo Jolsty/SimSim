@@ -1,0 +1,30 @@
+<% include ../partials/header %>
+    <div class="container">
+        <h5><a href="/">Torna alla pagina iniziale</a></h5>
+        <h5><a href="/api/soci/view">Torna a tutti i soci</a></h5>
+        <h1>Dettagli di <%= socio.nome %> <%= socio.cognome %></h1>
+        <p><b>Nome e cognome:</b> <%= socio.nome %> <%= socio.cognome %></p>
+        <p><b>Numero tessera:</b> <%= socio.numero_tessera %></p>
+        <p><b>Sesso:</b> <%= socio.sesso %></p>
+        <p><b>Data di nascita:</b> <%= dateFormat(socio.nascita.toLocaleString("it-IT", { "year": "numeric", "month": "2-digit", "day": "2-digit" })) %></p>
+        <p><b>E-mail:</b> <%= socio.email %></p>
+        <p><b>Nazionalità:</b> <%= socio.nazionalita %></p>
+        <p><b>Ruolo:</b> <%= socio.ruolo %></p>
+        <p><b>Regione:</b> <%= socio.indirizzo.regione %></p>
+        <p><b>Provincia:</b> <%= socio.indirizzo.provincia %></p>
+        <p><b>Città:</b> <%= socio.indirizzo.citta %></p>
+        <p><b>CAP:</b> <%= socio.indirizzo.cap %></p>
+        <p><b>Via:</b> <%= socio.indirizzo.via %></p>
+        <p><b>Civico:</b> <%= socio.indirizzo.civico %></p>
+        <p><b>Numero telefono 1:</b> <%= socio.telefoni.telefono1 %></p>
+        <p><b>Numero telefono 2:</b> <%= socio.telefoni.telefono2 %></p>
+        <p><b>Professione:</b> <%= socio.professione %></p>
+        <p><b>Interesse 1:</b> <%= socio.interessi.interesse1 %></p>
+        <p><b>Interesse 2:</b> <%= socio.interessi.interesse2 %></p>
+        <p><b>Note:</b> <%= socio.note %></p>
+        <p><b>Prima iscrizione:</b> <%= dateFormat(socio.prima_iscrizione.toLocaleString("it-IT", { "year":"numeric", "month": "2-digit", "day": "2-digit" })) %></p>
+        <p><b>Ultimo rinnovo iscrizione:</b> <%= dateFormat(socio.ultimo_rinnovo_iscrizione.toLocaleString("it-IT", { "year": "numeric", "month": "2-digit", "day": "2-digit" })) %></p>
+        <h4><a href="/api/soci/update/<%= socio._id %>">Aggiorna socio</a></h4> <!-- cambia href -->
+        <button class="rimuoviSocioButton" value="<%= socio._id %>" type="button">Rimuovi</button>
+    </div>
+<% include ../partials/footer %>
