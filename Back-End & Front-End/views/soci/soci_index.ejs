@@ -1,0 +1,50 @@
+<% include ../partials/header %>
+    <div class="w3-container w3-padding-16 w3-center w3-black" id="home">
+    </div>
+    <div class="w3-row-padding">
+        <div class="w3-third w3-center">
+            <ul class="w3-ul">
+                <li class="w3-dark-grey w3-xlarge w3-padding-32 w3-round">Soci <span class="w3-medium">(<%=soci.length %>)</span>
+                    <a class="w3-btn w3-round w3-hover-light-grey w3-medium" href="/api/soci/create">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                    <div class="w3-margin w3-medium">
+                        <form id="ricercaMultiplaSociForm" name="ricercaMultiplaSociForm" onSubmit="return ricercaMultiplaSoci()">
+                                <input class="w3-input" type="text" required id="cercaSoci" name="cercaSoci" placeholder="Cerca..." ></input>
+                                <a>per</a>
+                                <select class="w3-select" id="ricercaSelect">
+                                    <option value="" disabled selected>Scegli...</option>
+                                    <option value="nome_e_cognome">Nome e cognome</option>
+                                    <option type="number" value="numero_tessera">Numero tessera</option>
+                                    <option value="ruolo">Ruolo</option>
+                                    <option value="regione">Regione</option>
+                                    <option value="provincia">Provincia</option>
+                                    <option value="citta">Città</option>
+                                </select>
+                                <div class="w3-margin-top">
+                                    <button class="w3-btn w3-white w3-round" type="submit">
+                                        <i class="fas fa-search w3-medium"></i>  Cerca
+                                    </button>
+                                </div>
+                        </form>
+                    </div>
+
+                </li>
+                <% if (soci.length>0) { %>
+                    <% for(var i=0; i<soci.length; i++) { %>
+                        <li class="w3-block w3-animate-opacity w3-hover-light-grey w3-padding-16 w3-btn w3-white"><%= soci[i].nome %> <%= soci[i].cognome %></li>
+                    <% } %>
+                <% } else { %>
+                    <div>Non ho trovato alcun socio.</div>
+                <% } %>
+            </ul>
+        </div>
+        <div class="w3-twothird w3-center">
+                <ul class="w3-ul">
+                    <li class="w3-dark-grey w3-xlarge w3-padding-32 w3-round">Dettagli</li>
+                </ul>
+
+
+            </div>
+    </div>
+<% include ../partials/footer %>

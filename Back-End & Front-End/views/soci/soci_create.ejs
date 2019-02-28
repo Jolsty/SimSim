@@ -1,0 +1,34 @@
+<% include ../partials/header %>
+    <h5><a href="/">Torna alla pagina iniziale</a></h5>
+    <h5><a href="/api/soci/view">Torna a tutti i soci</a></h5>
+    <h1>Aggiungi un socio</h1>
+    <form id="addSocioForm">
+        <p><b>Nome</b> <input type="text" required id="nome" name="nome"></input> <b>*</b></p>
+        <p><b>Cognome</b> <input type="text" required id="cognome" name="cognome"></input> <b>*</b></p>
+        <p><b>Numero tessera</b> <input type="number" min=1 required id="numero_tessera" name="numero_tessera"></input> <b>*</b></p>
+        <p>
+            <b>Sesso</b> <b>*</b>
+            <input type="radio" required id="sessoM" name="sesso" value="M"></input>M
+            <input type="radio" required id="sessoF" name="sesso" value="F"></input>F
+        </p>
+        <p><b>Data di nascita</b> <input type="date" required id="nascita" name="nascita" ></input> <b>*</b></p>
+        <p><b>Email</b> <input type="email" required id="email" name="email"></input> <b>*</b></p>
+        <p><b>Nazionalità</b> <input type="text" id="nazionalita" name="nazionalita"></input></p>
+        <p><b>Ruolo</b> <input type="text" id="ruolo" name="ruolo"></input></p>
+        <p><b>Regione</b> <input type="text" id="regione" name="regione"></input></p>
+        <p><b>Provincia</b> <input type="text" maxlength="2" id="provincia" name="provincia"></input></p>
+        <p><b>Città</b> <input type="text" id="citta" name="citta"></input></p>
+        <p><b>CAP</b> <input type="text" id="cap" name="cap"></input></p>
+        <p><b>Via</b> <input type="text" id="via" name="via"></input></p>
+        <p><b>Civico</b> <input type="text" id="civico" name="civico"></input></p>
+        <p><b>Numero telefono 1</b> <input type="text" id="telefono1" name="telefono1"></input></p>
+        <p><b>Numero telefono 2</b> <input type="text" id="telefono2" name="telefono2"></input></p>
+        <p><b>Professione</b> <input type="text" id="professione" name="professione"></input></p>
+        <p><b>Interesse 1</b> <input type="text" id="interesse1" name="interesse1"></input></p>
+        <p><b>Interesse 2</b> <input type="text" id="interesse2" name="interesse2"></input></p>
+        <p><b>Note</b> <textarea type="text" id="note" name="note" placeholder="Note..."></textarea></p>
+        <p><b>Prima iscrizione</b> <input type="date" id="prima_iscrizione" name="prima_iscrizione"></input></p>
+        <p><b>Ultimo rinnovo iscrizione</b> <input type="date" id="ultimo_rinnovo_iscrizione" name="ultimo_rinnovo_iscrizione"></input></p>
+        <p><button type="submit">Aggiungi socio</button></p>
+    </form>
+<% include ../partials/footer %>
