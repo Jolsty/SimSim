@@ -1,0 +1,68 @@
+<% include ../partials/header %>
+    <div class="w3-section w3-padding-16">
+        <p class="w3-xlarge w3-text-white">Aggiungi un socio &nbsp;&nbsp;&nbsp;
+            <a href="/api/soci/view">
+                <i class="fas fa-arrow-left w3-xlarge w3-btn w3-hover-light-grey"></i>
+            </a>
+        </p>
+        <hr style="width:40%" class="w3-opacity">
+        <div class="w3-card-4">
+            <form id="addSocioForm" class="w3-container">
+                <label>Nome *</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" required id="nome" name="nome"></input>
+                <br><label>Cognome *</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" required id="cognome" name="cognome"></input>
+                <br><label>Numero tessera *</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="number" min=1 required id="numero_tessera" name="numero_tessera"></input>
+                <br><label>Sesso *</label>
+                <input class="w3-radio" type="radio" required id="sessoM" name="sesso" value="M"></input>
+                <label>M</label>
+                <input class="w3-radio" type="radio" required id="sessoF" name="sesso" value="F"></input>
+                <label>F</label>
+                <br><br><label>Data di nascita *</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="date" required id="nascita" name="nascita" ></input>
+                <br><label>Mail *</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="email" required id="email" name="email"></input>
+                <br><label>Nazionalità</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="nazionalita" name="nazionalita"></input>
+                <br><label>Ruolo</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="ruolo" name="ruolo"></input>
+                <br><label>Regione</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="regione" name="regione"></input>
+                <br><label>Provincia</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" maxlength="2" id="provincia" name="provincia"></input>
+                <br><label>Città</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="citta" name="citta"></input>
+                <br><label>CAP</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="cap" name="cap"></input>
+                <br><label>Via</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="via" name="via"></input>
+                <br><label>Civico</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="civico" name="civico"></input>
+                <br><label>Telefono (main)</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="telefono1" name="telefono1"></input>
+                <br><label>Telefono (alt)</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="telefono2" name="telefono2"></input>
+                <br><label>Professione</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="professione" name="professione"></input>
+                <br><label>Interesse 1</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="interesse1" name="interesse1"></input>
+                <br><label>Interesse 2</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="interesse2" name="interesse2"></input>
+                <br><label>Note</label>
+                <textarea class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="note" name="note"></textarea>
+                <br><label>Data di prima iscrizione</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="date" id="prima_iscrizione" name="prima_iscrizione"></input>
+                <br><label>Data dell'ultimo rinnovo</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="date" id="ultimo_rinnovo_iscrizione" name="ultimo_rinnovo_iscrizione"></input>
+                <br>
+                <p>
+                    <button class="w3-button w3-large w3-white w3-hover-light-grey" type="submit">
+                        <i class="fas fa-plus"></i> Aggiungi socio
+                    </button>
+                </p>
+            </form>
+        </div>
+
+    </div>
+<% include ../partials/footer %>

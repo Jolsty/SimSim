@@ -1,0 +1,17 @@
+hr.nav-hr {
+    border: 3px solid white;
+}
+
+.hover-overflow:hover
+{
+    white-space: normal;
+    text-overflow: "";
+    overflow: visible;
+}
+
+.hover-overflow
+{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

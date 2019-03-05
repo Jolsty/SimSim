@@ -1,0 +1,84 @@
+<% include ../partials/header %>
+    <div class="w3-container w3-padding-64 w3-center w3-black w3-xxxlarge" id="home">Logbook</div>
+    <hr class="w3-padding-16">
+    <div class="w3-row-padding">
+        <div class="w3-half">
+            <h3>Cerca per un termine generico</h3>
+            <form id="ricercaLogs" name="ricercaLogs" style="width: 50%;">
+                <label>Termine *</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" type="text" required id="cercaLogs" name="cercaLogs" placeholder="Cerca..." ></input>
+                <div class="w3-margin-top">
+                    <button class="w3-btn w3-white w3-round-large w3-hover-light-grey" type="submit">
+                        <i class="fas fa-search w3-medium"></i> Cerca
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="w3-half">
+            <h3>Cerca per data</h3>
+            <form id="cercaPerDataForm" name="cercaPerDataForm" style="width: 50%">
+                <label>Anno <span class="w3-tiny">(yyyy)</span> *</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" type="text" required id="anno" name="anno"></input>
+                <label>Mese <span class="w3-tiny">(mm)</span></label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" type="text" id="mese" name="mese"></input>
+                <label>Giorno <span class="w3-tiny">(gg)</span></label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" type="text" id="giorno" name="giorno"></input>
+                <div class="w3-margin-top">
+                    <button class="w3-btn w3-white w3-round-large w3-hover-light-grey w3-margin-bottom" type="submit">
+                        <i class="fas fa-search w3-medium"></i> Cerca per data
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr class="w3-margin-top">
+    <div>
+        <% if (locals.searched) { %>
+            <p class="w3-xxlarge w3-margin-left"> Risultati della ricerca &nbsp;&nbsp;&nbsp;
+                <a href="/api/logs/view">
+                    <i class="fas fa-arrow-left w3-xxlarge w3-btn w3-hover-light-grey"></i>
+                </a>
+            </p>
+        <% } %>
+    </div>
+    <% if (logs.length>0) { %>
+        <div class="w3-container w3-padding-16">
+            <table class="w3-table w3-border w3-centered w3-animate-opacity w3-large">
+                <thead>
+                    <tr class="w3-white w3-xlarge">
+                        <th>Tipo entrata</th>
+                        <th>Data</th>
+                        <th>Nome</th>
+                        <th>Numero tessera</th>
+                        <th>Seriale</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0; i<logs.length; i++) { %>
+                        <tr class="w3-black">
+                            <td><%= logs[i].tipo %></td>
+                            <td><%= dateFormat(logs[i].data.toLocaleString("it-IT", { "year": "numeric", "month": "2-digit", "day": "2-digit", "hour": "2-digit", "minute": "2-digit", "second": "2-digit" })) %></td>
+                            <td>
+                                <% if (logs[i].nome !== "N/A" && logs[i].cognome !== "N/A") { %>
+                                    <%= logs[i].nome %> <%= logs[i].cognome %>
+                                    <% } else { %>
+                                        N/A
+                                    <% } %>
+                            </td>
+                            <td>
+                                <% if (logs[i].numero_tessera === "") { %>
+                                    N/A
+                                <% } else { %>
+                                    <%= logs[i].numero_tessera %>
+                                <% } %>
+                            </td>
+                            <td><%= logs[i].seriale %></td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+        <div class="w3-padding-32 w3-xlarge">Non ho trovato alcun log.</div>
+    <% } %>
+<% include ../partials/footer %>

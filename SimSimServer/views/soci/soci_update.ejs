@@ -1,0 +1,67 @@
+<% include ../partials/header %>
+    <div class="w3-section w3-padding-16">
+        <p class="w3-xlarge w3-text-white">Aggiorna <%= socio.nome %> <%= socio.cognome %> &nbsp;&nbsp;&nbsp;
+            <a href="/api/soci/view">
+                <i class="fas fa-arrow-left w3-xlarge w3-btn w3-hover-light-grey"></i>
+            </a>
+        </p>
+        <hr style="width:40%" class="w3-opacity">
+        <div class="w3-card-4">
+            <form id="aggiornaSocioForm" class="w3-container">
+                <input type="hidden" id="socioId" name="socioId" value="<%= socio._id %>"></input>
+                <label>Nome *</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" required id="nomeAgg" name="nomeAgg" value="<%= socio.nome %>"></input>
+                <br><label>Cognome *</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" required id="cognomeAgg" name="cognomeAgg" value="<%= socio.cognome %>"></input>
+                <br><label>Numero tessera *</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="number" min=1 required id="numero_tesseraAgg" name="numero_tesseraAgg" value="<%= socio.numero_tessera %>"></input>
+                <br><label>Sesso *</label>
+                <input <% if (socio.sesso === "M") { %> checked <% } %> class="w3-radio" type="radio" required id="sessoMAgg" name="sessoAgg" value="M"></input>
+                <label>M</label>
+                <input <% if (socio.sesso === "F") { %> checked <% } %>class="w3-radio" type="radio" required id="sessoFAgg" name="sessoAgg" value="F"></input>
+                <label>F</label>
+                <br><br><label>Data di nascita *</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="date" required id="nascitaAgg" name="nascitaAgg" value="<%= socio.nascita.toLocaleString("it-IT", { "year": "numeric", "month": "2-digit", "day": "2-digit" }) %>"></input>
+                <br><label>Mail *</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="email" required id="emailAgg" name="emailAgg" value="<%= socio.email %>"></input>
+                <br><label>Nazionalità</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="nazionalitaAgg" name="nazionalitaAgg" value="<%= socio.nazionalita %>"></input>
+                <br><label>Ruolo</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="ruoloAgg" name="ruoloAgg" value="<%= socio.ruolo %>"></input>
+                <br><label>Regione</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="regioneAgg" name="regioneAgg" value="<%= socio.indirizzo.regione %>"></input>
+                <br><label>Provincia</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" maxlength="2" id="provinciaAgg" name="provinciaAgg" value="<%= socio.indirizzo.provincia %>"></input>
+                <br><label>Città</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="cittaAgg" name="cittaAgg" value="<%= socio.indirizzo.citta %>"></input>
+                <br><label>CAP</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="capAgg" name="capAgg" value="<%= socio.indirizzo.cap %>"></input>
+                <br><label>Via</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="viaAgg" name="viaAgg" value="<%= socio.indirizzo.via %>"></input>
+                <br><label>Civico</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="civicoAgg" name="civicoAgg" value="<%= socio.indirizzo.civico %>"></input>
+                <br><label>Telefono (main)</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="telefono1Agg" name="telefono1Agg" value="<%= socio.telefoni.telefono1 %>"></input>
+                <br><label>Telefono (alt)</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="telefono2Agg" name="telefono2Agg" value="<%= socio.telefoni.telefono2 %>"></input>
+                <br><label>Professione</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="professioneAgg" name="professioneAgg" value="<%= socio.professione %>"></input>
+                <br><label>Interesse 1</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="interesse1Agg" name="interesse1Agg" value="<%= socio.interessi.interesse1 %>"></input>
+                <br><label>Interesse 2</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="interesse2Agg" name="interesse2Agg" value="<%= socio.interessi.interesse2 %>"></input>
+                <br><label>Note</label>
+                <textarea class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="text" id="noteAgg" name="noteAgg"><%= socio.note %></textarea>
+                <br><label>Data di prima iscrizione</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="date" id="prima_iscrizioneAgg" name="prima_iscrizioneAgg" value="<%= socio.prima_iscrizione.toLocaleString("it-IT", { "year": "numeric", "month": "2-digit", "day": "2-digit" }) %>"></input>
+                <br><label>Data dell'ultimo rinnovo</label>
+                <input class="w3-input w3-round-large w3-hover-light-grey" style="width: 40%;" type="date" id="ultimo_rinnovo_iscrizioneAgg" name="ultimo_rinnovo_iscrizioneAgg" value="<%= socio.ultimo_rinnovo_iscrizione.toLocaleString("it-IT", { "year": "numeric", "month": "2-digit", "day": "2-digit" }) %>"></input>
+                <br><p>
+                    <button class="w3-button w3-large w3-white w3-hover-light-grey" type="submit">
+                        <i class="fas fa-edit"></i> Aggiorna socio
+                    </button>
+                </p>
+            </form>
+        </div>
+    </div>
+<% include ../partials/footer %>
