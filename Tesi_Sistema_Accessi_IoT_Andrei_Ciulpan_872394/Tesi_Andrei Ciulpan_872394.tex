@@ -1,0 +1,272 @@
+%
+% Tesi D.S.I. - modello preso da
+% Stanford University PhD thesis style -- modifications to the report style
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                         %
+%			TESI DOTTORATO                                                %
+%			______________                                                %
+%                                                                         %
+%			AUTORE: Andrei Ciulpan                                        %
+%                                                                         %
+%			Ultima revisione: 30.04.2019                                  %
+%                                                                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+\documentclass[12pt]{report}
+%    \renewcommand{\baselinestretch}{1.6}      % interline spacing
+%
+% \includeonly{}
+%
+%			PREAMBOLO
+%
+\usepackage[a4paper]{geometry}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{graphicx}
+\usepackage[hyphens,spaces,obeyspaces]{url}
+\usepackage{hyperref}
+\usepackage{epsfig}
+\usepackage[italian]{babel}
+\usepackage{tesi}
+\usepackage{afterpage}
+
+\addto{\captionsitalian}{%
+	\renewcommand{\bibname}{Sitografia}
+}
+
+\newcommand\blankpage{%
+	\null
+	\thispagestyle{empty}%
+	\addtocounter{page}{-1}%
+	\newpage}
+
+% per le accentate
+\usepackage[utf8]{inputenc}
+%
+\newtheorem{myteor}{Teorema}[section]
+%
+\newenvironment{teor}{\begin{myteor}\sl}{\end{myteor}}
+%
+%
+%			TITOLO
+%
+\begin{document}
+\title{Sistema Accessi IoT}
+\author{Andrei CIULPAN}
+\dept{Corso di Laurea in Informatica} 
+\anno{2018/2019}
+\matricola{872394}
+\relatore{Dott. Andrea TRENTINI}
+\correlatore{Marco LANZA}
+\afterpage{\blankpage}
+% 
+%			DEDICA
+%
+\beforepreface
+
+{\hfill \footnotesize {\sl Ringrazio i miei genitori e la nonna per il sostegno e per la pazienza che hanno avuto.}}
+\vskip 0.8cm
+{\hfill \footnotesize {\sl Ringrazio i miei amici e compagni di università per aver reso l'esperienza più bella e soprattutto più facile.}}
+\vskip 0.8cm
+{\hfill \footnotesize {\sl Ringrazio i miei tutor e colleghi per avermi dato la possibilità di crescere e concludere la mia esperienza universitaria.}}
+\vskip 0.8cm
+{\hfill \footnotesize {\sl Un ringraziamento speciale a Elena per essere riuscita a farmi sorridere e a tirarmi su il morale in ogni giorno con la sua presenza nella mia vita.  Un altro ringraziamento a lei per la revisione della tesi.}}
+       
+% 
+%			PREFAZIONE
+%
+\prefacesection{Prefazione o Abstract?}
+Da fare alla fine.
+%
+%
+%			ORGANIZZAZIONE
+\section*{Organizzazione della tesi (aggiungere direttamente dentro l'Abstract?) TO DO alla fine }
+\label{organizzazione}
+La tesi \`e organizzata come segue:
+\begin{itemize}
+\item nel Capitolo 1 ....
+\end{itemize}
+%
+%
+%
+
+\afterpreface
+
+% 
+%			CAPITOLO 1: Intro
+\chapter{Introduzione}
+\label{cap1}
+%
+
+Il controllo accessi è un sistema di protezione che permette l'accesso solo a determinate persone per via di qualche procedura di autenticazione: nel mondo fisico si può parlare di una semplice serratura (storicamente il sistema piu' utilizzato in assoluto) che può essere aperta solo dalle persone in possesso della chiave, mentre nel mondo dell'informatica si può notare l'enorme utilizzo delle procedure di autenticazione (login) che aiutano il sistema, tramite l'inserimento di un nome utente e password, a determinare automaticamente se una persona è autorizzata ad accedere alle risorse del sistema stesso.
+
+Il controllo accessi\cite{controllo_accessi} è un tema molto sviluppato nel campo della sicurezza sia fisica che informatica: è stato segnalato che nel 2017, per il secondo anno consecutivo, il mercato del controllo accessi ha avuto la crescita piu' rapida nell'industria della sicurezza fisica\cite{crescita_controllo_accessi}. E' anche un sistema onnipresente, utilizzato in ospedali, fabbriche, supermercati, aziende, sistemi di trasporto pubblico (e.g l'ATM di Milano), case e tanti altri campi.  
+
+La tesi si propone di trattare un sistema ibrido in cui il mondo fisico e il mondo informatico lavorano insieme: attraverso sensori ed attuatori è possibile avere la comunicazione tra i due mondi. 
+Si tratta di un sistema IoT (Internet of Things), ovvero un sistema in cui la connessione Internet viene estesa anche al mondo degli oggetti fisici (smart objects\cite{smart_objects}) di uso comune. Gli oggetti si rendono riconoscibili e acquisiscono intelligenza grazie al fatto di possedere una o piu' delle seguenti funzionalità: identificazione, localizzazione, diagnosi di stato, interazione con l'ambiente circostante, elaborazione dati e ovviamente connessione.
+Gli oggetti intelligenti di un sistema IoT sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado di agire sui dati raccolti dall'ambiente e, ancora piu' importante, mandare questi dati in rete dove possono poi essere analizzati\cite{IoT}. Un semplice esempio di un sistema IoT si può trovare in Figura 1.
+
+Le seguenti sezioni di questo capitolo introduranno il progetto stesso che poi verrà dettagliato nei prossimi capitoli.
+
+\begin{figure}
+	\includegraphics[width=\linewidth]{./img/iot_diagram.png}
+	\caption{Esempio di sistema IoT}
+	\label{fig:iot1}
+\end{figure}
+
+%
+\section{Scopo del progetto}
+%
+%
+\section{Panoramica}
+%
+%
+Overview del progetto
+\\
+Architettura a blocchi?
+\\
+%
+%
+\section{Casi d'uso}
+%
+%
+Use case diagram con attori
+%
+% 
+%			CAPITOLO 2: Hardware
+\chapter{Hardware}
+\label{cap2}
+%
+Schema circuitale completo?
+%
+\\
+\textbf{Una sezione per ogni dispositivo o una sezione sola con tutti i dispositivi?}
+\section{Raspberry Pi}
+%
+\section{Arduino UNO}
+%
+\section{RTC (perchè la Raspberry Pi non ce l'ha ed è privo di connessione Internet)}
+%
+\section{Ricevitore RF}
+Un po' di matematica sulle antenne
+%
+\section{Servomotore}
+PWM
+\\ 
+\section{RFID}
+%
+\section{Display LCD 16x2}
+%
+\section{Keypad}
+%
+\section{ESP-01}
+%
+Problematiche
+\\
+Alternative
+\section{Protocolli di trasmissione dati}
+\subsection{Logica IoT}
+%
+\subsection{Comunicazione Wi-Fi in rete locale. Parlo anche del protocollo HTTP?}
+%
+\subsection{I2C}
+%
+\subsection{SPI}
+% 
+%			CAPITOLO 3: Software
+\chapter{Software}
+\label{cap3}
+%
+%
+%
+\section{Strumenti dello sviluppatore}
+Arduino IDE
+\\
+Node.js
+\\
+Postman
+\\
+MongoDB 
+\\
+Per i linguaggi di programmazione metto solo un riferimento alla bibliografia
+%
+%
+\section{Sviluppo del sistema embedded}
+Snippet e spiegazioni di codice
+\\
+
+%
+%
+\section{Sviluppo dell'interfaccia web}
+%
+\subsection{Back-End}
+\subsection*{Scelte progettuali}
+MVC
+\subsection*{Database}
+%
+\subsection*{API}
+Documentazione delle API del back-end
+%
+\subsection{Front-End}
+\subsection*{Scelte progettuali}
+Le basi: Javascript, HTML5 \& CSS
+\\
+w3.css
+\\
+jQuery
+\\
+EJS
+\\
+%
+% 
+%			CAPITOLO 4: Analisi del progetto
+\chapter{Analisi del progetto}
+\label{cap4}
+Prestazioni
+\\
+Problema sicurezza
+\\
+Possibili miglioramenti
+\\
+%
+% 
+%			CAPITOLO 5: Conclusioni
+\chapter{Conclusioni}
+
+
+\label{cap5}
+%
+%
+
+\appendix
+\chapter{Una prima Appendice (?)}
+...
+
+%
+%			BIBLIOGRAFIA
+%
+\begin{thebibliography}{00}
+	
+
+\bibitem{controllo_accessi}
+J. Allen, Opening new doors with IP access control, 16 Marzo, 2018. \url{https://www.axis.com/blog/secure-insights/opening-new-doors-with-ip-access-control/}
+%
+
+\bibitem{crescita_controllo_accessi}
+R. Alalouff, Access control leads growth in physical security market but video surveillance still dominates, 25 Gennaio, 2018.
+\url{https://www.ifsecglobal.com/access-control/access-control-leads-growth-physical-security-market-video-surveillance-still-dominates/}
+%
+\bibitem{smart_objects}
+A. Tumino, Internet of Things: gli oggetti intelligenti prima di ogni "cosa", 24 Gennaio, 2018.
+\url{https://blog.osservatori.net/it_it/internet-of-things-oggetti-intelligenti-prima-di-ogni-cosa}
+%
+\bibitem{IoT}
+M. Rouse, Internet of Things (IoT), ultimo aggiornamento Marzo 2019.
+\url{https://internetofthingsagenda.techtarget.com/definition/Internet-of-Things-IoT}
+\end{thebibliography}
+% 
+\end{document}
+
+
+ 
