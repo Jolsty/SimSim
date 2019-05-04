@@ -1,31 +1,28 @@
 \babel@toc {italian}{}
 \babel@toc {italian}{}
-\contentsline {chapter}{Prefazione o Abstract?}{iii}{chapter*.1}
 \contentsline {chapter}{\numberline {1}Introduzione}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Scopo del progetto}{2}{section.1.1}
-\contentsline {section}{\numberline {1.2}Panoramica}{2}{section.1.2}
-\contentsline {section}{\numberline {1.3}Casi d'uso}{2}{section.1.3}
-\contentsline {chapter}{\numberline {2}Hardware}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}Raspberry Pi}{3}{section.2.1}
-\contentsline {section}{\numberline {2.2}Arduino UNO}{3}{section.2.2}
-\contentsline {section}{\numberline {2.3}RTC (perch\IeC {\`e} la Raspberry Pi non ce l'ha ed \IeC {\`e} privo di connessione Internet)}{3}{section.2.3}
-\contentsline {section}{\numberline {2.4}Ricevitore RF}{3}{section.2.4}
-\contentsline {section}{\numberline {2.5}Servomotore}{3}{section.2.5}
-\contentsline {section}{\numberline {2.6}RFID}{4}{section.2.6}
-\contentsline {section}{\numberline {2.7}Display LCD 16x2}{4}{section.2.7}
-\contentsline {section}{\numberline {2.8}Keypad}{4}{section.2.8}
-\contentsline {section}{\numberline {2.9}ESP-01}{4}{section.2.9}
-\contentsline {section}{\numberline {2.10}Protocolli di trasmissione dati}{4}{section.2.10}
-\contentsline {subsection}{\numberline {2.10.1}Logica IoT}{4}{subsection.2.10.1}
-\contentsline {subsection}{\numberline {2.10.2}Comunicazione Wi-Fi in rete locale. Parlo anche del protocollo HTTP?}{4}{subsection.2.10.2}
-\contentsline {subsection}{\numberline {2.10.3}I2C}{4}{subsection.2.10.3}
-\contentsline {subsection}{\numberline {2.10.4}SPI}{4}{subsection.2.10.4}
-\contentsline {chapter}{\numberline {3}Software}{5}{chapter.3}
-\contentsline {section}{\numberline {3.1}Strumenti dello sviluppatore}{5}{section.3.1}
-\contentsline {section}{\numberline {3.2}Sviluppo del sistema embedded}{5}{section.3.2}
-\contentsline {section}{\numberline {3.3}Sviluppo dell'interfaccia web}{5}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Back-End}{5}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Front-End}{6}{subsection.3.3.2}
-\contentsline {chapter}{\numberline {4}Analisi del progetto}{7}{chapter.4}
-\contentsline {chapter}{\numberline {5}Conclusioni}{8}{chapter.5}
-\contentsline {chapter}{\numberline {A}Una prima Appendice (?)}{9}{appendix.Alph1}
+\contentsline {section}{\numberline {1.1}Panoramica del progetto}{2}{section.1.1}
+\contentsline {chapter}{\numberline {2}Hardware}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}Raspberry Pi}{4}{section.2.1}
+\contentsline {section}{\numberline {2.2}Arduino UNO}{4}{section.2.2}
+\contentsline {section}{\numberline {2.3}RTC (perch\IeC {\`e} la Raspberry Pi non ce l'ha ed \IeC {\`e} privo di connessione Internet)}{4}{section.2.3}
+\contentsline {section}{\numberline {2.4}Ricevitore RF}{4}{section.2.4}
+\contentsline {section}{\numberline {2.5}Servomotore}{4}{section.2.5}
+\contentsline {section}{\numberline {2.6}RFID}{5}{section.2.6}
+\contentsline {section}{\numberline {2.7}Display LCD 16x2}{5}{section.2.7}
+\contentsline {section}{\numberline {2.8}Keypad}{5}{section.2.8}
+\contentsline {section}{\numberline {2.9}ESP-01}{5}{section.2.9}
+\contentsline {section}{\numberline {2.10}Protocolli di trasmissione dati}{5}{section.2.10}
+\contentsline {subsection}{\numberline {2.10.1}Logica IoT}{5}{subsection.2.10.1}
+\contentsline {subsection}{\numberline {2.10.2}Comunicazione Wi-Fi in rete locale. Parlo anche del protocollo HTTP?}{5}{subsection.2.10.2}
+\contentsline {subsection}{\numberline {2.10.3}I2C}{5}{subsection.2.10.3}
+\contentsline {subsection}{\numberline {2.10.4}SPI}{5}{subsection.2.10.4}
+\contentsline {chapter}{\numberline {3}Software}{6}{chapter.3}
+\contentsline {section}{\numberline {3.1}Strumenti dello sviluppatore}{6}{section.3.1}
+\contentsline {section}{\numberline {3.2}Sviluppo del sistema embedded}{6}{section.3.2}
+\contentsline {section}{\numberline {3.3}Sviluppo dell'interfaccia web}{6}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Back-End}{6}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Front-End}{7}{subsection.3.3.2}
+\contentsline {chapter}{\numberline {4}Analisi del progetto}{8}{chapter.4}
+\contentsline {chapter}{\numberline {5}Conclusioni}{9}{chapter.5}
+\contentsline {chapter}{\numberline {A}Una prima Appendice (?)}{10}{appendix.Alph1}

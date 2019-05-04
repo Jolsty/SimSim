@@ -73,23 +73,6 @@
 \vskip 0.8cm
 {\hfill \footnotesize {\sl Un ringraziamento speciale a Elena per essere riuscita a farmi sorridere e a tirarmi su il morale in ogni giorno con la sua presenza nella mia vita.  Un altro ringraziamento a lei per la revisione della tesi.}}
        
-% 
-%			PREFAZIONE
-%
-\prefacesection{Prefazione o Abstract?}
-Da fare alla fine.
-%
-%
-%			ORGANIZZAZIONE
-\section*{Organizzazione della tesi (aggiungere direttamente dentro l'Abstract?) TO DO alla fine }
-\label{organizzazione}
-La tesi \`e organizzata come segue:
-\begin{itemize}
-\item nel Capitolo 1 ....
-\end{itemize}
-%
-%
-%
 
 \afterpreface
 
@@ -107,7 +90,7 @@ La tesi si propone di trattare un sistema ibrido in cui il mondo fisico e il mon
 Si tratta di un sistema IoT (Internet of Things), ovvero un sistema in cui la connessione Internet viene estesa anche al mondo degli oggetti fisici (smart objects\cite{smart_objects}) di uso comune. Gli oggetti si rendono riconoscibili e acquisiscono intelligenza grazie al fatto di possedere una o piu' delle seguenti funzionalità: identificazione, localizzazione, diagnosi di stato, interazione con l'ambiente circostante, elaborazione dati e ovviamente connessione.
 Gli oggetti intelligenti di un sistema IoT sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado di agire sui dati raccolti dall'ambiente e, ancora piu' importante, mandare questi dati in rete dove possono poi essere analizzati\cite{IoT}. Un semplice esempio di un sistema IoT si può trovare in Figura 1.
 
-Le seguenti sezioni di questo capitolo introduranno il progetto stesso che poi verrà dettagliato nei prossimi capitoli.
+Le seguenti sezioni di questo capitolo introduranno il progetto stesso (denominato SimSim) che poi verrà dettagliato nei prossimi capitoli.
 
 \begin{figure}
 	\includegraphics[width=\linewidth]{./img/iot_diagram.png}
@@ -116,24 +99,29 @@ Le seguenti sezioni di questo capitolo introduranno il progetto stesso che poi v
 \end{figure}
 
 %
-\section{Scopo del progetto}
+\section{Panoramica del progetto}
 %
-%
-\section{Panoramica}
-%
-%
-Overview del progetto
-\\
-Architettura a blocchi?
-\\
-%
-%
-\section{Casi d'uso}
-%
-%
-Use case diagram con attori
-%
-% 
+L'attività principale del tirocinio è la realizzazione di un sistema di controllo accessi basato su Arduino, 
+da applicare presso varchi. Il sistema è in grado di funzionare con diverse modalità di riconoscimento quali RFID, controllo remoto e tastierino numerico. A seguito di ogni accesso avvenuto con successo, il sistema salva il log in un database remoto (in LAN) via WiFi. 
+
+Parallelamente il sistema possiede un'interfaccia per l'utente utilizzatore (in questo caso un sito web) dove può accedere ai log degli accessi, oltre a un database per poter gestire i soci e le tessere RFID dell'azienda. Il server web è sviluppato utilizzando NodeJS e MongoDB (per il database) ed è hostato su un Raspberry Pi 3B+.
+
+Nelle figure 2 e 3 si possono trovare rispettivamente un diagramma dei casi d'uso e un diagramma di flusso del sistema.
+
+
+\begin{figure}
+	\center{\includegraphics[width=0.6\linewidth]{./img/usecase.png}}
+	\caption{Casi d'uso del sistema}
+	\label{fig:usecase}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=0.9\linewidth]{./img/flowchart.png}
+	\caption{Diagramma di flusso del sistema}
+	\label{fig:flux}
+\end{figure}
+
+
 %			CAPITOLO 2: Hardware
 \chapter{Hardware}
 \label{cap2}
@@ -141,7 +129,6 @@ Use case diagram con attori
 Schema circuitale completo?
 %
 \\
-\textbf{Una sezione per ogni dispositivo o una sezione sola con tutti i dispositivi?}
 \section{Raspberry Pi}
 %
 \section{Arduino UNO}
