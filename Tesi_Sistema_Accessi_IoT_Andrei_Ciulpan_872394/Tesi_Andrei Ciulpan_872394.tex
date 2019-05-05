@@ -9,7 +9,7 @@
 %                                                                         %
 %			AUTORE: Andrei Ciulpan                                        %
 %                                                                         %
-%			Ultima revisione: 4.05.2019                                  %
+%			Ultima revisione: 5.05.2019                                  %
 %                                                                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -99,15 +99,43 @@ Le seguente sezione di questo capitolo introdurrà il progetto stesso (denominat
 \end{figure}
 
 %
-\section{Panoramica del progetto}
+\section{Requisiti del progetto}
 %
-L'attività principale del tirocinio è la realizzazione di un sistema di controllo accessi basato su Arduino, 
-da applicare presso varchi. Il sistema è in grado di funzionare con diverse modalità di riconoscimento quali RFID, controllo remoto e tastierino numerico. A seguito di ogni accesso avvenuto con successo, il sistema salva il log in un database remoto (in LAN) via WiFi. 
 
-Parallelamente il sistema possiede un'interfaccia per l'utente utilizzatore (in questo caso un sito web) dove può accedere ai log degli accessi, oltre a un database per poter gestire i soci e le tessere RFID dell'azienda. Il server web è sviluppato utilizzando NodeJS e MongoDB (per il database) ed è hostato su un Raspberry Pi 3B+.
+L'attività principale del tirocinio è la realizzazione di un sistema di controllo accessi, da applicare presso varchi. Vengono elencati i requisiti del sistema:
 
-Nelle figure 2 e 3 si possono trovare rispettivamente un diagramma dei casi d'uso e un diagramma di flusso del sistema.
+\begin{enumerate}
+	\item Deve essere in grado di funzionare con diverse modalità di riconoscimento:
+	\begin{enumerate}
+		\item Tessera RFID
+		\item Tastierino numerico (password)
+		\item Telecomando RF 
+	\end{enumerate}
+	\item Deve dare la possibilità di visualizzare su un display LCD ciò che sta succedendo (accesso consentito/negato ecc...). Inoltre deve essere implementata una funzione che permetta di visualizzare i codici delle tessere RFID sul display LCD (operazione protetta da una password).
+	\item A seguito di ogni accesso avvenuto con successo deve aprire una porta (usando un servomotore) e salvare il log in un database remoto (in LAN) tramite WiFi.
+	\item Deve avere un database per:
+	\begin{enumerate}
+		\item Tessere RFID
+		\item Log degli accessi
+		\item Soci
+	\end{enumerate}
+	\item Deve avere un'interfaccia grafica (in questo caso sito web) tramite la quale l'utente amministratore possa gestire il database con le seguenti funzioni: \begin{enumerate}
+		\item Aggiungere/modificare/cancellare soci 
+		\item Aggiungere/modificare/cancellare tessere 
+		\item Visualizzare log
+	\end{enumerate}
+\end{enumerate}
 
+Il dispositivi scelti sono stati un Arduino UNO (per la parte hardware) e un Raspberry Pi 3B+ su cui hostare il server. 
+Nella figura 2 si può vedere una foto con il prototipo finito.
+Nelle figure 3 e 4 si possono trovare rispettivamente un diagramma dei casi d'uso e un diagramma di flusso del sistema.
+
+
+\begin{figure}
+	\includegraphics[width=1\linewidth]{./img/simsim.jpeg}
+	\caption{SimSim}
+	\label{fig:flux}
+\end{figure}
 
 \begin{figure}
 	\center{\includegraphics[width=0.6\linewidth]{./img/usecase.png}}
@@ -116,21 +144,49 @@ Nelle figure 2 e 3 si possono trovare rispettivamente un diagramma dei casi d'us
 \end{figure}
 
 \begin{figure}
-	\includegraphics[width=0.9\linewidth]{./img/flowchart.png}
+	\center{\includegraphics[width=0.9\linewidth]{./img/flowchart.png}}
 	\caption{Diagramma di flusso del sistema}
-	\label{fig:flux}
+	\label{fig:usecase}
 \end{figure}
+
 
 
 %			CAPITOLO 2: Hardware
 \chapter{Hardware}
 \label{cap2}
 %
-Schema circuitale completo?
+
+In questo capitolo vengono dettagliati i dispositivi hardware utilizzati nel progetto. Uno schema completo del circuito elettrico si trova in Figura 5.
+
+\begin{figure}
+	\center{\includegraphics[width=\textwidth,height=1.1\textheight,keepaspectratio]{./img/schematics.png}}
+	\caption{Schema del circuito}
+	\label{fig:flux}
+\end{figure}
+
+
 %
-\\
+
 \section{Raspberry Pi}
 %
+
+Il Raspberry Pi (Figura 6) è una serie di piccoli computer (system-on-chip) dalle dimensioni simili a quelle di una carta di credito. La scheda è stata sviluppata nel Regno Unito (Fondazione Raspberry Pi). Le prime versioni avevano poca potenza computazionale e sono state progettate con l'intenzione di offrire a insegnanti e studenti uno strumento semplice e poco costoso con cui poter insegnare e imparare a programmare. La scheda ha avuto un enorme successo anche in altri campi (e.g. robotica) e con ogni nuova versione veniva migliorata. Le ultime versioni sono assai potenti e possono essere utilizzati per tante altre cose. Le schede sono basate su sistemi operativi di tipo GNU/Linux, in particolare Raspbian, un sistema operativo sviluppato apposta per la scheda, che può essere scaricato dal sito della fondazione (https://www.raspberrypi.org/downloads/). 
+
+La scheda utilizzata nel progetto (Raspberry Pi 3B+) possiede un'architettura su 64 bit... to be continued
+\\
+Problema sistema operativo 32 bit e soluzione (openSUSE)... to be continued
+\\
+Lo scopo principale di questo dispositivo all'interno del progetto è di hostare il server... to be continued
+
+
+\begin{figure}
+	\center{\includegraphics[width=0.5\linewidth]{./img/raspi.jpg}}
+	\caption{Scheda Raspberry Pi}
+	\label{fig:usecase}
+\end{figure}
+
+
+
 \section{Arduino UNO}
 %
 \section{RTC (perchè la Raspberry Pi non ce l'ha ed è privo di connessione Internet)}
@@ -253,6 +309,7 @@ M. Rouse, Internet of Things (IoT), ultimo aggiornamento Marzo 2019.
 \url{https://internetofthingsagenda.techtarget.com/definition/Internet-of-Things-IoT}
 \end{thebibliography}
 % 
+
 \end{document}
 
 
