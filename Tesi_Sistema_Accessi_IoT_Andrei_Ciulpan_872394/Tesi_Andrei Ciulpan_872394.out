@@ -3,24 +3,25 @@
 \BOOKMARK [0][-]{chapter.2}{Hardware}{}% 3
 \BOOKMARK [1][-]{section.2.1}{Raspberry Pi}{chapter.2}% 4
 \BOOKMARK [1][-]{section.2.2}{Arduino UNO}{chapter.2}% 5
-\BOOKMARK [1][-]{section.2.3}{RTC \(perch\350 la Raspberry Pi non ce l'ha ed \350 privo di connessione Internet\)}{chapter.2}% 6
-\BOOKMARK [1][-]{section.2.4}{Ricevitore RF}{chapter.2}% 7
-\BOOKMARK [1][-]{section.2.5}{Servomotore}{chapter.2}% 8
-\BOOKMARK [1][-]{section.2.6}{RFID}{chapter.2}% 9
-\BOOKMARK [1][-]{section.2.7}{Display LCD 16x2}{chapter.2}% 10
-\BOOKMARK [1][-]{section.2.8}{Keypad}{chapter.2}% 11
-\BOOKMARK [1][-]{section.2.9}{ESP-01}{chapter.2}% 12
-\BOOKMARK [1][-]{section.2.10}{Protocolli di trasmissione dati}{chapter.2}% 13
-\BOOKMARK [2][-]{subsection.2.10.1}{Logica IoT}{section.2.10}% 14
-\BOOKMARK [2][-]{subsection.2.10.2}{Comunicazione Wi-Fi in rete locale. Parlo anche del protocollo HTTP?}{section.2.10}% 15
-\BOOKMARK [2][-]{subsection.2.10.3}{I2C}{section.2.10}% 16
-\BOOKMARK [2][-]{subsection.2.10.4}{SPI}{section.2.10}% 17
-\BOOKMARK [0][-]{chapter.3}{Software}{}% 18
-\BOOKMARK [1][-]{section.3.1}{Strumenti dello sviluppatore}{chapter.3}% 19
-\BOOKMARK [1][-]{section.3.2}{Sviluppo del sistema embedded}{chapter.3}% 20
-\BOOKMARK [1][-]{section.3.3}{Sviluppo dell'interfaccia web}{chapter.3}% 21
-\BOOKMARK [2][-]{subsection.3.3.1}{Back-End}{section.3.3}% 22
-\BOOKMARK [2][-]{subsection.3.3.2}{Front-End}{section.3.3}% 23
-\BOOKMARK [0][-]{chapter.4}{Analisi del progetto}{}% 24
-\BOOKMARK [0][-]{chapter.5}{Conclusioni}{}% 25
-\BOOKMARK [0][-]{appendix.Alph1}{Una prima Appendice \(?\)}{}% 26
+\BOOKMARK [2][-]{subsection.2.2.1}{Arduino Programming Language}{section.2.2}% 6
+\BOOKMARK [1][-]{section.2.3}{RTC \(perch\350 la Raspberry Pi non ce l'ha ed \350 privo di connessione Internet\)}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.4}{Ricevitore RF}{chapter.2}% 8
+\BOOKMARK [1][-]{section.2.5}{Servomotore}{chapter.2}% 9
+\BOOKMARK [1][-]{section.2.6}{RFID}{chapter.2}% 10
+\BOOKMARK [1][-]{section.2.7}{Display LCD 16x2}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.8}{Keypad}{chapter.2}% 12
+\BOOKMARK [1][-]{section.2.9}{ESP8266}{chapter.2}% 13
+\BOOKMARK [1][-]{section.2.10}{Protocolli di trasmissione dati}{chapter.2}% 14
+\BOOKMARK [2][-]{subsection.2.10.1}{Logica IoT}{section.2.10}% 15
+\BOOKMARK [2][-]{subsection.2.10.2}{Comunicazione Wi-Fi in rete locale. Parlo anche del protocollo HTTP?}{section.2.10}% 16
+\BOOKMARK [2][-]{subsection.2.10.3}{I2C}{section.2.10}% 17
+\BOOKMARK [2][-]{subsection.2.10.4}{SPI}{section.2.10}% 18
+\BOOKMARK [0][-]{chapter.3}{Software}{}% 19
+\BOOKMARK [1][-]{section.3.1}{Strumenti dello sviluppatore}{chapter.3}% 20
+\BOOKMARK [1][-]{section.3.2}{Sviluppo del sistema embedded}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.3}{Sviluppo dell'interfaccia web}{chapter.3}% 22
+\BOOKMARK [2][-]{subsection.3.3.1}{Back-End}{section.3.3}% 23
+\BOOKMARK [2][-]{subsection.3.3.2}{Front-End}{section.3.3}% 24
+\BOOKMARK [0][-]{chapter.4}{Analisi del progetto}{}% 25
+\BOOKMARK [0][-]{chapter.5}{Conclusioni}{}% 26
+\BOOKMARK [0][-]{appendix.Alph1}{Una prima Appendice \(?\)}{}% 27
