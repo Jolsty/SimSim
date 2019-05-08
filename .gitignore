@@ -2,3 +2,17 @@ wifi_secrets.h
 /client
 node_modules
 tesi_di_altri
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.pdf
+*.synctex.gz
+*.tdo
+texcount*
+*.tex~txs0
+*.toc
+*~
