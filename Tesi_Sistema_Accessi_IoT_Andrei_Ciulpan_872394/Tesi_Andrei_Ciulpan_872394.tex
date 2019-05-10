@@ -9,7 +9,7 @@
 %                                                                         %
 %			AUTORE: Andrei Ciulpan                                        %
 %                                                                         %
-%			Ultima revisione: 5.05.2019                                  %
+%			Ultima revisione: 10.05.2019                                  %
 %                                                                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -30,6 +30,8 @@
 \usepackage[italian]{babel}
 \usepackage{tesi}
 \usepackage{afterpage}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \addto{\captionsitalian}{%
 	\renewcommand{\bibname}{Sitografia}
@@ -76,7 +78,7 @@
 
 \afterpreface
 
-% 
+
 %			CAPITOLO 1: Intro
 \chapter{Introduzione}\label{cap:introduzione}
 %
@@ -87,14 +89,16 @@ Il controllo accessi\cite{controllo_accessi} è un tema molto sviluppato nel cam
 
 La tesi si propone di trattare un sistema ibrido in cui il mondo fisico e il mondo informatico lavorano insieme: attraverso sensori ed attuatori è possibile avere la comunicazione tra i due mondi. 
 Si tratta di un sistema IoT (Internet of Things), ovvero un sistema in cui la connessione Internet viene estesa anche al mondo degli oggetti fisici (smart objects\cite{smart_objects}) di uso comune. Gli oggetti si rendono riconoscibili e acquisiscono intelligenza grazie al fatto di possedere una o piu' delle seguenti funzionalità: identificazione, localizzazione, diagnosi di stato, interazione con l'ambiente circostante, elaborazione dati e ovviamente connessione.
-Gli oggetti intelligenti di un sistema IoT sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado di agire sui dati raccolti dall'ambiente e, ancora piu' importante, mandare questi dati in rete dove possono poi essere analizzati\cite{IoT}. Un semplice esempio di un sistema IoT si può trovare in Figura 1.\marginpar{atrent: metti riferimenti con \\ref{key}, commento valido su tutto il testo}
+Gli oggetti intelligenti di un sistema IoT sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado di agire sui dati raccolti dall'ambiente e, ancora piu' importante, mandare questi dati in rete dove possono poi essere analizzati\cite{IoT}. Un semplice esempio di un sistema IoT si può trovare in Figura \ref{fig:iot_diagram}.
 
 Le seguente sezione di questo capitolo introdurrà il progetto stesso (denominato SimSim) che poi verrà dettagliato nei prossimi capitoli.
 
 \begin{figure}
 	\includegraphics[width=\linewidth]{./img/iot_diagram.png}
-	\caption{Esempio di sistema IoT}\label{fig:iot1}
+	\caption{Esempio di sistema IoT}
+	\label{fig:iot_diagram}
 \end{figure}
+
 
 %
 \section{Requisiti del progetto}
@@ -125,14 +129,13 @@ L'attività principale del tirocinio è la realizzazione di un sistema di contro
 \end{enumerate}
 
 I dispositivi scelti per soddisfare i requisiti sono stati un Arduino UNO (per la parte hardware) e un Raspberry Pi 3B+ su cui hostare il server. 
-Nella figura 2 si può vedere una foto con il prototipo finito.
-Nelle figure 3 e 4 si possono trovare rispettivamente un diagramma dei casi d'uso e un diagramma di flusso del sistema.
-
+Nella figura \ref{fig:simsim} si può vedere una foto con il prototipo finito.
+Nelle figure \ref{fig:usecase} e \ref{fig:flowchart} si possono trovare rispettivamente un diagramma dei casi d'uso e un diagramma di flusso del sistema.
 
 \begin{figure}
 	\includegraphics[width=1\linewidth]{./img/simsim.jpeg}
 	\caption{SimSim}
-	\label{fig:flux}
+	\label{fig:simsim}
 \end{figure}
 
 \begin{figure}
@@ -144,9 +147,8 @@ Nelle figure 3 e 4 si possono trovare rispettivamente un diagramma dei casi d'us
 \begin{figure}
 	\center{\includegraphics[width=0.9\linewidth]{./img/flowchart.png}}
 	\caption{Diagramma di flusso del sistema}
-	\label{fig:usecase}
+	\label{fig:flowchart}
 \end{figure}
-
 
 
 %			CAPITOLO 2: Hardware
@@ -154,21 +156,20 @@ Nelle figure 3 e 4 si possono trovare rispettivamente un diagramma dei casi d'us
 \label{cap2}
 %
 
-In questo capitolo vengono dettagliati i dispositivi hardware utilizzati nel progetto. Uno schema completo del circuito elettrico si trova in Figura 5.
+In questo capitolo vengono dettagliati i dispositivi hardware utilizzati nel progetto. Uno schema completo del circuito elettrico si trova in Figura \ref{fig:schematics}.
 
 \begin{figure}
 	\center{\includegraphics[width=\textwidth,height=1.1\textheight,keepaspectratio]{./img/schematics.png}}
 	\caption{Schema del circuito}
-	\label{fig:flux}
+	\label{fig:schematics}
 \end{figure}
 
 
 %
-
 \section{Raspberry Pi}
 %
 
-Raspberry Pi (Figura 6) è una serie di piccoli computer (system-on-chip) dalle dimensioni simili a quelle di una carta di credito. La scheda è stata sviluppata nel Regno Unito (Fondazione Raspberry Pi). Le prime versioni avevano poca potenza computazionale e sono state progettate con l'intenzione di offrire a insegnanti e studenti uno strumento semplice e poco costoso con cui poter insegnare e imparare a programmare. La scheda ha avuto un enorme successo anche in altri campi (e.g. robotica) e con ogni nuova versione è stata migliorata. Le ultime versioni sono assai potenti e possono essere utilizzati per tante altre cose. Le schede sono basate su sistemi operativi di tipo GNU/Linux, in particolare Raspbian che può essere scaricato dal sito della fondazione (\url{https://www.raspberrypi.org/downloads/}). 
+Raspberry Pi (Figura \ref{fig:raspi}) è una serie di piccoli computer (system-on-chip) dalle dimensioni simili a quelle di una carta di credito. La scheda è stata sviluppata nel Regno Unito (Fondazione Raspberry Pi). Le prime versioni avevano poca potenza computazionale e sono state progettate con l'intenzione di offrire a insegnanti e studenti uno strumento semplice e poco costoso con cui poter insegnare e imparare a programmare. La scheda ha avuto un enorme successo anche in altri campi (e.g. robotica) e con ogni nuova versione è stata migliorata. Le ultime versioni sono assai potenti e possono essere utilizzati per tante altre cose. Le schede sono basate su sistemi operativi di tipo GNU/Linux, in particolare Raspbian che può essere scaricato dal sito della fondazione (\url{https://www.raspberrypi.org/downloads/}). 
 
 La scheda utilizzata nel progetto (Raspberry Pi 3B+, \url{https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/}) possiede un'architettura su 64 bit, essenziale per poter utilizzare in maniera efficiente MongoDB (che è limitato a una memoria di 2GB su un sistema a 32bit). Durante lo sviluppo del progetto ho scoperto che Raspbian in realtà non è stato ancora aggiornato per essere un sistema operativo a 64 bit, perciò non poteva sfruttare al meglio la scheda. Come soluzione a questo problema, è stato installato un sistema operativo chiamato openSUSE Tumbleweed (\url{https://software.opensuse.org/distributions/tumbleweed}) che funziona su architetture a 64 bit. 
 La Raspberry Pi 3B+ possiede inoltre una scheda WiFi, il che la rende un buon candidato per lo scopo principale del progetto, ovvero quello di hostare il server.
@@ -176,10 +177,10 @@ La Raspberry Pi 3B+ possiede inoltre una scheda WiFi, il che la rende un buon ca
 \begin{figure}
 	\center{\includegraphics[width=0.4\linewidth]{./img/raspi.jpg}}
 	\caption{Scheda Raspberry Pi}
-	\label{fig:usecase}
+	\label{fig:raspi}
 \end{figure}
 
-
+%
 \section{Arduino UNO}
 %
 
@@ -187,47 +188,98 @@ Arduino\cite{arduino_storia} è nata ad Ivrea nel 2005 come piattaforma di proto
 
 Nei giorni d'oggi Arduino potrebbe anche non essere la scelta immediata, anzi, ormai ci sono schede piu' potenti, piu' veloci e con migliori rapporti prestazioni/prezzo, ma non scordiamoci che è tutto grazie agli sviluppatori della scheda. Perchè scegliere, quindi, un Arduino? Essendo la scheda che ha fatto partire tutto, è anche la scheda piu' studiata e ciò significa che gira intorno a piu' informazioni, piu' librerie già pronte, piu' dispositivi compatibili e ha anche un sito di appassionati che si aiutano a vicenda dove si possono trovare tutorial, libri e tant'altro.
 
-La scheda utilizzata nel progetto, Arduino UNO (Figura 7), è assolutamente la scheda piu' conosciuta al mondo e si può ormai trovare a dei prezzi molto bassi (ci sono tanti clone diversi in rete grazie al fatto di essere OpenHardware). E' basato sul microcontrollore ATmega328P (\url{https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf}) ed ha 14 pin digitali e 6 analogici. Alcuni pin sono piu' speciali: ad esempio tra i pin digitali ci sono 6 che hanno anche la funzione PWM (si veda la sezione 2.5 "Servomotore") e 4 per il protocollo SPI (si veda la sezione 2.10.4 "SPI"), mentre tra i pin analogici ci sono 2 per il protocollo I2C (si veda la sezione 2.10.3 "I2C"). Tutto questo rende l'Arduino UNO un dispositivo ideale per il progetto. L'unica cosa che manca è la possibilità di accedere alla connessione WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip WiFi chiamato ESP8266 (si veda la sezione 2.9 "ESP8266").
+La scheda utilizzata nel progetto, Arduino UNO (Figura \ref{fig:uno}), è assolutamente la scheda piu' conosciuta al mondo e si può ormai trovare a dei prezzi molto bassi (ci sono tanti clone diversi in rete grazie al fatto di essere OpenHardware). E' basato sul microcontrollore ATmega328P (\url{https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf}) ed ha 14 pin digitali e 6 analogici. Alcuni pin sono piu' speciali: ad esempio tra i pin digitali ci sono 6 che hanno anche la funzione PWM (si veda la sezione \ref{sec:servomotore} "Servomotore" e 4 per il protocollo SPI (si veda la sezione \ref{sec:spi} "SPI"), mentre tra i pin analogici ci sono 2 per il protocollo I2C (si veda la sezione \ref{sec:i2c} "I2C"). Tutto questo rende l'Arduino UNO un dispositivo ideale per il progetto. L'unica cosa che manca è la possibilità di accedere alla connessione WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip WiFi chiamato ESP8266 (si veda la sezione \ref{sec:esp8266} "ESP8266").
 
 \begin{figure}
 	\center{\includegraphics[width=0.4\linewidth]{./img/uno.jpg}}
 	\caption{Scheda Arduino UNO}
-	\label{fig:usecase}
+	\label{fig:uno}
 \end{figure}
 
-
+%
 \subsection{Arduino Programming Language}
+%
 
-La scheda Arduino UNO (e qualsiasi altra board compatibile con Arduino) può essere facilmente programmata utilizzando, ma non solo, l'Arduino IDE (Arduino Integrated Development Software), un software sviluppato da Arduino.cc e funzionante sulle 3 piattaforme dominanti (Windows, Linux e MacOS). Il linguaggio di programmazione si chiama "Arduino Programming Language"\cite{sistemi_embedded_atrent} ed è un derivato di Wiring (una piattaforma di sviluppo open-source composta da un linguaggio di programmazione, un IDE ed un circuito stampato basato su un microcontrollore). La sintassi è molto simile a quella del linguaggio C/C++; infatti il linguaggio Arduino è un insieme di funzioni e librerie C/C++ che possono essere chiamate dal codice. Forse la cosa diversa che si nota di piu' è la struttura dello sketch (sinonimo di programma): per poter funzionare vengono sempre definite due funzioni iniziali, setup() e loop(); la prima viene eseguita soltanto una volta all'avvio del programma e serve per dichiarare variabili, modalità dei pin (e.g input o output) ecc., mentre nella seconda viene messo il programma vero e proprio che viene eseguito ripetutamente... all'infinito.
+La scheda Arduino UNO (e qualsiasi altra board compatibile con Arduino) può essere facilmente programmata utilizzando, ma non solo, l'Arduino IDE (Arduino Integrated Development Software), un software sviluppato da Arduino.cc e funzionante sulle 3 piattaforme dominanti (Windows, Linux e MacOS). Il linguaggio di programmazione si chiama "Arduino Programming Language"\cite{sistemi_embedded_atrent} ed è un derivato di Wiring (una piattaforma di sviluppo open-source composta da un linguaggio di programmazione, un IDE ed un circuito stampato basato su un microcontrollore). La sintassi è molto simile a quella del linguaggio C/C++; infatti il linguaggio Arduino è un insieme di funzioni e librerie C/C++ che possono essere chiamate dal codice. Forse la cosa diversa e che si nota di piu' rispetto ad altri linguaggi di programmazione è la diversa strutturazione dello sketch (sinonimo di programma): per poter funzionare vengono sempre definite due funzioni iniziali, setup() e loop(); la prima viene eseguita soltanto una volta all'avvio del programma e serve per dichiarare variabili, modalità dei pin (e.g input o output) ecc., mentre nella seconda viene messo il programma vero e proprio che viene eseguito ripetutamente... all'infinito.
+
 
 %
-\section{RTC (perchè la Raspberry Pi non ce l'ha ed è privo di connessione Internet)}
+\section{Real-time Clock}
+%
+
+I requisiti del progetto dicono che bisogna salvare un log dopo ogni accesso avvenuto con successo, e per fare ciò è necessario essere in grado di tenere traccia del tempo. La Raspberry Pi, diversamente dai PC a cui siamo abituati, può tenere traccia del tempo solo se ha accesso alla connessione Internet per accedere ad un server NTP (Network Time Protocol); nel progetto in questione, la Raspberry Pi, nonostante sia connessa alla rete LAN, è stata privata della connessione Internet per questioni di sicurezza (nessun utente esterno alla rete può accedere al server hostato in locale perciò elimina gran parte degli attacchi possibili). Ciò significa che per poter avere il cosidetto timestamp nei log bisogna trovare un modo di tenere traccia della data e dell'ora. Fortunatamente esistono dei piccoli chip chiamati RTC che fanno questo lavoro. 
+
+In Figura \ref{fig:tinyRTC} si può vedere il dispositivo utilizzato nel progetto, chiamato TinyRTC; è un modulo basato sul clock chip DS1307 (\url{https://datasheets.maximintegrated.com/en/ds/DS1307.pdf}) e supporta il protocollo I2C (si veda la sezione \ref{sec:i2c} "I2C") per cui è facilmente utilizzabile dall'Arduino UNO.
+L'orologio può essere programmato con data e ora corrente direttamente dal programma dell'Arduino e, grazie alla batteria al litio (CR1225), continua a tenere traccia del tempo anche senza alimentazione esterna. Il dispositivo è in grado di fornire con abbastanza precisione data e ora in termini di secondi, minuti, ora, giorno, mese e anno. Grazie alla popolarità di Arduino ci sono tante librerie per che permettono il facile utilizzo del dispositivo; io ho usato una libreria chiamata RTClib che si può trovare nel seguente repository: \url{https://github.com/adafruit/RTClib}. In Figura \ref{fig:tinyRTC_uno} si può vedere il collegamento con l'UNO.
+
+\begin{figure}
+	\centering
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=0.5\linewidth]{./img/tinyRTC.jpg}
+		\captionof{figure}{Tiny RTC}
+		\label{fig:tinyRTC}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=0.5\linewidth]{./img/tinyRTC_uno.png}
+		\captionof{figure}{Tiny RTC e Arduino UNO}
+		\label{fig:tinyRTC_uno}
+	\end{minipage}
+\end{figure}
+
 %
 \section{Ricevitore RF}
-Un po' di matematica sulle antenne
 %
-\section{Servomotore}
+
+
+
+
+
+%
+\section{Servomotore}\label{sec:servomotore}
 PWM
-\\ 
+
+
+%
 \section{RFID}
+%
+
 %
 \section{Display LCD 16x2}
 %
+
+%
 \section{Keypad}
 %
-\section{ESP8266}
+
+%
+\section{ESP8266}\label{sec:esp8266}
 %
 Problematiche
 \\
 Alternative
+
+
+%
 \section{Protocolli di trasmissione dati}
+%
+
+
+%
 \subsection{Logica IoT}
+%
+
 %
 \subsection{Comunicazione Wi-Fi in rete locale. Parlo anche del protocollo HTTP?}
 %
-\subsection{I2C}
+
 %
-\subsection{SPI}
+\subsection{I2C}\label{sec:i2c}
+%
+
+%
+\subsection{SPI}\label{sec:spi}
 % 
 %			CAPITOLO 3: Software
 \chapter{Software}
