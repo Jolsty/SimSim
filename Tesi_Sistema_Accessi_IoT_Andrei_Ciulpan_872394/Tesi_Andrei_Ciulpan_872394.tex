@@ -54,6 +54,7 @@
 %			TITOLO
 %
 \begin{document}
+
 \title{Sistema Accessi IoT}
 \author{Andrei CIULPAN}
 \dept{Corso di Laurea in Informatica} 
@@ -111,7 +112,7 @@ L'attività principale del tirocinio è la realizzazione di un sistema di contro
 	\begin{enumerate}
 		\item Tessera RFID
 		\item Tastierino numerico (password)
-		\item Telecomando RF 
+		\item Telecomando 
 	\end{enumerate}
 	\item Deve dare la possibilità di visualizzare su un display LCD ciò che sta succedendo (accesso consentito/negato ecc...). Inoltre deve essere implementata una funzione che permetta di visualizzare i codici delle tessere RFID sul display LCD (operazione protetta da una password).
 	\item A seguito di ogni accesso avvenuto con successo deve aprire una porta (usando un servomotore) e salvare il log in un database remoto (in LAN) tramite WiFi.
@@ -229,12 +230,41 @@ L'orologio può essere programmato con data e ora corrente direttamente dal prog
 \end{figure}
 
 %
-\section{Ricevitore RF}
+\section{Trasmettitore-ricevitore RF}
 %
 
+Ci sono due principali tipi di tecnologie per i telecomandi: a raggi infrarossi o a radio-frequenza (RF).
+La tecnologia a raggi infrarossi è quella piu' utilizzata ed è usata da tanti dispositivi elettronici (un esempio molto comune è il telecomando della TV). In questo caso trasmettitore e ricevitore devono essere messi "faccia-a-faccia" e non troppo distanti tra di loro, perciò non è il caso di usare questa tecnologia nel progetto (non si potrebbe, ad esempio, aprire la porta stando dietro ad un muro).
+
+La tecnologia scelta è quindi quella a radio-frequenza, in cui trasmettitore e ricevitore possono comunicare anche se sono messi in camere diverse. Il dispositivo scelto (MX-05V/XD-RF-5V, Figura \ref{fig:rx_tx_module}) è un modulo composto da trasmettitore e ricevitore in radio-frequenza a 433 MHz (\url{https://sites.google.com/site/summerfuelrobots/arduino-sensor-tutorials/rf-wireless-transmitter-receiver-module-433mhz-for-arduino}). Il trasmettitore è stato utilizzato soltanto per programmare i telecomandi dell'azienda con i codici voluti grazie alla loro funzione di clonazione (codice in Figura \ref{fig:clone_code}). Il ricevitore, invece, è sempre collegato all'Arduino (Figura \ref{fig:rf_uno}) e riesce a ricevere i segnali mandati dai telecomandi anche da qualche decine di metri di distanza. Se il codice che viene mandato dal telecomando è corretto allora l'Arduino lo risconosce e apre la porta, altrimenti fa finta di niente. 
 
 
+Il ricevitore, per aumentare il range, è stato accoppiato con un'antenna lunga 17,3 cm. Il motivo di questa scelta è che la lunghezza dell'antenna deve essere 1/4 di quella della lunghezza d'onda. Bisogna quindi calcolare la lunghezza d'onda $\lambda$:
+%
+\[\lambda(m) = \frac{v(m/s)}{f(Hz)} = \frac{299,792,458}{433,000,000} = 0,692 m\] 
+%
+dove \textit{v} è la velocità della luce e \textit{f} è la frequenza (433 MHz). Ora si può trovare la lunghezza dell'antenna: 
+%
+\[\frac{\lambda}{4} = \frac{0,692}{4} = 0,173m = 17,3 cm \]
+%
 
+\begin{figure}
+	\center{\includegraphics[width=0.3\linewidth]{./img/receiver_transmitter_module.jpg}}
+	\caption{Modulo transceiver MX-05V/XD-RF-5V}
+	\label{fig:rx_tx_module}
+\end{figure}
+
+\begin{figure}
+	\center{\includegraphics[width=0.45\linewidth]{./img/clonare_telecomando.png}}
+	\caption{Programma di Arduino per mandare i codici che poi vengono clonati dai telecomandi}
+	\label{fig:clone_code}
+\end{figure}
+
+\begin{figure}
+	\center{\includegraphics[width=0.5\linewidth]{./img/rf_uno.png}}
+	\caption{RF Receiver + Telecomando e Arduino UNO}
+	\label{fig:rf_uno}
+\end{figure}
 
 %
 \section{Servomotore}\label{sec:servomotore}
