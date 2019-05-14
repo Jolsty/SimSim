@@ -9,7 +9,7 @@
 %                                                                         %
 %			AUTORE: Andrei Ciulpan                                        %
 %                                                                         %
-%			Ultima revisione: 10.05.2019                                  %
+%			Ultima revisione: 12.05.2019                                  %
 %                                                                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -170,7 +170,7 @@ In questo capitolo vengono dettagliati i dispositivi hardware utilizzati nel pro
 \section{Raspberry Pi}
 %
 
-Raspberry Pi (Figura \ref{fig:raspi}) è una serie di piccoli computer (system-on-chip) dalle dimensioni simili a quelle di una carta di credito. La scheda è stata sviluppata nel Regno Unito (Fondazione Raspberry Pi). Le prime versioni avevano poca potenza computazionale e sono state progettate con l'intenzione di offrire a insegnanti e studenti uno strumento semplice e poco costoso con cui poter insegnare e imparare a programmare. La scheda ha avuto un enorme successo anche in altri campi (e.g. robotica) e con ogni nuova versione è stata migliorata. Le ultime versioni sono assai potenti e possono essere utilizzati per tante altre cose. Le schede sono basate su sistemi operativi di tipo GNU/Linux, in particolare Raspbian che può essere scaricato dal sito della fondazione (\url{https://www.raspberrypi.org/downloads/}). 
+Raspberry Pi (Figura \ref{fig:raspi}) è una serie di piccoli computer (system-on-chip) dalle dimensioni simili a quelle di una carta di credito. La scheda è stata sviluppata nel Regno Unito (Fondazione Raspberry Pi). Le prime versioni avevano poca potenza computazionale e sono state progettate con l'intenzione di offrire a insegnanti e studenti uno strumento semplice e poco costoso con cui poter insegnare e imparare a programmare. La scheda ha avuto un enorme successo anche in altri campi (e.g. robotica) e con ogni nuova versione è stata migliorata. Le ultime versioni sono assai potenti e possono essere utilizzate per tante altre cose. Le schede sono basate su sistemi operativi di tipo GNU/Linux, in particolare Raspbian che può essere scaricato dal sito della fondazione (\url{https://www.raspberrypi.org/downloads/}). 
 
 La scheda utilizzata nel progetto (Raspberry Pi 3B+, \url{https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/}) possiede un'architettura su 64 bit, essenziale per poter utilizzare in maniera efficiente MongoDB (che è limitato a una memoria di 2GB su un sistema a 32bit). Durante lo sviluppo del progetto ho scoperto che Raspbian in realtà non è stato ancora aggiornato per essere un sistema operativo a 64 bit, perciò non poteva sfruttare al meglio la scheda. Come soluzione a questo problema, è stato installato un sistema operativo chiamato openSUSE Tumbleweed (\url{https://software.opensuse.org/distributions/tumbleweed}) che funziona su architetture a 64 bit. 
 La Raspberry Pi 3B+ possiede inoltre una scheda WiFi, il che la rende un buon candidato per lo scopo principale del progetto, ovvero quello di hostare il server.
@@ -187,9 +187,9 @@ La Raspberry Pi 3B+ possiede inoltre una scheda WiFi, il che la rende un buon ca
 
 Arduino\cite{arduino_storia} è nata ad Ivrea nel 2005 come piattaforma di prototipazione elettronica di basso costo e open-source (dettaglio molto importante che ha portato al successo che ha avuto) che si basa su hardware e software flessibili e facili da usare. Il nome della scheda deriva di quello del bar di Ivrea frequentato dai fondatori del progetto ed la scheda è stata creata per artisti, designer e hobbisti. Essendo open-source, ha avuto un grande successo nel mondo degli hobbisti, anche a livello mondiale (tale da diventare una delle invenzioni piu' considerevoli nella storia dell'elettronica), grazie alla facilità di programmazione, basso costo e soprattutto disponibilità in rete delle informazioni necessarie per poter permettere a persone con grandi idee e poche capacità informatiche ed elettroniche di realizzare i propri progetti. 
 
-Nei giorni d'oggi Arduino potrebbe anche non essere la scelta immediata, anzi, ormai ci sono schede piu' potenti, piu' veloci e con migliori rapporti prestazioni/prezzo, ma non scordiamoci che è tutto grazie agli sviluppatori della scheda. Perchè scegliere, quindi, un Arduino? Essendo la scheda che ha fatto partire tutto, è anche la scheda piu' studiata e ciò significa che gira intorno a piu' informazioni, piu' librerie già pronte, piu' dispositivi compatibili e ha anche un sito di appassionati che si aiutano a vicenda dove si possono trovare tutorial, libri e tant'altro.
+Al giorno d'oggi Arduino potrebbe anche non essere la scelta immediata, anzi, ormai ci sono schede piu' potenti, piu' veloci e con migliori rapporti prestazioni/prezzo, ma non scordiamoci che è tutto grazie agli sviluppatori della scheda. Perchè scegliere, quindi, un Arduino? Essendo la scheda che ha fatto partire tutto, è anche la scheda piu' studiata e ciò significa che gira intorno a piu' informazioni, piu' librerie già pronte, piu' dispositivi compatibili e ha anche un sito di appassionati che si aiutano a vicenda dove si possono trovare tutorial, libri e tant'altro.
 
-La scheda utilizzata nel progetto, Arduino UNO (Figura \ref{fig:uno}), è assolutamente la scheda piu' conosciuta al mondo e si può ormai trovare a dei prezzi molto bassi (ci sono tanti clone diversi in rete grazie al fatto di essere OpenHardware). E' basato sul microcontrollore ATmega328P (\url{https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf}) ed ha 14 pin digitali e 6 analogici. Alcuni pin sono piu' speciali: ad esempio tra i pin digitali ci sono 6 che hanno anche la funzione PWM (si veda la sezione \ref{sec:servomotore} "Servomotore" e 4 per il protocollo SPI (si veda la sezione \ref{sec:spi} "SPI"), mentre tra i pin analogici ci sono 2 per il protocollo I2C (si veda la sezione \ref{sec:i2c} "I2C"). Tutto questo rende l'Arduino UNO un dispositivo ideale per il progetto. L'unica cosa che manca è la possibilità di accedere alla connessione WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip WiFi chiamato ESP8266 (si veda la sezione \ref{sec:esp8266} "ESP8266").
+La scheda utilizzata nel progetto, Arduino UNO (Figura \ref{fig:uno}), è assolutamente la scheda piu' conosciuta al mondo e si può ormai trovare a dei prezzi molto bassi (ci sono tanti clone diversi in rete grazie al fatto di essere OpenHardware). E' basato sul microcontrollore ATmega328P (\url{https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf}) ed ha 14 pin digitali e 6 analogici. Alcuni pin sono piu' speciali: ad esempio tra i pin digitali ce ne sono 6 che hanno anche la funzione PWM (si veda la sezione \ref{sec:servomotore} "Servomotore" e 4 per il protocollo SPI (si veda la sezione \ref{sec:spi} "SPI"), mentre tra i pin analogici ce ne sono 2 per il protocollo I2C (si veda la sezione \ref{sec:i2c} "I2C"). Tutto questo rende l'Arduino UNO un dispositivo ideale per il progetto. L'unica cosa che manca è la possibilità di accedere alla connessione WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip WiFi chiamato ESP8266 (si veda la sezione \ref{sec:esp8266} "ESP8266").
 
 \begin{figure}
 	\center{\includegraphics[width=0.4\linewidth]{./img/uno.jpg}}
@@ -266,10 +266,69 @@ dove \textit{v} è la velocità della luce e \textit{f} è la frequenza (433 MHz
 	\label{fig:rf_uno}
 \end{figure}
 
+\pagebreak
+
 %
 \section{Servomotore}\label{sec:servomotore}
-PWM
+%
 
+Esistono tanti tipi diversi di motori Arduino-compatibili, ognuno con i propri punti forti e deboli, perciò bisogna valutare bene quale scegliere in base alle necessità del progetto. In questo caso il lavoro del motore è semplice: deve girare la serratura di una porta da una parte e dall'altra, quindi senza particolare precisione, velocità o potenza. Siccome non c'è nemmeno il bisogno di avere una rotazione completa (bastano 180$^{\circ}$), è immediato pensare al servomotore che è anche facilmente controllabile da un Arduino grazie ai suoi pin PWM e alla libreria Servo (\url{https://www.arduino.cc/en/reference/servo}).
+
+Il servomotore (Figura \ref{fig:servo}) è un dispositivo elettromeccanico a basso consumo energetico ed è costituito da un motore DC, un gruppo di ingranaggi, un circuito di controllo (un ponte-H integrato) e un contenitore di plastica che lo racchiude.
+La particolarità del servomotore è che può ruotare con una precisione di alcuni gradi (normalmente da 0$^{\circ}$ a 180$^{\circ}$) in base alla larghezza dell'impulso che riceve. Questa tecnica si chiama Pulse Width Modulation (PWM) e consiste in una serie di impulsi di larghezza variabile che determinano la posizione del servo.
+
+\begin{figure}
+	\center{\includegraphics[width=0.15\linewidth]{./img/servo.png}}
+	\caption{Servomotore}
+	\label{fig:servo}
+\end{figure}
+
+%
+\subsection{PWM}
+%
+
+Pulse Width Modulation è una tecnica che consiste in una serie di impulsi di larghezza variabile che determinano la posizione del servo. E' quindi un modo di ricavare un risultato analogico a partire da un segnale digitale. Un segnale PWM ha una forma d'onda quadra, con periodo fisso, ma spesso non simmetrica: la durata della semi-onda alta può variare (si veda la Figura \ref{fig:pwm}). La durata \textit{T[ON]} del segnale alto viene misurata in percentuale e si chiama duty cycle: ad esempio un duty cycle del 25\% significa che \textit{T[ON]} dura per 1/4 della durata del periodo fisso \textit{T}. Questo tipo di segnale non è un vero e proprio segnale analogico, però può essere interpretato tale: quello che succede è che la tensione viene applicata e levata nel giro di frazioni di secondo perciò quello che si chiama "tensione efficace" è in realtà minore della tensione reale applicata. Per calcolare la tensione efficace \textit{Veff} basta sapere la tensione applicata \textit{Vcc} e il duty cycle \textit{DC} (che si trova facendo il rapporto tra \textit{T[ON]} e \textit{T}):
+
+%
+\[Veff = Vcc \cdot DC\]
+%
+Nel grafico della Figura \ref{fig:pwm} la \textit{Veff} è rappresentata dalla linea orizzontale che copre il segnale digitale.
+
+\begin{figure}
+	\center{\includegraphics[width=0.4\linewidth]{./img/pwm.png}}
+	\caption{Segnali PWM e comando analogWrite(int value) per generarli con l'Arduino}
+	\label{fig:pwm}
+\end{figure}
+
+Generalmente, nel caso dei servomotori, si ha un periodo totale \textit{T} = 20 ms, perciò ogni 20 ms il servo riceve un nuovo impulso. La posizione del motore dipende quindi dalla durata del tempo \textit{T[ON]} che questo impulso rimane ad un livello logico HIGH. Nel grafico della Figura \ref{fig:servo_pwm} si nota che la durata dell'impulso alto è un valore compreso tra 1ms (Duty Cycle = 5\%) e 2ms (Duty Cycle = 10\%). Fissata la posizione centrale del servo a 90$^{\circ}$, allora abbiamo che: 
+
+
+\begin{figure}
+	\center{\includegraphics[width=0.9\linewidth]{./img/servo_pwm.png}}
+	\caption{Segnali PWM nel servomotore}
+	\label{fig:servo_pwm}
+\end{figure}
+
+
+\begin{itemize}
+	\item se la durata del livello logico HIGH dell'impulso sta nell'intervallo [1ms, 1.5ms] allora il servo ruota verso sinistra a partire dalla posizione centrale (la sua posizione varia tra 0$^{\circ}$ e 90$^{\circ}$)
+	\item se la durata del livello logico HIGH dell'impulso è uguale a 1.5ms allora il servo resta fermo a 90$^{\circ}$
+	\item se la durata del livello logico HIGH dell'impulso sta nell'intervallo [1.5ms, 2ms] allora il servo ruota verso destra a partire dalla posizione centrale (la sua posizione varia tra 90$^{\circ}$ e 180$^{\circ}$)
+\end{itemize}
+
+Per controllare un servomotore con l'Arduino non dobbiamo pensare a tutte queste cose perchè esiste una libreria (\url{https://www.arduino.cc/en/reference/servo}) che ne facilita il lavoro: basta pensare in gradi (esempio di collegamento tra servo e Arduino in Figura \ref{fig:servo_uno} e di codice in Figura \ref{fig:servo_code}).
+
+\begin{figure}
+	\center{\includegraphics[width=0.3\linewidth]{./img/servo_uno.png}}
+	\caption{Servomotore e Arduino UNO}
+	\label{fig:servo_uno}
+\end{figure}
+
+\begin{figure}
+	\center{\includegraphics[width=0.9\linewidth]{./img/servo_code.png}}
+	\caption{Codice per controllare un servomotore tramite la libreria "servo.h"}
+	\label{fig:servo_code}
+\end{figure}
 
 %
 \section{RFID}
