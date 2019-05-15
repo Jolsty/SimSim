@@ -189,7 +189,7 @@ Arduino\cite{arduino_storia} è nata ad Ivrea nel 2005 come piattaforma di proto
 
 Al giorno d'oggi Arduino potrebbe anche non essere la scelta immediata, anzi, ormai ci sono schede piu' potenti, piu' veloci e con migliori rapporti prestazioni/prezzo, ma non scordiamoci che è tutto grazie agli sviluppatori della scheda. Perchè scegliere, quindi, un Arduino? Essendo la scheda che ha fatto partire tutto, è anche la scheda piu' studiata e ciò significa che gira intorno a piu' informazioni, piu' librerie già pronte, piu' dispositivi compatibili e ha anche un sito di appassionati che si aiutano a vicenda dove si possono trovare tutorial, libri e tant'altro.
 
-La scheda utilizzata nel progetto, Arduino UNO (Figura \ref{fig:uno}), è assolutamente la scheda piu' conosciuta al mondo e si può ormai trovare a dei prezzi molto bassi (ci sono tanti clone diversi in rete grazie al fatto di essere OpenHardware). E' basato sul microcontrollore ATmega328P (\url{https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf}) ed ha 14 pin digitali e 6 analogici. Alcuni pin sono piu' speciali: ad esempio tra i pin digitali ce ne sono 6 che hanno anche la funzione PWM (si veda la sezione \ref{sec:servomotore} "Servomotore" e 4 per il protocollo SPI (si veda la sezione \ref{sec:spi} "SPI"), mentre tra i pin analogici ce ne sono 2 per il protocollo I2C (si veda la sezione \ref{sec:i2c} "I2C"). Tutto questo rende l'Arduino UNO un dispositivo ideale per il progetto. L'unica cosa che manca è la possibilità di accedere alla connessione WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip WiFi chiamato ESP8266 (si veda la sezione \ref{sec:esp8266} "ESP8266").
+La scheda utilizzata nel progetto, Arduino UNO (Figura \ref{fig:uno}), è assolutamente la scheda piu' conosciuta al mondo e si può ormai trovare a dei prezzi molto bassi (ci sono tanti clone diversi in rete grazie al fatto di essere OpenHardware). E' basato sul microcontrollore ATmega328P (\url{https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf}) ed ha 14 pin digitali e 6 analogici. Alcuni pin sono piu' speciali: ad esempio tra i pin digitali ce ne sono 6 che hanno anche la funzione PWM (si veda la sezione \ref{sec:servomotore} "Servomotore" e 4 per il protocollo SPI (si veda la sezione \ref{sec:spi} "SPI"), mentre tra i pin analogici ce ne sono 2 per il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C"). Tutto questo rende l'Arduino UNO un dispositivo ideale per il progetto. L'unica cosa che manca è la possibilità di accedere alla connessione WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip WiFi chiamato ESP8266 (si veda la sezione \ref{sec:esp8266} "ESP8266").
 
 \begin{figure}
 	\center{\includegraphics[width=0.4\linewidth]{./img/uno.jpg}}
@@ -210,7 +210,7 @@ La scheda Arduino UNO (e qualsiasi altra board compatibile con Arduino) può ess
 
 I requisiti del progetto dicono che bisogna salvare un log dopo ogni accesso avvenuto con successo, e per fare ciò è necessario essere in grado di tenere traccia del tempo. La Raspberry Pi, diversamente dai PC a cui siamo abituati, può tenere traccia del tempo solo se ha accesso alla connessione Internet per accedere ad un server NTP (Network Time Protocol); nel progetto in questione, la Raspberry Pi, nonostante sia connessa alla rete LAN, è stata privata della connessione Internet per questioni di sicurezza (nessun utente esterno alla rete può accedere al server hostato in locale perciò elimina gran parte degli attacchi possibili). Ciò significa che per poter avere il cosidetto timestamp nei log bisogna trovare un modo di tenere traccia della data e dell'ora. Fortunatamente esistono dei piccoli chip chiamati RTC che fanno questo lavoro. 
 
-In Figura \ref{fig:tinyRTC} si può vedere il dispositivo utilizzato nel progetto, chiamato TinyRTC; è un modulo basato sul clock chip DS1307 (\url{https://datasheets.maximintegrated.com/en/ds/DS1307.pdf}) e supporta il protocollo I2C (si veda la sezione \ref{sec:i2c} "I2C") per cui è facilmente utilizzabile dall'Arduino UNO.
+In Figura \ref{fig:tinyRTC} si può vedere il dispositivo utilizzato nel progetto, chiamato TinyRTC; è un modulo basato sul clock chip DS1307 (\url{https://datasheets.maximintegrated.com/en/ds/DS1307.pdf}) e supporta il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C") per cui è facilmente utilizzabile dall'Arduino UNO.
 L'orologio può essere programmato con data e ora corrente direttamente dal programma dell'Arduino e, grazie alla batteria al litio (CR1225), continua a tenere traccia del tempo anche senza alimentazione esterna. Il dispositivo è in grado di fornire con abbastanza precisione data e ora in termini di secondi, minuti, ora, giorno, mese e anno. Grazie alla popolarità di Arduino ci sono tante librerie per che permettono il facile utilizzo del dispositivo; io ho usato una libreria chiamata RTClib che si può trovare nel seguente repository: \url{https://github.com/adafruit/RTClib}. In Figura \ref{fig:tinyRTC_uno} si può vedere il collegamento con l'UNO.
 
 \begin{figure}
@@ -287,7 +287,7 @@ La particolarità del servomotore è che può ruotare con una precisione di alcu
 \subsection{PWM}
 %
 
-Pulse Width Modulation è una tecnica che consiste in una serie di impulsi di larghezza variabile che determinano la posizione del servo. E' quindi un modo di ricavare un risultato analogico a partire da un segnale digitale. Un segnale PWM ha una forma d'onda quadra, con periodo fisso, ma spesso non simmetrica: la durata della semi-onda alta può variare (si veda la Figura \ref{fig:pwm}). La durata \textit{T[ON]} del segnale alto viene misurata in percentuale e si chiama duty cycle: ad esempio un duty cycle del 25\% significa che \textit{T[ON]} dura per 1/4 della durata del periodo fisso \textit{T}. Questo tipo di segnale non è un vero e proprio segnale analogico, però può essere interpretato tale: quello che succede è che la tensione viene applicata e levata nel giro di frazioni di secondo perciò quello che si chiama "tensione efficace" è in realtà minore della tensione reale applicata. Per calcolare la tensione efficace \textit{Veff} basta sapere la tensione applicata \textit{Vcc} e il duty cycle \textit{DC} (che si trova facendo il rapporto tra \textit{T[ON]} e \textit{T}):
+\textbf{P}ulse \textbf{W}idth \textbf{M}odulation è una tecnica che consiste in una serie di impulsi di larghezza variabile che determinano la posizione del servo. E' quindi un modo di ricavare un risultato analogico a partire da un segnale digitale. Un segnale PWM ha una forma d'onda quadra, con periodo fisso, ma spesso non simmetrica: la durata della semi-onda alta può variare (si veda la Figura \ref{fig:pwm}). La durata \textit{T[ON]} del segnale alto viene misurata in percentuale e si chiama duty cycle: ad esempio un duty cycle del 25\% significa che \textit{T[ON]} dura per 1/4 della durata del periodo fisso \textit{T}. Questo tipo di segnale non è un vero e proprio segnale analogico, però può essere interpretato tale: quello che succede è che la tensione viene applicata e levata nel giro di frazioni di secondo perciò quello che si chiama "tensione efficace" è in realtà minore della tensione reale applicata. Per calcolare la tensione efficace \textit{Veff} basta sapere la tensione applicata \textit{Vcc} e il duty cycle \textit{DC} (che si trova facendo il rapporto tra \textit{T[ON]} e \textit{T}):
 
 %
 \[Veff = Vcc \cdot DC\]
@@ -331,12 +331,88 @@ Per controllare un servomotore con l'Arduino non dobbiamo pensare a tutte queste
 \end{figure}
 
 %
-\section{RFID}
+\section{RFID Reader}
 %
+
+\textbf{R}adio \textbf{F}requency \textbf{ID}entification (RFID) è un termine utilizzato per descrivere tecnologie contactless che fanno uso delle onde radio per identificare oggetti, persone e animali sia da vicino (tag passivi) che da lontano (tag attivi). L'identificazione è resa possibile grazie ad un lettore RFID in grado di interrogare i cosidetti tag, ovvero dei dispositivi elettronici di varie forme e dimensioni che possiedono i dati necessari per l'identificazione e che principalmente si dividono in due categorie: 
+
+\begin{itemize}
+	\item I tag passivi sono poco costosi e contengono un'antenna e un piccolo chip con identificativo univoco e privo di alimentazione. Questi tag vengono utilizzati per l'identificazione a breve distanza (qualche centimetro) e vengono "attivati" dalle onde radio del lettore.
+	\item I tag attivi sono piu' costosi e permettono, grazie all'alimentazione interna (emettono loro stessi i segnali radio), l'identificazione a lunga distanza (fino a 200 metri).
+\end{itemize}
+
+La tecnologia RFID si diversifica anche nella frequenza utilizzata e trova utilizzo in tanti campi diversi quali gestione accessi, tracciabilità degli animali, gestione dei biglietti elettronici, ecc$.$ (per le basse e medie frequenze), ma anche in Telepass, identificazione di auto in movimento, tracciabilità degli oggetti in movimento ecc. (per le frequenze alte e altissime).
+
+\begin{figure}
+	\center{\includegraphics[width=0.35\linewidth]{./img/mfrc522.jpg}}
+	\caption{Lettore RFID MFRC522}
+	\label{fig:mfrc522}
+\end{figure}
+
+Il lettore RFID utilizzato nel progetto è il MFRC522 (\url{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}; Figura \ref{fig:mfrc522}). Esso opera su una frequenza di 13.56 MHz ed è in grado di comunicare con tag che si conformano allo standard ISO/IEC 14443 A/MIFARE. Implementa vari protocolli di comunicazione (SPI, Serial UART, I$^2$C) ma è stata sviluppata solo una libreria di Arduino (\url{https://github.com/miguelbalboa/rfid}) basata sul protocollo SPI (si veda la sezione \ref{sec:spi} "SPI").
+
+Nelle Figure \ref{fig:rfid_uno} e \ref{fig:rfid_code} si trovano rispettivamente il circuito per collegare il lettore RFID con l'UNO e un esempio di codice per la lettura dei tag.
+
+\begin{figure}
+	\center{\includegraphics[width=0.65\linewidth]{./img/rfid_uno.png}}
+	\caption{RFID + Tag e Arduino UNO}
+	\label{fig:rfid_uno}
+\end{figure}
+
+\begin{figure}
+	\center{\includegraphics[width=0.75\linewidth]{./img/rfid_code.png}}
+	\caption{Esempio di codice in Arduino per la lettura dei tag}
+	\label{fig:rfid_code}
+\end{figure}
 
 %
 \section{Display LCD 16x2}
 %
+
+I moduli LCD trovano ampio utilizzo nei sistemi embedded grazie al basso costo, disponibilità e utilità. Il display utilizzato si chiama "16x2 LCD" (Figura \ref{fig:16x2}) proprio perchè possiede uno schermo su cui si possono scrivere 2 linee di 16 caratteri ciascuna. Questi dispositivi sono abbastanza complessi (ci sono 1280 pixel da indirizzare) e per poterli utilizzare in maniera semplice ed efficiente è necessario avere un'interfaccia. Infatti i display LCD spesso vengono accoppiati con un controller che rende la vita facile al programmatore. Il controller piu' utilizzato (infatti è considerato uno standard \textit{de facto}) si chiama HD44780 (\url{https://www.sparkfun.com/datasheets/LCD/HD44780.pdf}), costruito dalla Hitachi, ed è in grado di controllare display LCD capaci di visualizzare solo caratteri. L'HD44780 supporta il trasferimento parallelo a 8 bit (possiede 8 bit di dati) e il suo compito principale è di ricevere i comandi e i dati in arrivo dall'MCU per poi processarli
+e mandarli all'LCD.
+
+\begin{figure}
+	\center{\includegraphics[width=0.6\linewidth]{./img/16x2.jpg}}
+	\caption{Display LCD 16x2}
+	\label{fig:16x2}
+\end{figure}
+
+\begin{figure}
+	\center{\includegraphics[width=0.9\linewidth]{./img/lcd_code.png}}
+	\caption{Esempio di codice per utilizzare il LCD 16x2 con la libreria LiquidCrystal\_PCF8574)}
+	\label{fig:lcd_code}
+\end{figure}
+
+Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab:lcd_pinout}, è il numero di pin necessari da collegare (e la pazienza per farlo) all'Arduino per poter farlo funzionare correttamente. Questo significa che, siccome l'Arduino ha un numero limitato di pin (13 digitali e 6 analogici), essi potrebbero non bastare per un progetto di dimensioni piu' grandi. Fortunatamente c'è una soluzione: I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C"). Esiste un chip che rende possibile la riduzione del numero di pin utilizzati a 2 (SDA e SCL) cambiando l'interfaccia parallela del controller in una seriale. Questo chip si chiama PCF8574 I/O Expander ed è definito come un backpack (è letteralmente uno "zaino" che si salda sopra l'LCD) e permette appunto all'LCD e all'Arduino di comunicare utilizzando il protocollo I$^2$C. Per utilizzarlo con Arduino esiste già una libreria che si chiama LiquidCrystal\_PCF8574 (\url{https://platformio.org/lib/show/1165/LiquidCrystal_PCF8574/installation}) che sfrutta la libreria Wire (\url{https://www.arduino.cc/en/Reference/Wire}) per implementare alcune funzioni utili al programmatore (esempio di codice in Figura \ref{fig:lcd_code}).
+
+
+\begin{table}[h!]
+	\begin{center}
+		\begin{tabular}{l|l} 
+			\textbf{Pin} & \textbf{Funzione del pin} \\
+			\hline
+			1 & Vss (GND) \\
+			2 & Vcc (5V) \\ 
+			3 & Vee (Contrasto) \\
+			4 & RS (Register Select: 0 per selezionare l'invio di un comando, 1 per i dati) \\
+			5 & R/W (Read/Write: 0 per la scrittura di dati/comandi, 1 per la lettura dati/stato) \\
+			6 & E (Enable bit: inizia il ciclo di scrittura o lettura) \\
+			7 & D0 (Data 0) \\
+			8 & D1 (Data 1) \\
+			9 & D2 (Data 2) \\
+			10 & D3 (Data 3) \\
+			11 & D4 (Data 4) \\
+			12 & D5 (Data 5) \\
+			13 & D6 (Data 6) \\
+			14 & D7 (Data 7) \\
+			15 & A (Anodo (+): retroilluminazione) \\
+			16 & K (Catodo (-): retroilluminazione) \\
+		\end{tabular}
+	\caption{Disposizione dei pin di un display LCD 16x2 con il controller HD44780}
+	\label{tab:lcd_pinout}
+	\end{center}
+\end{table}
 
 %
 \section{Keypad}
@@ -364,7 +440,7 @@ Alternative
 %
 
 %
-\subsection{I2C}\label{sec:i2c}
+\subsection{I$^2$C}\label{sec:i2c}
 %
 
 %

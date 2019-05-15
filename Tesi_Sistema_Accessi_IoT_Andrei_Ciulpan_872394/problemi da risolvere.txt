@@ -1,2 +1,4 @@
 - il testo degli \url esce fuori dalla linewidth
 (provato comando \sloppy ma rovina la spaziatura delle altre frasi)
+
+- tabella pinout per ogni dispositivo?
