@@ -418,6 +418,40 @@ Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab
 \section{Keypad}
 %
 
+\begin{figure}
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=0.8\linewidth]{./img/keypad.jpg}
+		\caption{Tastierino 4x4}
+		\label{fig:keypad}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=0.78\linewidth]{./img/keypad_matrix.png}
+		\caption{Rappresentazione a matrice dei pulsanti}
+		\label{fig:keypad_matrix}
+	\end{subfigure}
+	\caption{Keypad}
+	\label{fig:keypad_both}
+\end{figure}
+
+I tastierini sono dei dispositivi di input ampiamente utilizzati per dare la possibilità alle persone di interagire con il progetto (e.g. inserire una password, controllare un robot ecc.). Normalmente i tasti sono disposti in un formato a matrice (in questo caso 4x4, ovvero 16 pulsanti) e permettono ad un microcontrollore di capire facilmente quale tasto è stato premuto in base alle linee che si attivano: nella Figura \ref{fig:keypad_both} si può facilmente vedere che premendo il pulsante "2" vengono attivate le linee "R0" e "C1" e il microcontrollore, grazie a come è stato programmato (esempio di configurazione in Figura \ref{fig:keypad_config}), è in grado di dire che quel pulsante specifico è stato premuto. Le funzioni per utilizzare il tastierino sono implementate nella libreria Keypad di Arduino (\url{https://playground.arduino.cc/Code/Keypad/}). Nella Figura \ref{fig:keypad_uno} si può vedere un esempio di collegamento tra il tastierino e l'Arduino UNO.
+
+
+\begin{figure}
+	\center{\includegraphics[width=0.9\linewidth]{./img/keypad_config.png}}
+	\caption{Esempio di configurazione in Arduino della tastiera (in questo caso non viene utilizzata l'ultima colonna con le lettere)}
+	\label{fig:keypad_config}
+\end{figure}
+
+\begin{figure}
+	\center{\includegraphics[width=0.5\linewidth]{./img/keypad_uno.png}}
+	\caption{Keypad e Arduino UNO}
+	\label{fig:keypad_uno}
+\end{figure}
+
+
 %
 \section{ESP8266}\label{sec:esp8266}
 %
