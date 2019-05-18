@@ -189,7 +189,22 @@ Arduino\cite{arduino_storia} è nata ad Ivrea nel 2005 come piattaforma di proto
 
 Al giorno d'oggi Arduino potrebbe anche non essere la scelta immediata, anzi, ormai ci sono schede piu' potenti, piu' veloci e con migliori rapporti prestazioni/prezzo, ma non scordiamoci che è tutto grazie agli sviluppatori della scheda. Perchè scegliere, quindi, un Arduino? Essendo la scheda che ha fatto partire tutto, è anche la scheda piu' studiata e ciò significa che gira intorno a piu' informazioni, piu' librerie già pronte, piu' dispositivi compatibili e ha anche un sito di appassionati che si aiutano a vicenda dove si possono trovare tutorial, libri e tant'altro.
 
-La scheda utilizzata nel progetto, Arduino UNO (Figura \ref{fig:uno}), è assolutamente la scheda piu' conosciuta al mondo e si può ormai trovare a dei prezzi molto bassi (ci sono tanti clone diversi in rete grazie al fatto di essere OpenHardware). E' basato sul microcontrollore ATmega328P (\url{https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf}) ed ha 14 pin digitali e 6 analogici. Alcuni pin sono piu' speciali: ad esempio tra i pin digitali ce ne sono 6 che hanno anche la funzione PWM (si veda la sezione \ref{sec:servomotore} "Servomotore" e 4 per il protocollo SPI (si veda la sezione \ref{sec:spi} "SPI"), mentre tra i pin analogici ce ne sono 2 per il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C"). Tutto questo rende l'Arduino UNO un dispositivo ideale per il progetto. L'unica cosa che manca è la possibilità di accedere alla connessione WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip WiFi chiamato ESP8266 (si veda la sezione \ref{sec:esp8266} "ESP8266").
+La scheda utilizzata nel progetto, Arduino UNO (Figura \ref{fig:uno}), è assolutamente la scheda piu' conosciuta al mondo e si può ormai trovare a dei prezzi molto bassi (ci sono tanti clone diversi in rete grazie al fatto di essere OpenHardware). Tra le varie caratteristiche vengono elencate le piu' interessanti:
+
+\begin{itemize}
+	\item Microcontrollore: ATmega328 (\url{https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf})
+	\item Digital I/O Pins: 14 tra cui 6 offrono la funzione PWM (si veda la sezione \ref{sec:servomotore} "Servomotore") e 4 implementano il protocollo SPI (si veda la sezione \ref{sec:spi} "SPI")
+	\item Analog I/O Pins: 6 tra cui 2 implementano il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C")
+	\item Flash Memory: 32 KB
+	\item EEPROM: 1 KB
+	\item Clock Speed: 16 MHz
+	\item DC Current per i pin I/O: max 40 mA
+	\item DC Current per il pin 3V3: max 50 mA
+	\item Operating Voltage: 5V
+	\item Input Voltage (recommended): 7-12V
+\end{itemize}
+
+Tutto questo rende l'Arduino UNO un dispositivo ideale per il progetto. L'unica cosa che manca è la possibilità di accedere alla connessione WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip WiFi chiamato ESP8266 (si veda la sezione \ref{sec:esp8266} "ESP8266").
 
 \begin{figure}
 	\center{\includegraphics[width=0.4\linewidth]{./img/uno.jpg}}
@@ -409,7 +424,7 @@ Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab
 			15 & A (Anodo (+): retroilluminazione) \\
 			16 & K (Catodo (-): retroilluminazione) \\
 		\end{tabular}
-	\caption{Disposizione dei pin di un display LCD 16x2 con il controller HD44780}
+	\caption{Pinout di un display LCD 16x2 con il controller HD44780}
 	\label{tab:lcd_pinout}
 	\end{center}
 \end{table}
@@ -436,7 +451,7 @@ Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab
 	\label{fig:keypad_both}
 \end{figure}
 
-I tastierini sono dei dispositivi di input ampiamente utilizzati per dare la possibilità alle persone di interagire con il progetto (e.g. inserire una password, controllare un robot ecc.). Normalmente i tasti sono disposti in un formato a matrice (in questo caso 4x4, ovvero 16 pulsanti) e permettono ad un microcontrollore di capire facilmente quale tasto è stato premuto in base alle linee che si attivano: nella Figura \ref{fig:keypad_both} si può facilmente vedere che premendo il pulsante "2" vengono attivate le linee "R0" e "C1" e il microcontrollore, grazie a come è stato programmato (esempio di configurazione in Figura \ref{fig:keypad_config}), è in grado di dire che quel pulsante specifico è stato premuto. Le funzioni per utilizzare il tastierino sono implementate nella libreria Keypad di Arduino (\url{https://playground.arduino.cc/Code/Keypad/}). Nella Figura \ref{fig:keypad_uno} si può vedere un esempio di collegamento tra il tastierino e l'Arduino UNO.
+I tastierini sono dei dispositivi di input ampiamente utilizzati per dare la possibilità alle persone di interagire con un sistema (e.g. inserire una password, controllare un robot ecc.). Normalmente i tasti sono disposti in un formato a matrice (in questo caso 4x4, ovvero 16 pulsanti) e permettono ad un microcontrollore di capire facilmente quale tasto è stato premuto in base alle linee che si attivano: nella Figura \ref{fig:keypad_both} si può facilmente vedere che premendo il pulsante "2" vengono attivate le linee "R0" e "C1" e il microcontrollore, grazie a come è stato programmato (esempio di configurazione in Figura \ref{fig:keypad_config}), è in grado di dire che quel pulsante specifico è stato premuto. Le funzioni per utilizzare il tastierino sono implementate nella libreria Keypad di Arduino (\url{https://playground.arduino.cc/Code/Keypad/}). Nella Figura \ref{fig:keypad_uno} si può vedere un esempio di collegamento tra il tastierino e l'Arduino UNO.
 
 
 \begin{figure}
@@ -455,11 +470,174 @@ I tastierini sono dei dispositivi di input ampiamente utilizzati per dare la pos
 %
 \section{ESP8266}\label{sec:esp8266}
 %
-Problematiche
-\\
-Alternative
+
+L'Arduino UNO, a differenza di altre board piu' recenti, non ha il WiFi incorporato perciò bisogna accoppiarlo con uno shield che gli permette di avere quella funzionalità necessaria per un progetto IoT. Per questo progetto è stata scelta l'ESP8266, una famiglia di microchip WiFi a basso costo prodotta da Espressif Systems. Il dispositivo usato in realtà si chiama ESP-01 (Figura \ref{fig:esp01}), è basato sul modulo ESP8266 ed è prodotto da terze parti (Ai-Thinker). Questo piccolo modulo permette a microcontrollori di connettersi alla rete WiFi per fare semplici chiamate HTTP.
+Tra le varie caratteristiche vengono elencate le piu' interessanti:
+
+\begin{figure}
+	\center{\includegraphics[width=0.2\linewidth]{./img/esp01.jpg}}
+	\caption{L'ESP-01 di Ai-Thinker}
+	\label{fig:esp01}
+\end{figure}
 
 
+\begin{itemize}
+	\item basso costo e molto compatto
+	\item antenna incorporata nel PCB
+	\item 512 KB flash memory su cui caricare il programma
+	\item 80 KB user data RAM
+	\item può essere usato sia come Station che come Access Point (AP)
+	\item implementa la funzione Deep Sleep per evitare il consumo eccessivo durante l'inattività
+	\item può essere programmato attraverso l'IDE di Arduino
+	\item implementa il protocollo IEEE 802.11 b/g/n
+\end{itemize}
+Il pinout e le funzioni dei pin si trovano rispettivamente in Figura \ref{fig:esp_pinout_img} e in Tabella \ref{tab:esp01_pinout}. 
+
+L'ESP-01 va alimentato a una tensione di 3.3V ma secondo il datasheet (\url{http://www.microchip.ua/wireless/esp01.pdf}) potrebbe richiedere anche fino a 170mA di corrente perciò non si può alimentare direttamente dal piedino 3V3 dell'Arduino perchè non eroga abbastanza corrente (max 50 mA secondo \url{https://store.arduino.cc/arduino-uno-rev3}). Per questo motivo è stato usato il pin 5V dell'Arduino collegato ad un regolatore di tensione (LM1117, \url{http://www.ti.com/lit/ds/symlink/lm1117.pdf}). 
+Il circuito si può trovare in Figura \ref{fig:esp_uno}.
+
+\vspace{\baselineskip}
+\begin{minipage}{\textwidth}
+	\begin{minipage}[b]{0.35\textwidth}
+		\centering{\includegraphics[width=1\linewidth]{./img/esp_pinout_img.jpg}}	
+		\captionof{figure}{ESP-01 Pinout}
+		\label{fig:esp_pinout_img}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[b]{0.65\textwidth}
+		\centering
+		\begin{tabular}{l|l}
+			\textbf{Pin} & \textbf{Funzione del pin} \\
+			\hline
+			1 & RX (Receive data bit) \\
+			2 & GPIO0 (General Purpose Input/Output Pin) \\
+			3 & GPIO2 (General Purpose Input/Output Pin) \\
+			4 & GND \\
+			5 & VCC (+3.3V) \\
+			6 & RST (Reset chip) \\
+			7 & CH\_PD (Chip power-down) \\
+			8 & TX (Transmit data bit) \\
+		\end{tabular}
+		\captionof{table}{Funzioni dei pin dell'ESP-01}
+		\label{tab:esp01_pinout}
+	\end{minipage}
+\end{minipage}
+\vspace{\baselineskip}
+
+\begin{figure}
+	\center{\includegraphics[width=0.7\linewidth]{./img/esp_uno.png}}
+	\caption{ESP-01 e Arduino UNO}
+	\label{fig:esp_uno}
+\end{figure}
+
+
+Il dispositivo viene pre-programmato con il firmware AT  (\url{https://www.electrodragon.com/w/ESP8266\_AT-Command\_firmware}) ma è possibile programmarlo anche con codice proprio (vedere Tabella \ref{tab:esp01_modes} per le modalità di funzionamento) utilizzando l'IDE di Arduino. Nella Figura \ref{fig:esp01_flashed_code} si può vedere una parte del codice caricato sull'ESP-01: all'accensione non fa altro che connettersi alla rete WiFi locale.
+
+Dopo aver effettuato la connessione, l'ESP-01 si mette in ascolto sulla porta seriale per dati in arrivo dall'Arduino (Figura \ref{fig:esp01_listen}) per poi eseguire varie funzioni in base alla richiesta.
+
+
+\begin{table}[h!]
+	\begin{center}
+		\begin{tabular}{l|l} 
+			\textbf{GPIO-0} & \textbf{Modalità} \\
+			\hline
+			GND & Flash mode (modalità programmazione) \\
+			VCC & Normal mode (il chip esegue il codice caricato) \\
+		\end{tabular}
+		\caption{Modalità di funzionamento dell'ESP-01}
+		\label{tab:esp01_modes}
+	\end{center}
+\end{table}
+
+\begin{figure}
+	\center{\includegraphics[width=0.5\linewidth]{./img/esp01_flashed_code.png}}
+	\caption{Snippet del codice caricato sull'ESP-01. La libreria utilizzata è molto bene documentata e si trova a \url{https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/readme.html})}
+	\label{fig:esp01_flashed_code}
+\end{figure}
+
+\begin{figure}
+	\center{\includegraphics[width=0.5\linewidth]{./img/esp01_listen.png}}
+	\caption{Snippet del codice caricato sull'ESP-01}
+	\label{fig:esp01_listen}
+\end{figure}
+
+L'Arduino è programmato per mandare 2 tipi di richieste: 
+
+\begin{itemize}
+	\item "check" per quando deve inoltrare all'ESP-01 il codice del tag letto (Figura \ref{fig:uno_check})
+	\item "log" per quando deve inoltrare all'ESP-01 un log (Figura \ref{fig:uno_log})
+\end{itemize}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=0.99\linewidth]{./img/uno_check.png}
+		\caption{Funzione per verificare un tag}
+		\label{fig:uno_check}
+	\end{subfigure}%
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=0.99\linewidth]{./img/uno_log.png}
+		\caption{Funzione per mandare un log all'ESP-01}
+		\label{fig:uno_log}
+	\end{subfigure}
+	\caption{Snippet di codici caricati sull'Arduino UNO}
+	\label{fig:uno_functions}
+\end{figure}
+
+In base alla richiesta vengono attivate 2 funzioni diverse:
+
+\begin{itemize}
+	\item una per mandare la verifica del tag al server (Figura \ref{fig:esp_check})
+	\item una per mandare il log al server (Figura \ref{fig:esp_log})
+\end{itemize}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=0.95\linewidth]{./img/esp_check.png}
+		\caption{Funzione per mandare la verifica del tag al server tramite una chiamata HTTP}
+		\label{fig:esp_check}
+	\end{subfigure}%
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=0.95\linewidth]{./img/esp_log.png}
+		\caption{Funzione per mandare il log al server tramite una chiamata HTTP}
+		\label{fig:esp_log}
+	\end{subfigure}
+	\caption{Snippet di codici caricati sull'ESP-01}
+	\label{fig:esp_functions}
+\end{figure}
+
+\subsection{Comunicazione tra l'Arduino UNO e l'ESP-01 }
+
+L'Arduino UNO è programmato per comunicare con l'ESP-01 tramite SoftwareSerial (https://www.arduino.cc/en/Reference/SoftwareSerial), una libreria che replica, per via software, le funzionalità della comunicazione seriale hardware (sui pin 0 e 1) anche su altri pin digitali. Un esempio di inizializzazione si può trovare in Figura \ref{fig:arduino_esp_serial_setup}.
+
+
+\begin{figure}
+	\center{\includegraphics[width=0.6\linewidth]{./img/arduino_esp_serial_setup.png}}
+	\caption{Snippet del codice per il setup della comunicazione seriale tra l'ESP-01 e l'Arduino UNO}
+	\label{fig:arduino_esp_serial_setup}
+\end{figure}
+
+Come si è visto nelle Figure \ref{fig:esp_check} e \ref{fig:esp_log}, l'Arduino inoltra all'ESP-01 delle stringhe che sono quasi in formato JSON: prima dell'oggetto JSON c'è un'altra stringa usata per identificare la funzione voluta (e.g. "check{object}" e "log{object}"). L'ESP-01 poi filtra questi dettagli non piu' necessari (come in Figura \ref{fig:esp01_listen}) e chiama la funzione richiesta.
+
+Esempio che descrive gli eventi per la verifica del tag:
+
+\begin{enumerate}
+	\item L'utente avvicina il tag al lettore RFID
+	\item L'Arduino legge il seriale del tag e chiama "checkCardSerial(serial)"
+	\item Questa funzione manda un'oggetto in formato quasi-JSON all'ESP-01
+	\item L'ESP-01 riceve questa stringa e filtra l'informazione non piu' necessaria
+	\item L'ESP-01 chiama la funzione richiesta (in questo caso "checkTesseraAPI(serialeJSON)")
+	\item La funzione eseguita manda l'oggetto JSON al server e aspetta una risposta con lo status code.
+	\item L'ESP-01 inoltra lo status code all'Arduino
+	\item In base allo status code l'Arduino prende una decisione: se statusCode = 200 allora il tag è accettato e l'Arduino apre la porta, altrimenti viene rifiutato.
+\end{enumerate}
+
+Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un middleman tra l'Arduino e il server.
 %
 \section{Protocolli di trasmissione dati}
 %
@@ -468,10 +646,7 @@ Alternative
 %
 \subsection{Logica IoT}
 %
-
-%
-\subsection{Comunicazione Wi-Fi in rete locale. Parlo anche del protocollo HTTP?}
-%
+WiFi
 
 %
 \subsection{I$^2$C}\label{sec:i2c}
