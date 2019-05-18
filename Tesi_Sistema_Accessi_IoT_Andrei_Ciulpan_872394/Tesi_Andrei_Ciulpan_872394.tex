@@ -622,7 +622,7 @@ L'Arduino UNO è programmato per comunicare con l'ESP-01 tramite SoftwareSerial 
 	\label{fig:arduino_esp_serial_setup}
 \end{figure}
 
-Come si è visto nelle Figure \ref{fig:esp_check} e \ref{fig:esp_log}, l'Arduino inoltra all'ESP-01 delle stringhe che sono quasi in formato JSON: prima dell'oggetto JSON c'è un'altra stringa usata per identificare la funzione voluta (e.g. "check{object}" e "log{object}"). L'ESP-01 poi filtra questi dettagli non piu' necessari (come in Figura \ref{fig:esp01_listen}) e chiama la funzione richiesta.
+Come si è visto nelle Figure \ref{fig:esp_check} e \ref{fig:esp_log}, l'Arduino inoltra all'ESP-01 delle stringhe che sono quasi in formato JSON: prima dell'oggetto JSON c'è un'altra stringa usata per identificare la funzione voluta (e.g. "check\{object\}" e "log\{object\}"). L'ESP-01 poi filtra questi dettagli non piu' necessari (come in Figura \ref{fig:esp01_listen}) e chiama la funzione richiesta.
 
 Esempio che descrive gli eventi per la verifica del tag:
 
