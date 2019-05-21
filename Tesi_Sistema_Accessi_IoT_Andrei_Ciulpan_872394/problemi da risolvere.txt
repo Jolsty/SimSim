@@ -1,4 +1,8 @@
 - il testo degli \url esce fuori dalla linewidth
 (provato comando \sloppy ma rovina la spaziatura delle altre frasi)
 
+ATRENT: baco noto e mai risolto, prova a metterli in footnote
+
 - tabella pinout per ogni dispositivo?
+
+ATRENT: solo se vedi che ti serve "riempimento" ;)

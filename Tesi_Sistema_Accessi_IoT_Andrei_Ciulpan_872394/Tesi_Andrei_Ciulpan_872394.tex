@@ -79,18 +79,24 @@
 
 \afterpreface
 
+\marginpar{atrent: da qualche parte descrivi anche il contesto in cui hai lavorato, serve per capire che le richieste funzionali che ti sono state fatte erano adeguate}
 
 %			CAPITOLO 1: Intro
 \chapter{Introduzione}\label{cap:introduzione}
 %
 
-Il controllo accessi è un sistema di protezione che permette l'accesso solo a determinate persone per via di qualche procedura di autenticazione: nel mondo fisico si può parlare di una semplice serratura (storicamente il sistema piu' utilizzato in assoluto) che può essere aperta solo dalle persone in possesso della chiave, mentre nel mondo dell'informatica si può notare l'enorme utilizzo delle procedure di autenticazione (login) che aiutano il sistema, tramite l'inserimento di un nome utente e password, a determinare automaticamente se una persona è autorizzata ad accedere alle risorse del sistema stesso.
+Il controllo accessi è un sistema di protezione che permette l'accesso solo a determinate persone per via di qualche procedura di autenticazione: nel mondo fisico si può parlare di una semplice serratura (storicamente il sistema piu'\marginpar{usa le accentate} utilizzato in assoluto) che può essere aperta solo dalle persone in possesso della chiave, mentre nel mondo dell'informatica si può notare l'enorme utilizzo delle procedure di autenticazione (login) che aiutano il sistema, tramite l'inserimento di un nome utente e password, a determinare automaticamente se una persona è autorizzata ad accedere alle risorse del sistema stesso.
 
 Il controllo accessi\cite{controllo_accessi} è un tema molto sviluppato nel campo della sicurezza sia fisica che informatica: è stato segnalato che nel 2017, per il secondo anno consecutivo, il mercato del controllo accessi ha avuto la crescita piu' rapida nell'industria della sicurezza fisica\cite{crescita_controllo_accessi}. E' anche un sistema onnipresente, utilizzato in ospedali, fabbriche, supermercati, aziende, sistemi di trasporto pubblico (e.g l'ATM di Milano), case e tanti altri campi.  
 
 La tesi si propone di trattare un sistema ibrido in cui il mondo fisico e il mondo informatico lavorano insieme: attraverso sensori ed attuatori è possibile avere la comunicazione tra i due mondi. 
+<<<<<<< HEAD
 Si tratta di un sistema IoT (Internet of Things), ovvero un sistema in cui la connessione Internet viene estesa anche al mondo degli oggetti fisici (smart objects\cite{smart_objects}) di uso comune. Gli oggetti si rendono riconoscibili e acquisiscono intelligenza grazie al fatto di possedere una o piu' delle seguenti funzionalità: identificazione, localizzazione, diagnosi di stato, interazione con l'ambiente circostante, elaborazione dati e ovviamente connessione.
 Gli oggetti intelligenti di un sistema IoT sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado di agire sui dati raccolti dall'ambiente e, ancora piu' importante, mandare questi dati in rete dove possono poi essere analizzati\cite{IoT}. Un semplice esempio di un sistema IoT si può trovare nella Figura \ref{fig:iot_diagram}.
+=======
+Si tratta di un sistema IoT (Internet of Things), ovvero un sistema in cui la connessione Internet viene estesa anche al mondo degli oggetti fisici (smart objects\cite{smart_objects}) di uso comune. Gli oggetti si rendono riconoscibili e acquisiscono intelligenza\marginpar{parolone} grazie al fatto di possedere una o piu' delle seguenti funzionalità: identificazione, localizzazione, diagnosi di stato, interazione con l'ambiente circostante, elaborazione dati e ovviamente connessione.
+Gli oggetti intelligenti di un sistema IoT sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado di agire sui dati raccolti dall'ambiente e, ancora piu' importante, mandare questi dati in rete dove possono poi essere analizzati\cite{IoT}. Un semplice esempio di un sistema IoT si può trovare in Figura \ref{fig:iot_diagram}.
+>>>>>>> d8a2077fedaf8ec96111011b7bd2b59767560b40
 
 Le seguente sezione di questo capitolo introdurrà il progetto stesso (denominato SimSim) che poi verrà dettagliato nei prossimi capitoli.
 
@@ -129,7 +135,11 @@ L'attività principale del tirocinio è la realizzazione di un sistema di contro
 	\end{enumerate}
 \end{enumerate}
 
+<<<<<<< HEAD
 I dispositivi scelti per soddisfare i requisiti sono stati un Arduino UNO (per la parte hardware) e un Raspberry Pi 3B+ su cui fare hosting del server. 
+=======
+I dispositivi scelti per soddisfare i requisiti sono stati un Arduino UNO (per la parte hardware) e un Raspberry Pi 3B+ su cui hostare\marginpar{anglicismo? ;)} il server. 
+>>>>>>> d8a2077fedaf8ec96111011b7bd2b59767560b40
 Nella figura \ref{fig:simsim} si può vedere una foto con il prototipo finito.
 Nelle figure \ref{fig:usecase} e \ref{fig:flowchart} si possono trovare rispettivamente un diagramma dei casi d'uso e un diagramma di flusso del sistema.
 
@@ -223,7 +233,7 @@ La scheda Arduino UNO (e qualsiasi altra board compatibile con Arduino) può ess
 \section{Real-time Clock}
 %
 
-I requisiti del progetto dicono che bisogna salvare un log dopo ogni accesso avvenuto con successo, e per fare ciò è necessario essere in grado di tenere traccia del tempo. La Raspberry Pi, diversamente dai PC a cui siamo abituati, può tenere traccia del tempo solo se ha accesso alla connessione Internet per accedere ad un server NTP (Network Time Protocol); nel progetto in questione, la Raspberry Pi, nonostante sia connessa alla rete LAN, è stata privata della connessione Internet per questioni di sicurezza (nessun utente esterno alla rete può accedere al server hostato in locale perciò elimina gran parte degli attacchi possibili). Ciò significa che per poter avere il cosidetto timestamp nei log bisogna trovare un modo di tenere traccia della data e dell'ora. Fortunatamente esistono dei piccoli chip chiamati RTC che fanno questo lavoro. 
+I requisiti del progetto dicono\marginpar{troppo colloquiale, terrei un ``richiedono il salvataggio''} che bisogna salvare un log dopo ogni accesso avvenuto con successo, e per fare ciò è necessario essere in grado di tenere traccia del tempo. La\marginpar{il?} Raspberry Pi, diversamente dai PC a cui siamo abituati, può tenere traccia del tempo solo se ha accesso alla connessione Internet per accedere ad un server NTP (Network Time Protocol); nel progetto in questione, la Raspberry Pi, nonostante sia connessa alla rete LAN, è stata privata della connessione Internet per questioni di sicurezza (nessun utente esterno alla rete può accedere al server hostato\marginpar{anglicismo} in locale perciò elimina gran parte degli attacchi possibili). Ciò significa che per poter avere il cosiddetto timestamp nei log bisogna trovare un modo di tenere traccia della data e dell'ora. Fortunatamente esistono dei piccoli chip chiamati RTC che fanno questo lavoro. 
 
 Nella Figura \ref{fig:tinyRTC} si può vedere il dispositivo utilizzato nel progetto, chiamato TinyRTC; è un modulo basato sul clock chip DS1307 (\url{https://datasheets.maximintegrated.com/en/ds/DS1307.pdf}) e supporta il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C") per cui è facilmente utilizzabile dall'Arduino UNO.
 L'orologio può essere programmato con data e ora corrente direttamente dal programma dell'Arduino e, grazie alla batteria al litio (CR1225), continua a tenere traccia del tempo anche senza alimentazione esterna. Il dispositivo è in grado di fornire con abbastanza precisione data e ora in termini di secondi, minuti, ora, giorno, mese e anno. Grazie alla popolarità di Arduino ci sono tante librerie per che permettono il facile utilizzo del dispositivo; io ho usato una libreria chiamata RTClib che si può trovare nel seguente repository: \url{https://github.com/adafruit/RTClib}. Nella Figura \ref{fig:tinyRTC_uno} si può vedere il collegamento con l'UNO.
@@ -264,13 +274,13 @@ dove \textit{v} è la velocità della luce e \textit{f} è la frequenza (433 MHz
 %
 
 \begin{figure}
-	\center{\includegraphics[width=0.3\linewidth]{./img/receiver_transmitter_module.jpg}}
+	\center{\includegraphics[width=0.5\linewidth]{./img/receiver_transmitter_module.jpg}}
 	\caption{Modulo transceiver MX-05V/XD-RF-5V}
 	\label{fig:rx_tx_module}
 \end{figure}
 
 \begin{figure}
-	\center{\includegraphics[width=0.45\linewidth]{./img/clonare_telecomando.png}}
+	\center{\includegraphics[width=0.5\linewidth]{./img/clonare_telecomando.png}}
 	\caption{Programma di Arduino per mandare i codici che poi vengono clonati dai telecomandi}
 	\label{fig:clone_code}
 \end{figure}
@@ -291,6 +301,8 @@ Esistono tanti tipi diversi di motori Arduino-compatibili, ognuno con i propri p
 
 Il servomotore (Figura \ref{fig:servo}) è un dispositivo elettromeccanico a basso consumo energetico ed è costituito da un motore DC, un gruppo di ingranaggi, un circuito di controllo (un ponte-H integrato) e un contenitore di plastica che lo racchiude.
 La particolarità del servomotore è che può ruotare con una precisione di alcuni gradi (normalmente da 0$^{\circ}$ a 180$^{\circ}$) in base alla larghezza dell'impulso che riceve. Questa tecnica si chiama Pulse Width Modulation (PWM) e consiste in una serie di impulsi di larghezza variabile che determinano la posizione del servo.
+
+\marginpar{se vuoi aggiungere, descrivi il funzionamento interno (potenziometro)}
 
 \begin{figure}
 	\center{\includegraphics[width=0.15\linewidth]{./img/servo.png}}
@@ -331,7 +343,11 @@ Generalmente, nel caso dei servomotori, si ha un periodo totale \textit{T} = 20 
 	\item se la durata del livello logico HIGH dell'impulso sta nell'intervallo [1.5ms, 2ms] allora il servo ruota verso destra a partire dalla posizione centrale (la sua posizione varia tra 90$^{\circ}$ e 180$^{\circ}$)
 \end{itemize}
 
+<<<<<<< HEAD
 Per controllare un servomotore con l'Arduino non dobbiamo pensare a tutte queste cose perchè esiste una libreria (\url{https://www.arduino.cc/en/reference/servo}) che ne facilita il lavoro: basta pensare in gradi (esempio di collegamento tra servo e Arduino nella Figura \ref{fig:servo_uno} e di codice nella Figura \ref{fig:servo_code}).
+=======
+Per controllare un servomotore con l'Arduino non dobbiamo pensare a tutte queste cose\marginpar{troppo colloquiale} perché esiste una libreria (\url{https://www.arduino.cc/en/reference/servo}) che ne facilita il lavoro: basta pensare in gradi (esempio di collegamento tra servo e Arduino in Figura \ref{fig:servo_uno} e di codice in Figura \ref{fig:servo_code}).
+>>>>>>> d8a2077fedaf8ec96111011b7bd2b59767560b40
 
 \begin{figure}
 	\center{\includegraphics[width=0.3\linewidth]{./img/servo_uno.png}}
