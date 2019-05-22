@@ -81,22 +81,20 @@
 
 \marginpar{atrent: da qualche parte descrivi anche il contesto in cui hai lavorato, serve per capire che le richieste funzionali che ti sono state fatte erano adeguate}
 
+\marginpar{ac: in che senso? di cosa dovrei parlare e dove potrei mettere quella sezione?}
+
 %			CAPITOLO 1: Intro
 \chapter{Introduzione}\label{cap:introduzione}
 %
 
-Il controllo accessi è un sistema di protezione che permette l'accesso solo a determinate persone per via di qualche procedura di autenticazione: nel mondo fisico si può parlare di una semplice serratura (storicamente il sistema piu'\marginpar{usa le accentate} utilizzato in assoluto) che può essere aperta solo dalle persone in possesso della chiave, mentre nel mondo dell'informatica si può notare l'enorme utilizzo delle procedure di autenticazione (login) che aiutano il sistema, tramite l'inserimento di un nome utente e password, a determinare automaticamente se una persona è autorizzata ad accedere alle risorse del sistema stesso.
+Il controllo accessi è un sistema di protezione che permette l'accesso solo a determinate persone per via di qualche procedura di autenticazione: nel mondo fisico si può parlare di una semplice serratura (storicamente il sistema più utilizzato in assoluto) che può essere aperta solo dalle persone in possesso della chiave, mentre nel mondo dell'informatica si può notare l'enorme utilizzo delle procedure di autenticazione (login) che aiutano il sistema, tramite l'inserimento di un nome utente e password, a determinare automaticamente se una persona è autorizzata ad accedere alle risorse del sistema stesso.
 
-Il controllo accessi\cite{controllo_accessi} è un tema molto sviluppato nel campo della sicurezza sia fisica che informatica: è stato segnalato che nel 2017, per il secondo anno consecutivo, il mercato del controllo accessi ha avuto la crescita piu' rapida nell'industria della sicurezza fisica\cite{crescita_controllo_accessi}. E' anche un sistema onnipresente, utilizzato in ospedali, fabbriche, supermercati, aziende, sistemi di trasporto pubblico (e.g l'ATM di Milano), case e tanti altri campi.  
+Il controllo accessi\cite{controllo_accessi} è un tema molto sviluppato nel campo della sicurezza sia fisica che informatica: è stato segnalato che nel 2017, per il secondo anno consecutivo, il mercato del controllo accessi ha avuto la crescita più rapida nell'industria della sicurezza fisica\cite{crescita_controllo_accessi}. E' anche un sistema onnipresente, utilizzato in ospedali, fabbriche, supermercati, aziende, sistemi di trasporto pubblico (e.g l'ATM di Milano), case e tanti altri campi.  
 
 La tesi si propone di trattare un sistema ibrido in cui il mondo fisico e il mondo informatico lavorano insieme: attraverso sensori ed attuatori è possibile avere la comunicazione tra i due mondi. 
-<<<<<<< HEAD
-Si tratta di un sistema IoT (Internet of Things), ovvero un sistema in cui la connessione Internet viene estesa anche al mondo degli oggetti fisici (smart objects\cite{smart_objects}) di uso comune. Gli oggetti si rendono riconoscibili e acquisiscono intelligenza grazie al fatto di possedere una o piu' delle seguenti funzionalità: identificazione, localizzazione, diagnosi di stato, interazione con l'ambiente circostante, elaborazione dati e ovviamente connessione.
-Gli oggetti intelligenti di un sistema IoT sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado di agire sui dati raccolti dall'ambiente e, ancora piu' importante, mandare questi dati in rete dove possono poi essere analizzati\cite{IoT}. Un semplice esempio di un sistema IoT si può trovare nella Figura \ref{fig:iot_diagram}.
-=======
-Si tratta di un sistema IoT (Internet of Things), ovvero un sistema in cui la connessione Internet viene estesa anche al mondo degli oggetti fisici (smart objects\cite{smart_objects}) di uso comune. Gli oggetti si rendono riconoscibili e acquisiscono intelligenza\marginpar{parolone} grazie al fatto di possedere una o piu' delle seguenti funzionalità: identificazione, localizzazione, diagnosi di stato, interazione con l'ambiente circostante, elaborazione dati e ovviamente connessione.
-Gli oggetti intelligenti di un sistema IoT sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado di agire sui dati raccolti dall'ambiente e, ancora piu' importante, mandare questi dati in rete dove possono poi essere analizzati\cite{IoT}. Un semplice esempio di un sistema IoT si può trovare in Figura \ref{fig:iot_diagram}.
->>>>>>> d8a2077fedaf8ec96111011b7bd2b59767560b40
+
+Si tratta di un sistema IoT (Internet of Things), ovvero un sistema in cui la connessione Internet viene estesa anche al mondo degli oggetti fisici (smart objects\cite{smart_objects}) di uso comune. Gli oggetti si rendono riconoscibili e "acquisiscono intelligenza" grazie al fatto di possedere una o più delle seguenti funzionalità: identificazione, localizzazione, diagnosi di stato, interazione con l'ambiente circostante, elaborazione dati e ovviamente connessione.
+Gli oggetti intelligenti di un sistema IoT sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado di agire sui dati raccolti dall'ambiente e, ancora più importante, mandare questi dati in rete dove possono poi essere analizzati\cite{IoT}. Un semplice esempio di un sistema IoT si può trovare nella Figura \ref{fig:iot_diagram}.
 
 Le seguente sezione di questo capitolo introdurrà il progetto stesso (denominato SimSim) che poi verrà dettagliato nei prossimi capitoli.
 
@@ -128,18 +126,15 @@ L'attività principale del tirocinio è la realizzazione di un sistema di contro
 		\item Log degli accessi
 		\item Soci
 	\end{enumerate}
-	\item Deve avere un'interfaccia grafica (in questo caso sito web) tramite la quale l'utente amministratore possa gestire il database con le seguenti funzioni: \begin{enumerate}
+	\item Deve avere un'interfaccia grafica (in questo caso sito web) tramite la quale l'utente amministratore possa gestire il database con le seguenti funzioni: 
+	\begin{enumerate}
 		\item Aggiungere/modificare/cancellare soci 
 		\item Aggiungere/modificare/cancellare tessere 
 		\item Visualizzare log
 	\end{enumerate}
 \end{enumerate}
+I dispositivi scelti per soddisfare i requisiti sono stati un Arduino UNO (per la parte hardware) e un Raspberry Pi 3B+ su cui ospitare il server. 
 
-<<<<<<< HEAD
-I dispositivi scelti per soddisfare i requisiti sono stati un Arduino UNO (per la parte hardware) e un Raspberry Pi 3B+ su cui fare hosting del server. 
-=======
-I dispositivi scelti per soddisfare i requisiti sono stati un Arduino UNO (per la parte hardware) e un Raspberry Pi 3B+ su cui hostare\marginpar{anglicismo? ;)} il server. 
->>>>>>> d8a2077fedaf8ec96111011b7bd2b59767560b40
 Nella figura \ref{fig:simsim} si può vedere una foto con il prototipo finito.
 Nelle figure \ref{fig:usecase} e \ref{fig:flowchart} si possono trovare rispettivamente un diagramma dei casi d'uso e un diagramma di flusso del sistema.
 
@@ -180,10 +175,10 @@ In questo capitolo vengono dettagliati i dispositivi hardware utilizzati nel pro
 \section{Raspberry Pi}
 %
 
-Raspberry Pi (Figura \ref{fig:raspi}) è una serie di piccoli computer (system-on-chip) dalle dimensioni simili a quelle di una carta di credito. La scheda è stata sviluppata nel Regno Unito (Fondazione Raspberry Pi). Le prime versioni avevano poca potenza computazionale e sono state progettate con l'intenzione di offrire a insegnanti e studenti uno strumento semplice e poco costoso con cui poter insegnare e imparare a programmare. La scheda ha avuto un enorme successo anche in altri campi (e.g. robotica) e con ogni nuova versione è stata migliorata. Le ultime versioni sono assai potenti e possono essere utilizzate per tante altre cose. Le schede sono basate su sistemi operativi di tipo GNU/Linux, in particolare Raspbian che può essere scaricato dal sito della fondazione (\url{https://www.raspberrypi.org/downloads/}). 
+Raspberry Pi (Figura \ref{fig:raspi}) è una serie di piccoli computer (system-on-chip) dalle dimensioni simili a quelle di una carta di credito. La scheda è stata sviluppata nel Regno Unito (Fondazione Raspberry Pi). Le prime versioni avevano poca potenza computazionale e sono state progettate con l'intenzione di offrire a insegnanti e studenti uno strumento semplice e poco costoso con cui poter insegnare e imparare a programmare. La scheda ha avuto un enorme successo anche in altri campi (e.g$.$ robotica) e con ogni nuova versione è stata migliorata. Le ultime versioni sono assai potenti e possono essere utilizzate per tante altre cose. Le schede sono basate su sistemi operativi di tipo GNU/Linux, in particolare Raspbian che può essere scaricato dal sito della fondazione (\url{https://www.raspberrypi.org/downloads/}). 
 
-La scheda utilizzata nel progetto (Raspberry Pi 3B+, \url{https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/}) possiede un'architettura su 64 bit, essenziale per poter utilizzare in maniera efficiente MongoDB (che è limitato a una memoria di 2GB su un sistema a 32bit). Durante lo sviluppo del progetto ho scoperto che Raspbian in realtà non è stato ancora aggiornato per essere un sistema operativo a 64 bit, perciò non poteva sfruttare al meglio la scheda. Come soluzione a questo problema, è stato installato un sistema operativo chiamato openSUSE Tumbleweed (\url{https://software.opensuse.org/distributions/tumbleweed}) che funziona su architetture a 64 bit. 
-La Raspberry Pi 3B+ possiede inoltre una scheda WiFi, il che la rende un buon candidato per lo scopo principale del progetto, ovvero quello di hostare il server.
+La scheda utilizzata nel progetto (Raspberry Pi 3B+, \url{https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/}) possiede un'architettura su 64 bit, essenziale per poter utilizzare in maniera efficiente MongoDB (che è limitato a una memoria di 2 GB su un sistema a 32bit). Durante lo sviluppo del progetto ho scoperto che Raspbian in realtà non è stato ancora aggiornato per essere un sistema operativo a 64 bit, perciò non poteva sfruttare al meglio la scheda. Come soluzione a questo problema, è stato installato un sistema operativo chiamato openSUSE Tumbleweed (\url{https://software.opensuse.org/distributions/tumbleweed}) che funziona su architetture a 64 bit. 
+Il Raspberry Pi 3B+ possiede inoltre una scheda WiFi, il che la rende un buon candidato per lo scopo principale del progetto, ovvero quello ospitare il server.
 
 \begin{figure}
 	\center{\includegraphics[width=0.4\linewidth]{./img/raspi.jpg}}
@@ -195,11 +190,11 @@ La Raspberry Pi 3B+ possiede inoltre una scheda WiFi, il che la rende un buon ca
 \section{Arduino UNO}
 %
 
-Arduino\cite{arduino_storia} è nata ad Ivrea nel 2005 come piattaforma di prototipazione elettronica di basso costo e open-source (dettaglio molto importante che ha portato al successo che ha avuto) che si basa su hardware e software flessibili e facili da usare. Il nome della scheda deriva di quello del bar di Ivrea frequentato dai fondatori del progetto ed la scheda è stata creata per artisti, designer e hobbisti. Essendo open-source, ha avuto un grande successo nel mondo degli hobbisti, anche a livello mondiale (tale da diventare una delle invenzioni piu' considerevoli nella storia dell'elettronica), grazie alla facilità di programmazione, basso costo e soprattutto disponibilità in rete delle informazioni necessarie per poter permettere a persone con grandi idee e poche capacità informatiche ed elettroniche di realizzare i propri progetti. 
+Arduino\cite{arduino_storia} è nata ad Ivrea nel 2005 come piattaforma di prototipazione elettronica di basso costo e open-source (dettaglio molto importante che ha portato al successo che ha avuto) che si basa su hardware e software flessibili e facili da usare. Il nome della scheda deriva di quello del bar di Ivrea frequentato dai fondatori del progetto ed la scheda è stata creata per artisti, designer e hobbisti. Essendo open-source, ha avuto un grande successo nel mondo degli hobbisti, anche a livello mondiale (tale da diventare una delle invenzioni più considerevoli nella storia dell'elettronica), grazie alla facilità di programmazione, basso costo e soprattutto disponibilità in rete delle informazioni necessarie per poter permettere a persone con grandi idee e poche capacità informatiche ed elettroniche di realizzare i propri progetti. 
 
-Al giorno d'oggi Arduino potrebbe anche non essere la scelta immediata, anzi, ormai ci sono schede piu' potenti, piu' veloci e con migliori rapporti prestazioni/prezzo, ma non scordiamoci che è tutto grazie agli sviluppatori della scheda. Perchè scegliere, quindi, un Arduino? Essendo la scheda che ha fatto partire tutto, è anche la scheda piu' studiata e ciò significa che gira intorno a piu' informazioni, piu' librerie già pronte, piu' dispositivi compatibili e ha anche un sito di appassionati che si aiutano a vicenda dove si possono trovare tutorial, libri e tant'altro.
+Al giorno d'oggi Arduino potrebbe anche non essere la scelta immediata, anzi, ormai ci sono schede più potenti, più veloci e con migliori rapporti prestazioni/prezzo, ma non scordiamoci che è tutto grazie agli sviluppatori della scheda. Perchè scegliere, quindi, un Arduino? Essendo la scheda che ha fatto partire tutto, è anche la scheda più studiata e ciò significa che gira intorno a più informazioni, più librerie già pronte, più dispositivi compatibili e ha anche un sito di appassionati che si aiutano a vicenda dove si possono trovare tutorial, libri e tant'altro.
 
-La scheda utilizzata nel progetto, Arduino UNO (Figura \ref{fig:uno}), è assolutamente la scheda piu' conosciuta al mondo e si può ormai trovare a dei prezzi molto bassi (ci sono tanti clone diversi in rete grazie al fatto di essere OpenHardware). Tra le varie caratteristiche vengono elencate le piu' interessanti:
+La scheda utilizzata nel progetto, Arduino UNO (Figura \ref{fig:uno}), è assolutamente la scheda più conosciuta al mondo e si può ormai trovare a dei prezzi molto bassi (ci sono tanti clone diversi in rete grazie al fatto di essere OpenHardware). Tra le varie caratteristiche vengono elencate le più interessanti:
 
 \begin{itemize}
 	\item Microcontrollore: ATmega328 (\url{https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf})
@@ -226,14 +221,14 @@ Tutto questo rende l'Arduino UNO un dispositivo ideale per il progetto. L'unica 
 \subsection{Arduino Programming Language}
 %
 
-La scheda Arduino UNO (e qualsiasi altra board compatibile con Arduino) può essere facilmente programmata utilizzando, ma non solo, l'Arduino IDE (Arduino Integrated Development Software), un software sviluppato da Arduino.cc e funzionante sulle 3 piattaforme dominanti (Windows, Linux e MacOS). Il linguaggio di programmazione si chiama "Arduino Programming Language"\cite{sistemi_embedded_atrent} ed è un derivato di Wiring (una piattaforma di sviluppo open-source composta da un linguaggio di programmazione, un IDE ed un circuito stampato basato su un microcontrollore). La sintassi è molto simile a quella del linguaggio C/C++; infatti il linguaggio Arduino è un insieme di funzioni e librerie C/C++ che possono essere chiamate dal codice. Forse la cosa diversa e che si nota di piu' rispetto ad altri linguaggi di programmazione è la diversa strutturazione dello sketch (sinonimo di programma): per poter funzionare vengono sempre definite due funzioni iniziali, setup() e loop(); la prima viene eseguita soltanto una volta all'avvio del programma e serve per dichiarare variabili, modalità dei pin (e.g input o output) ecc., mentre nella seconda viene messo il programma vero e proprio che viene eseguito ripetutamente... all'infinito.
+La scheda Arduino UNO (e qualsiasi altra board compatibile con Arduino) può essere facilmente programmata utilizzando, ma non solo, l'Arduino IDE (Arduino Integrated Development Software), un software sviluppato da Arduino.cc e funzionante sulle 3 piattaforme dominanti (Windows, Linux e MacOS). Il linguaggio di programmazione si chiama "Arduino Programming Language"\cite{sistemi_embedded_atrent} ed è un derivato di Wiring (una piattaforma di sviluppo open-source composta da un linguaggio di programmazione, un IDE ed un circuito stampato basato su un microcontrollore). La sintassi è molto simile a quella del linguaggio C/C++; infatti il linguaggio Arduino è un insieme di funzioni e librerie C/C++ che possono essere chiamate dal codice. Forse la cosa diversa e che si nota di più rispetto ad altri linguaggi di programmazione è la diversa strutturazione dello sketch (sinonimo di programma): per poter funzionare vengono sempre definite due funzioni iniziali, setup() e loop(); la prima viene eseguita soltanto una volta all'avvio del programma e serve per dichiarare variabili, modalità dei pin (e.g input o output) ecc., mentre nella seconda viene messo il programma vero e proprio che viene eseguito ripetutamente... all'infinito.
 
 
 %
 \section{Real-time Clock}
 %
 
-I requisiti del progetto dicono\marginpar{troppo colloquiale, terrei un ``richiedono il salvataggio''} che bisogna salvare un log dopo ogni accesso avvenuto con successo, e per fare ciò è necessario essere in grado di tenere traccia del tempo. La\marginpar{il?} Raspberry Pi, diversamente dai PC a cui siamo abituati, può tenere traccia del tempo solo se ha accesso alla connessione Internet per accedere ad un server NTP (Network Time Protocol); nel progetto in questione, la Raspberry Pi, nonostante sia connessa alla rete LAN, è stata privata della connessione Internet per questioni di sicurezza (nessun utente esterno alla rete può accedere al server hostato\marginpar{anglicismo} in locale perciò elimina gran parte degli attacchi possibili). Ciò significa che per poter avere il cosiddetto timestamp nei log bisogna trovare un modo di tenere traccia della data e dell'ora. Fortunatamente esistono dei piccoli chip chiamati RTC che fanno questo lavoro. 
+I requisiti del progetto richiedono il salvataggio del log dopo ogni accesso avvenuto con successo, e per fare ciò è necessario essere in grado di tenere traccia del tempo. Il Raspberry Pi, diversamente dai PC a cui siamo abituati, può tenere traccia del tempo solo se ha accesso alla connessione Internet per accedere ad un server NTP (Network Time Protocol); nel progetto in questione, il Raspberry Pi, nonostante sia connesso alla rete LAN, è stato privato della connessione Internet per questioni di sicurezza (nessun utente esterno alla rete può accedere al server in locale perciò elimina gran parte degli attacchi possibili). Ciò significa che per poter avere il cosiddetto timestamp nei log bisogna trovare un modo di tenere traccia della data e dell'ora. Fortunatamente esistono dei piccoli chip chiamati RTC che fanno questo lavoro. 
 
 Nella Figura \ref{fig:tinyRTC} si può vedere il dispositivo utilizzato nel progetto, chiamato TinyRTC; è un modulo basato sul clock chip DS1307 (\url{https://datasheets.maximintegrated.com/en/ds/DS1307.pdf}) e supporta il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C") per cui è facilmente utilizzabile dall'Arduino UNO.
 L'orologio può essere programmato con data e ora corrente direttamente dal programma dell'Arduino e, grazie alla batteria al litio (CR1225), continua a tenere traccia del tempo anche senza alimentazione esterna. Il dispositivo è in grado di fornire con abbastanza precisione data e ora in termini di secondi, minuti, ora, giorno, mese e anno. Grazie alla popolarità di Arduino ci sono tante librerie per che permettono il facile utilizzo del dispositivo; io ho usato una libreria chiamata RTClib che si può trovare nel seguente repository: \url{https://github.com/adafruit/RTClib}. Nella Figura \ref{fig:tinyRTC_uno} si può vedere il collegamento con l'UNO.
@@ -259,7 +254,7 @@ L'orologio può essere programmato con data e ora corrente direttamente dal prog
 %
 
 Ci sono due principali tipi di tecnologie per i telecomandi: a raggi infrarossi o a radio-frequenza (RF).
-La tecnologia a raggi infrarossi è quella piu' utilizzata ed è usata da tanti dispositivi elettronici (un esempio molto comune è il telecomando della TV). In questo caso trasmettitore e ricevitore devono essere messi "faccia-a-faccia" e non troppo distanti tra di loro, perciò non è il caso di usare questa tecnologia nel progetto (non si potrebbe, ad esempio, aprire la porta stando dietro ad un muro).
+La tecnologia a raggi infrarossi è quella più utilizzata ed è usata da tanti dispositivi elettronici (un esempio molto comune è il telecomando della TV). In questo caso trasmettitore e ricevitore devono essere messi "faccia-a-faccia" e non troppo distanti tra di loro, perciò non è il caso di usare questa tecnologia nel progetto (non si potrebbe, ad esempio, aprire la porta stando dietro ad un muro).
 
 La tecnologia scelta è quindi quella a radio-frequenza, in cui trasmettitore e ricevitore possono comunicare anche se sono messi in camere diverse. Il dispositivo scelto (MX-05V/XD-RF-5V, Figura \ref{fig:rx_tx_module}) è un modulo composto da trasmettitore e ricevitore in radio-frequenza a 433 MHz (\url{https://sites.google.com/site/summerfuelrobots/arduino-sensor-tutorials/rf-wireless-transmitter-receiver-module-433mhz-for-arduino}). Il trasmettitore è stato utilizzato soltanto per programmare i telecomandi dell'azienda con i codici voluti grazie alla loro funzione di clonazione (codice nella Figura \ref{fig:clone_code}). Il ricevitore, invece, è sempre collegato all'Arduino (Figura \ref{fig:rf_uno}) e riesce a ricevere i segnali mandati dai telecomandi anche da qualche decine di metri di distanza. Se il codice che viene mandato dal telecomando è corretto allora l'Arduino lo risconosce e apre la porta, altrimenti fa finta di niente. 
 
@@ -302,7 +297,7 @@ Esistono tanti tipi diversi di motori Arduino-compatibili, ognuno con i propri p
 Il servomotore (Figura \ref{fig:servo}) è un dispositivo elettromeccanico a basso consumo energetico ed è costituito da un motore DC, un gruppo di ingranaggi, un circuito di controllo (un ponte-H integrato) e un contenitore di plastica che lo racchiude.
 La particolarità del servomotore è che può ruotare con una precisione di alcuni gradi (normalmente da 0$^{\circ}$ a 180$^{\circ}$) in base alla larghezza dell'impulso che riceve. Questa tecnica si chiama Pulse Width Modulation (PWM) e consiste in una serie di impulsi di larghezza variabile che determinano la posizione del servo.
 
-\marginpar{se vuoi aggiungere, descrivi il funzionamento interno (potenziometro)}
+\marginpar{\textbf{TO DO TO DO} se vuoi aggiungere, descrivi il funzionamento interno (potenziometro)} 
 
 \begin{figure}
 	\center{\includegraphics[width=0.15\linewidth]{./img/servo.png}}
@@ -343,11 +338,9 @@ Generalmente, nel caso dei servomotori, si ha un periodo totale \textit{T} = 20 
 	\item se la durata del livello logico HIGH dell'impulso sta nell'intervallo [1.5ms, 2ms] allora il servo ruota verso destra a partire dalla posizione centrale (la sua posizione varia tra 90$^{\circ}$ e 180$^{\circ}$)
 \end{itemize}
 
-<<<<<<< HEAD
-Per controllare un servomotore con l'Arduino non dobbiamo pensare a tutte queste cose perchè esiste una libreria (\url{https://www.arduino.cc/en/reference/servo}) che ne facilita il lavoro: basta pensare in gradi (esempio di collegamento tra servo e Arduino nella Figura \ref{fig:servo_uno} e di codice nella Figura \ref{fig:servo_code}).
-=======
-Per controllare un servomotore con l'Arduino non dobbiamo pensare a tutte queste cose\marginpar{troppo colloquiale} perché esiste una libreria (\url{https://www.arduino.cc/en/reference/servo}) che ne facilita il lavoro: basta pensare in gradi (esempio di collegamento tra servo e Arduino in Figura \ref{fig:servo_uno} e di codice in Figura \ref{fig:servo_code}).
->>>>>>> d8a2077fedaf8ec96111011b7bd2b59767560b40
+
+Controllare un servomotore con l'Arduino è in realtà semplice perché esiste una libreria (\url{https://www.arduino.cc/en/reference/servo}) che ne facilita il lavoro: basta pensare in gradi (esempio di collegamento tra servo e Arduino nella Figura \ref{fig:servo_uno} e di codice nella Figura \ref{fig:servo_code}).
+
 
 \begin{figure}
 	\center{\includegraphics[width=0.3\linewidth]{./img/servo_uno.png}}
@@ -369,7 +362,7 @@ Per controllare un servomotore con l'Arduino non dobbiamo pensare a tutte queste
 
 \begin{itemize}
 	\item I tag passivi sono poco costosi e contengono un'antenna e un piccolo chip con identificativo univoco e privo di alimentazione. Questi tag vengono utilizzati per l'identificazione a breve distanza (qualche centimetro) e vengono "attivati" dalle onde radio del lettore.
-	\item I tag attivi sono piu' costosi e permettono, grazie all'alimentazione interna (emettono loro stessi i segnali radio), l'identificazione a lunga distanza (fino a 200 metri).
+	\item I tag attivi sono più costosi e permettono, grazie all'alimentazione interna (emettono loro stessi i segnali radio), l'identificazione a lunga distanza (fino a 200 metri).
 \end{itemize}
 
 La tecnologia RFID si diversifica anche nella frequenza utilizzata e trova utilizzo in tanti campi diversi quali gestione accessi, tracciabilità degli animali, gestione dei biglietti elettronici, ecc$.$ (per le basse e medie frequenze), ma anche in Telepass, identificazione di auto in movimento, tracciabilità degli oggetti in movimento ecc. (per le frequenze alte e altissime).
@@ -400,7 +393,7 @@ Nelle Figure \ref{fig:rfid_uno} e \ref{fig:rfid_code} si trovano rispettivamente
 \section{Display LCD 16x2}
 %
 
-I moduli LCD trovano ampio utilizzo nei sistemi embedded grazie al basso costo, disponibilità e utilità. Il display utilizzato si chiama "16x2 LCD" (Figura \ref{fig:16x2}) proprio perchè possiede uno schermo su cui si possono scrivere 2 linee di 16 caratteri ciascuna. Questi dispositivi sono abbastanza complessi (ci sono 1280 pixel da indirizzare) e per poterli utilizzare in maniera semplice ed efficiente è necessario avere un'interfaccia. Infatti i display LCD spesso vengono accoppiati con un controller che rende la vita facile al programmatore. Il controller piu' utilizzato (infatti è considerato uno standard \textit{de facto}) si chiama HD44780 (\url{https://www.sparkfun.com/datasheets/LCD/HD44780.pdf}), costruito dalla Hitachi, ed è in grado di controllare display LCD capaci di visualizzare solo caratteri. L'HD44780 supporta il trasferimento parallelo a 8 bit (possiede 8 bit di dati) e il suo compito principale è di ricevere i comandi e i dati in arrivo dall'MCU per poi processarli
+I moduli LCD trovano ampio utilizzo nei sistemi embedded grazie al basso costo, disponibilità e utilità. Il display utilizzato si chiama "16x2 LCD" (Figura \ref{fig:16x2}) proprio perchè possiede uno schermo su cui si possono scrivere 2 linee di 16 caratteri ciascuna. Questi dispositivi sono abbastanza complessi (ci sono 1280 pixel da indirizzare) e per poterli utilizzare in maniera semplice ed efficiente è necessario avere un'interfaccia. Infatti i display LCD spesso vengono accoppiati con un controller che rende la vita facile al programmatore. Il controller più utilizzato (infatti è considerato uno standard \textit{de facto}) si chiama HD44780 (\url{https://www.sparkfun.com/datasheets/LCD/HD44780.pdf}), costruito dalla Hitachi, ed è in grado di controllare display LCD capaci di visualizzare solo caratteri. L'HD44780 supporta il trasferimento parallelo a 8 bit (possiede 8 bit di dati) e il suo compito principale è di ricevere i comandi e i dati in arrivo dall'MCU per poi processarli
 e mandarli all'LCD.
 
 \begin{figure}
@@ -415,7 +408,7 @@ e mandarli all'LCD.
 	\label{fig:lcd_code}
 \end{figure}
 
-Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab:lcd_pinout}, è il numero di pin necessari da collegare (e la pazienza per farlo) all'Arduino per poter farlo funzionare correttamente. Questo significa che, siccome l'Arduino ha un numero limitato di pin (13 digitali e 6 analogici), essi potrebbero non bastare per un progetto di dimensioni piu' grandi. Fortunatamente c'è una soluzione: I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C"). Esiste un chip che rende possibile la riduzione del numero di pin utilizzati a 2 (SDA e SCL) cambiando l'interfaccia parallela del controller in una seriale. Questo chip si chiama PCF8574 I/O Expander ed è definito come un backpack (è letteralmente uno "zaino" che si salda sopra l'LCD) e permette appunto all'LCD e all'Arduino di comunicare utilizzando il protocollo I$^2$C. Per utilizzarlo con Arduino esiste già una libreria che si chiama LiquidCrystal\_PCF8574 (\url{https://platformio.org/lib/show/1165/LiquidCrystal_PCF8574/installation}) che sfrutta la libreria Wire (\url{https://www.arduino.cc/en/Reference/Wire}) per implementare alcune funzioni utili al programmatore (esempio di codice nella Figura \ref{fig:lcd_code}).
+Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab:lcd_pinout}, è il numero di pin necessari da collegare (e la pazienza per farlo) all'Arduino per poter farlo funzionare correttamente. Questo significa che, siccome l'Arduino ha un numero limitato di pin (13 digitali e 6 analogici), essi potrebbero non bastare per un progetto di dimensioni più grandi. Fortunatamente c'è una soluzione: I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C"). Esiste un chip che rende possibile la riduzione del numero di pin utilizzati a 2 (SDA e SCL) cambiando l'interfaccia parallela del controller in una seriale. Questo chip si chiama PCF8574 I/O Expander ed è definito come un backpack (è letteralmente uno "zaino" che si salda sopra l'LCD) e permette appunto all'LCD e all'Arduino di comunicare utilizzando il protocollo I$^2$C. Per utilizzarlo con Arduino esiste già una libreria che si chiama LiquidCrystal\_PCF8574 (\url{https://platformio.org/lib/show/1165/LiquidCrystal_PCF8574/installation}) che sfrutta la libreria Wire (\url{https://www.arduino.cc/en/Reference/Wire}) per implementare alcune funzioni utili al programmatore (esempio di codice nella Figura \ref{fig:lcd_code}).
 
 
 \begin{table}[h!]
@@ -467,7 +460,7 @@ Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab
 	\label{fig:keypad_both}
 \end{figure}
 
-I tastierini sono dei dispositivi di input ampiamente utilizzati per dare la possibilità alle persone di interagire con un sistema (e.g. inserire una password, controllare un robot ecc.). Normalmente i tasti sono disposti in un formato a matrice (in questo caso 4x4, ovvero 16 pulsanti) e permettono ad un microcontrollore di capire facilmente quale tasto è stato premuto in base alle linee che si attivano: nella Figura \ref{fig:keypad_both} si può facilmente vedere che premendo il pulsante "2" vengono attivate le linee "R0" e "C1" e il microcontrollore, grazie a come è stato programmato (esempio di configurazione nella Figura \ref{fig:keypad_config}), è in grado di dire che quel pulsante specifico è stato premuto. Le funzioni per utilizzare il tastierino sono implementate nella libreria Keypad di Arduino (\url{https://playground.arduino.cc/Code/Keypad/}). Nella Figura \ref{fig:keypad_uno} si può vedere un esempio di collegamento tra il tastierino e l'Arduino UNO.
+I tastierini sono dei dispositivi di input ampiamente utilizzati per dare la possibilità alle persone di interagire con un sistema (e.g$.$ inserire una password, controllare un robot ecc.). Normalmente i tasti sono disposti in un formato a matrice (in questo caso 4x4, ovvero 16 pulsanti) e permettono ad un microcontrollore di capire facilmente quale tasto è stato premuto in base alle linee che si attivano: nella Figura \ref{fig:keypad_both} si può facilmente vedere che premendo il pulsante "2" vengono attivate le linee "R0" e "C1" e il microcontrollore, grazie a come è stato programmato (esempio di configurazione nella Figura \ref{fig:keypad_config}), è in grado di dire che quel pulsante specifico è stato premuto. Le funzioni per utilizzare il tastierino sono implementate nella libreria Keypad di Arduino (\url{https://playground.arduino.cc/Code/Keypad/}). Nella Figura \ref{fig:keypad_uno} si può vedere un esempio di collegamento tra il tastierino e l'Arduino UNO.
 
 
 \begin{figure}
@@ -487,8 +480,8 @@ I tastierini sono dei dispositivi di input ampiamente utilizzati per dare la pos
 \section{ESP8266}\label{sec:esp8266}
 %
 
-L'Arduino UNO, a differenza di altre board piu' recenti, non ha il WiFi incorporato perciò bisogna accoppiarlo con uno shield che gli permette di avere quella funzionalità necessaria per un progetto IoT. Per questo progetto è stata scelta l'ESP8266, una famiglia di microchip WiFi a basso costo prodotta da Espressif Systems. Il dispositivo usato in realtà si chiama ESP-01 (Figura \ref{fig:esp01}), è basato sul modulo ESP8266 ed è prodotto da terze parti (Ai-Thinker). Questo piccolo modulo permette a microcontrollori di connettersi alla rete WiFi per fare semplici chiamate HTTP.
-Tra le varie caratteristiche vengono elencate le piu' interessanti:
+L'Arduino UNO, a differenza di altre board più recenti, non ha il WiFi incorporato perciò bisogna accoppiarlo con uno shield che gli permette di avere quella funzionalità necessaria per un progetto IoT. Per questo progetto è stata scelta l'ESP8266, una famiglia di microchip WiFi a basso costo prodotta da Espressif Systems. Il dispositivo usato in realtà si chiama ESP-01 (Figura \ref{fig:esp01}), è basato sul modulo ESP8266 ed è prodotto da terze parti (Ai-Thinker). Questo piccolo modulo permette a microcontrollori di connettersi alla rete WiFi per fare semplici chiamate HTTP.
+Tra le varie caratteristiche vengono elencate le più interessanti:
 
 \begin{figure}
 	\center{\includegraphics[width=0.2\linewidth]{./img/esp01.jpg}}
@@ -638,35 +631,58 @@ L'Arduino UNO è programmato per comunicare con l'ESP-01 tramite SoftwareSerial 
 	\label{fig:arduino_esp_serial_setup}
 \end{figure}
 
-Come si è visto nelle Figure \ref{fig:esp_check} e \ref{fig:esp_log}, l'Arduino inoltra all'ESP-01 delle stringhe che sono quasi in formato JSON: prima dell'oggetto JSON c'è un'altra stringa usata per identificare la funzione voluta (e.g. "check\{object\}" e "log\{object\}"). L'ESP-01 poi filtra questi dettagli non piu' necessari (come nella Figura \ref{fig:esp01_listen}) e chiama la funzione richiesta.
-
-Esempio che descrive gli eventi per la verifica del tag:
+Come si è visto nelle Figure \ref{fig:esp_check} e \ref{fig:esp_log}, l'Arduino inoltra all'ESP-01 delle stringhe che sono quasi in formato JSON: prima dell'oggetto JSON c'è un'altra stringa usata per identificare la funzione voluta (e.g$.$ "check\{object\}" e "log\{object\}"). L'ESP-01 poi filtra questi dettagli non più necessari (come nella Figura \ref{fig:esp01_listen}) e chiama la funzione richiesta. Viene presentato un esempio che descrive la sequenza degli eventi per la verifica del tag:
 
 \begin{enumerate}
 	\item L'utente avvicina il tag al lettore RFID
 	\item L'Arduino legge il seriale del tag e chiama "checkCardSerial(serial)"
 	\item Questa funzione manda un'oggetto in formato quasi-JSON all'ESP-01
-	\item L'ESP-01 riceve questa stringa e filtra l'informazione non piu' necessaria
+	\item L'ESP-01 riceve questa stringa e filtra l'informazione non più necessaria
 	\item L'ESP-01 chiama la funzione richiesta (in questo caso "checkTesseraAPI(serialeJSON)")
 	\item La funzione eseguita manda l'oggetto JSON al server e aspetta una risposta con lo status code.
 	\item L'ESP-01 inoltra lo status code all'Arduino
 	\item In base allo status code l'Arduino prende una decisione: se statusCode = 200 allora il tag è accettato e l'Arduino apre la porta, altrimenti viene rifiutato.
 \end{enumerate}
-
 Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un middleman tra l'Arduino e il server.
 %
-\section{Protocolli di trasmissione dati}
+\section{Protocolli di comunicazione tra dispositivi}
 %
 
 
 %
 \subsection{Logica IoT}
 %
-WiFi
+\textbf{Da fare come riempimento?}
 
 %
 \subsection{I$^2$C}\label{sec:i2c}
 %
+
+\begin{figure}
+	\center{\includegraphics[width=0.6\linewidth]{./img/i2c_bus.png}}
+	\caption{I$^2$C Bus}
+	\label{fig:i2c_bus}
+\end{figure}
+
+\textbf{I}nter \textbf{I}ntegrated \textbf{C}ircuit è un protocollo seriale a due vie inventato dalla NXP per far comunicare tra di loro dispositivi come microcontrollori, memorie EEPROM, dispositivi di input/output ecc. E' un protocollo creato per la comunicazione sincrona e a breve distanza tra dispositivi chiamati dispositivi master e slave (Figura \ref{fig:i2c_bus}): 
+
+\begin{itemize}
+	\item Il slave è un dispositivo che riceve i comandi dal master. Ogni slave ha un indirizzo (deve essere unico all'interno del sistema) normalmente specificato nel datasheet (e.g$.$ per il display LCD 16x2 con il backpack PCF8574 utilizzato nel progetto l'indirizzo è 0x27) attraverso il quale viene indirizzato dal master.
+	\item Il master non ha bisogno di un indirizzo ed è quello che genera il clock (per via di SCL). Il suo compito è di fare partire la comunicazione con i slave e inviare comandi di lettura/scrittura.
+\end{itemize}
+I$^2$C è un protocollo a due vie perchè utilizza due linee bidirezionali:
+
+\begin{itemize}
+	\item SDA (\textbf{S}erial \textbf{Da}ta) attraverso il quale viaggiano i dati. I dati vengono trasferiti in \textit{messaggi} che vengono divisi in blocchi di dati a 8 bit. Ogni messaggio parte con il "Start Condition" e finisce con "Stop Condition" e ha al suo interno, oltre ai blocchi di dati, l'indirizzo dello slave con cui il master desidera comunicare. Per gestire i comandi di lettura/scrittura è presente un Read/Write bit. Nel messaggio vengono inclusi anche i cosidetti ACK/NACK (acknowledge/no-acknowledge) bit che vengono mandati dal destinatario (lo slave in modalità "write", il master in modalità "read") dei blocchi di dati inviati. Un esempio di messaggio si trova nella Figura \ref{fig:i2c_data_bus}.
+	\item SCL (\textbf{S}erial \textbf{Cl}ock) utilizzato dal master per la sincronizzazione.
+\end{itemize}
+
+\begin{figure}
+	\center{\includegraphics[width=1\linewidth]{./img/i2c_data_bus.png}}
+	\caption{Esempio di messaggio inviato sulla linea SDA nel protocollo I$^2$C }
+	\label{fig:i2c_data_bus}
+\end{figure}
+
 
 %
 \subsection{SPI}\label{sec:spi}

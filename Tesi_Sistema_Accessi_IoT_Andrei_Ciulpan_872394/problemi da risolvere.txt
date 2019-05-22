@@ -6,3 +6,5 @@ ATRENT: baco noto e mai risolto, prova a metterli in footnote
 - tabella pinout per ogni dispositivo?
 
 ATRENT: solo se vedi che ti serve "riempimento" ;)
+
+- fixare tutte le accentate alla fine
