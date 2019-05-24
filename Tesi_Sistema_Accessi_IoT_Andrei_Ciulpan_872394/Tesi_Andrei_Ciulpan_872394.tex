@@ -32,6 +32,9 @@
 \usepackage{afterpage}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{tabularx}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
 
 \addto{\captionsitalian}{%
 	\renewcommand{\bibname}{Sitografia}
@@ -647,8 +650,6 @@ Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un mi
 %
 \section{Protocolli di comunicazione tra dispositivi}
 %
-
-
 %
 \subsection{Logica IoT}
 %
@@ -668,12 +669,12 @@ Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un mi
 
 \begin{itemize}
 	\item Il slave è un dispositivo che riceve i comandi dal master. Ogni slave ha un indirizzo (deve essere unico all'interno del sistema) normalmente specificato nel datasheet (e.g$.$ per il display LCD 16x2 con il backpack PCF8574 utilizzato nel progetto l'indirizzo è 0x27) attraverso il quale viene indirizzato dal master.
-	\item Il master non ha bisogno di un indirizzo ed è quello che genera il clock (per via di SCL). Il suo compito è di fare partire la comunicazione con i slave e inviare comandi di lettura/scrittura.
+	\item Il master non ha bisogno di un indirizzo ed è quello che genera il clock (per via di SCL). Il suo compito è di fare partire la comunicazione con i slave e inviare comandi di lettura/scrittura. Un sistema può avere più dispositivi master.
 \end{itemize}
 I$^2$C è un protocollo a due vie perchè utilizza due linee bidirezionali:
 
 \begin{itemize}
-	\item SDA (\textbf{S}erial \textbf{Da}ta) attraverso il quale viaggiano i dati. I dati vengono trasferiti in \textit{messaggi} che vengono divisi in blocchi di dati a 8 bit. Ogni messaggio parte con il "Start Condition" e finisce con "Stop Condition" e ha al suo interno, oltre ai blocchi di dati, l'indirizzo dello slave con cui il master desidera comunicare. Per gestire i comandi di lettura/scrittura è presente un Read/Write bit. Nel messaggio vengono inclusi anche i cosidetti ACK/NACK (acknowledge/no-acknowledge) bit che vengono mandati dal destinatario (lo slave in modalità "write", il master in modalità "read") dei blocchi di dati inviati. Un esempio di messaggio si trova nella Figura \ref{fig:i2c_data_bus}.
+	\item SDA (\textbf{S}erial \textbf{Da}ta) attraverso il quale viaggiano i dati. I dati vengono trasferiti in \textit{messaggi} che vengono divisi in blocchi di dati a 8 bit. Ogni messaggio parte con il "Start Condition" e finisce con "Stop Condition" e ha al suo interno, oltre ai blocchi di dati, l'indirizzo dello slave con cui il master desidera comunicare. Per gestire i comandi di lettura/scrittura è presente un Read/Write bit. Nel messaggio vengono inclusi anche i cosidetti ACK/NACK (acknowledge/no-acknowledge) bit che vengono mandati dal destinatario (lo slave in modalità "write", il master in modalità "read") dei blocchi di dati inviati. Un esempio di messaggio si trova nella Figura \ref{fig:i2c_data_bus}. 
 	\item SCL (\textbf{S}erial \textbf{Cl}ock) utilizzato dal master per la sincronizzazione.
 \end{itemize}
 
@@ -687,6 +688,39 @@ I$^2$C è un protocollo a due vie perchè utilizza due linee bidirezionali:
 %
 \subsection{SPI}\label{sec:spi}
 % 
+
+\textbf{S}erial \textbf{P}eripheral \textbf{I}nterface è un protocollo di comunicazione sincrona inventato dalla Motorola e ampiamente utilizzato nei sistemi embedded. Similmente al protocollo I$^2$C, è stato creato per la comunicazione a breve distanza tra un dispositivo master (in questo caso può essere uno solo) e uno o più slave.
+SPI è basato su 4 segnali (4-wire bus):
+
+\begin{itemize}
+	\item SCLK: (\textbf{S}erial \textbf{Cl}oc\textbf{k}) utilizzato dal master per la sincronizzazione.
+	\item MISO (\textbf{M}aster \textbf{I}nput \textbf{S}lave \textbf{O}utput) collegato all'input del master e all'output degli slave. Viene utilizzata dagli slave per inviare dati al master.
+	\item MOSI (\textbf{M}aster \textbf{O}utput \textbf{S}lave \textbf{I}nput) collegato all'output del master e all'input degli slave. Viene utilizzata dal master per inviare dati allo slave.
+	\item CS (\textbf{C}hip \textbf{S}elect) utilizzato per selezionare lo slave che deve essere abilitato alla comunicazione con il master. Il master può selezionare lo slave con cui vuole parlare semplicemente mettendo a LOW il segnale CS dello slave.
+\end{itemize}
+Anche se sembrano molto simili, ci sono alcune differenze importanti tra i due protocolli presentati che li rendono adatti per varie applicazioni. Le differenze vengono descritte nella Tabella \ref{tab:i2c_vs_spi}.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabularx}{\linewidth}{|L|L|}
+		\hline 
+		\textbf{I$^2$C} & \textbf{SPI} \\ 
+		\hline
+		Può avere più master & Può avere un singolo master \\ 
+		\hline
+		Protocollo a 2 vie & Protocollo a 4 vie (+1 per ogni slave addizionale) \\ 
+		\hline
+		Velocità fino a 3.4 Mbps in modalità High Speed &  Velocità illimitata (normalmente implementata tra 10 e 100 Mbps) \\ 
+		\hline
+		Massimo 112 dispositivi con indirizzamento a 7-bit & Limitato dal numero di pin CS del master \\ 
+		\hline
+		Half-duplex & Full-duplex \\ 
+		\hline
+	\end{tabularx}
+	\caption{I$^2$C vs SPI\cite{i2c_vs_spi}}
+	\label{tab:i2c_vs_spi}
+\end{table}
+
 %			CAPITOLO 3: Software
 \chapter{Software}
 \label{cap3}
@@ -787,6 +821,10 @@ Arduino, Un po' di storia.
 A. Carraturo, A. Trentini, Sistemi Embedded: Teoria e Pratica, prima edizione: Settembre 2017.
 \url{http://www.ledizioni.it/prodotto/a-carraturo-a-trentini-sistemi-embedded-teoria-pratica/}
 %
+
+\bibitem{i2c_vs_spi}
+S. Hymel, SPI vs I2C Protocol Differences and Things to Consider, ultimo aggiornamento Dicembre 2018.
+\url{https://articles.saleae.com/logic-analyzers/spi-vs-i2c-protocol-differences-and-things-to-consider}
 
 \end{thebibliography}
 %
