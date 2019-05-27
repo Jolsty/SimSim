@@ -9,7 +9,7 @@
 %                                                                         %
 %			AUTORE: Andrei Ciulpan                                        %
 %                                                                         %
-%			Ultima revisione: 18.05.2019                                  %
+%			Ultima revisione: 27.05.2019                                  %
 %                                                                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -109,7 +109,7 @@ Le seguente sezione di questo capitolo introdurrà il progetto stesso (denominat
 
 
 %
-\section{Requisiti del progetto}
+\section{Requisiti del progetto}\label{sec:req}
 %
 
 L'attività principale del tirocinio è la realizzazione di un sistema di controllo accessi, da applicare presso varchi. Vengono elencati i requisiti del sistema:
@@ -160,12 +160,12 @@ Nelle figure \ref{fig:usecase} e \ref{fig:flowchart} si possono trovare rispetti
 \end{figure}
 
 
-%			CAPITOLO 2: Hardware
-\chapter{Hardware}
+%			CAPITOLO 2
+\chapter{Sviluppo del sistema embedded}
 \label{cap2}
 %
 
-In questo capitolo vengono dettagliati i dispositivi hardware utilizzati nel progetto. Uno schema completo del circuito elettrico si trova nella Figura \ref{fig:schematics}.
+In questo capitolo vengono dettagliati i dispositivi hardware utilizzati all'interno del sistema embedded. Uno schema completo del circuito elettrico si trova nella Figura \ref{fig:schematics}.
 
 \begin{figure}
 	\center{\includegraphics[width=\textwidth,height=1.1\textheight,keepaspectratio]{./img/schematics.png}}
@@ -178,16 +178,18 @@ In questo capitolo vengono dettagliati i dispositivi hardware utilizzati nel pro
 \section{Raspberry Pi}
 %
 
-Raspberry Pi (Figura \ref{fig:raspi}) è una serie di piccoli computer (system-on-chip) dalle dimensioni simili a quelle di una carta di credito. La scheda è stata sviluppata nel Regno Unito (Fondazione Raspberry Pi). Le prime versioni avevano poca potenza computazionale e sono state progettate con l'intenzione di offrire a insegnanti e studenti uno strumento semplice e poco costoso con cui poter insegnare e imparare a programmare. La scheda ha avuto un enorme successo anche in altri campi (e.g$.$ robotica) e con ogni nuova versione è stata migliorata. Le ultime versioni sono assai potenti e possono essere utilizzate per tante altre cose. Le schede sono basate su sistemi operativi di tipo GNU/Linux, in particolare Raspbian che può essere scaricato dal sito della fondazione (\url{https://www.raspberrypi.org/downloads/}). 
-
-La scheda utilizzata nel progetto (Raspberry Pi 3B+, \url{https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/}) possiede un'architettura su 64 bit, essenziale per poter utilizzare in maniera efficiente MongoDB (che è limitato a una memoria di 2 GB su un sistema a 32bit). Durante lo sviluppo del progetto ho scoperto che Raspbian in realtà non è stato ancora aggiornato per essere un sistema operativo a 64 bit, perciò non poteva sfruttare al meglio la scheda. Come soluzione a questo problema, è stato installato un sistema operativo chiamato openSUSE Tumbleweed (\url{https://software.opensuse.org/distributions/tumbleweed}) che funziona su architetture a 64 bit. 
-Il Raspberry Pi 3B+ possiede inoltre una scheda WiFi, il che la rende un buon candidato per lo scopo principale del progetto, ovvero quello ospitare il server.
 
 \begin{figure}
 	\center{\includegraphics[width=0.4\linewidth]{./img/raspi.jpg}}
 	\caption{Scheda Raspberry Pi}
 	\label{fig:raspi}
 \end{figure}
+
+Raspberry Pi (Figura \ref{fig:raspi}) è una serie di piccoli computer (system-on-chip) dalle dimensioni simili a quelle di una carta di credito. La scheda è stata sviluppata nel Regno Unito (Fondazione Raspberry Pi). Le prime versioni avevano poca potenza computazionale e sono state progettate con l'intenzione di offrire a insegnanti e studenti uno strumento semplice e poco costoso con cui poter insegnare e imparare a programmare. La scheda ha avuto un enorme successo anche in altri campi (e.g$.$ robotica) e con ogni nuova versione è stata migliorata. Le ultime versioni sono assai potenti e possono essere utilizzate per tante altre cose. Le schede sono basate su sistemi operativi di tipo GNU/Linux, in particolare Raspbian che può essere scaricato dal sito della fondazione (\url{https://www.raspberrypi.org/downloads/}). 
+
+La scheda utilizzata nel progetto (Raspberry Pi 3B+, \url{https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/}) possiede un'architettura su 64 bit, essenziale per poter utilizzare in maniera efficiente MongoDB (che è limitato a una memoria di 2 GB su un sistema a 32bit). Durante lo sviluppo del progetto ho scoperto che Raspbian in realtà non è stato ancora aggiornato per essere un sistema operativo a 64 bit, perciò non poteva sfruttare al meglio la scheda. Come soluzione a questo problema, è stato installato un sistema operativo chiamato openSUSE Tumbleweed (\url{https://software.opensuse.org/distributions/tumbleweed}) che funziona su architetture a 64 bit. 
+Il Raspberry Pi 3B+ possiede inoltre una scheda WiFi, il che la rende un buon candidato per lo scopo principale del progetto, ovvero quello di ospitare il server.
+
 
 %
 \section{Arduino UNO}
@@ -212,7 +214,7 @@ La scheda utilizzata nel progetto, Arduino UNO (Figura \ref{fig:uno}), è assolu
 	\item Input Voltage (recommended): 7-12V
 \end{itemize}
 
-Tutto questo rende l'Arduino UNO un dispositivo ideale per il progetto. L'unica cosa che manca è la possibilità di accedere alla connessione WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip WiFi chiamato ESP8266 (si veda la sezione \ref{sec:esp8266} "ESP8266").
+L'Arduino UNO è quindi un dispositivo ideale per il progetto; l'unica cosa che manca è la possibilità di accedere alla connessione WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip WiFi chiamato ESP8266 (si veda la sezione \ref{sec:esp8266} "ESP8266").
 
 \begin{figure}
 	\center{\includegraphics[width=0.4\linewidth]{./img/uno.jpg}}
@@ -233,8 +235,8 @@ La scheda Arduino UNO (e qualsiasi altra board compatibile con Arduino) può ess
 
 I requisiti del progetto richiedono il salvataggio del log dopo ogni accesso avvenuto con successo, e per fare ciò è necessario essere in grado di tenere traccia del tempo. Il Raspberry Pi, diversamente dai PC a cui siamo abituati, può tenere traccia del tempo solo se ha accesso alla connessione Internet per accedere ad un server NTP (Network Time Protocol); nel progetto in questione, il Raspberry Pi, nonostante sia connesso alla rete LAN, è stato privato della connessione Internet per questioni di sicurezza (nessun utente esterno alla rete può accedere al server in locale perciò elimina gran parte degli attacchi possibili). Ciò significa che per poter avere il cosiddetto timestamp nei log bisogna trovare un modo di tenere traccia della data e dell'ora. Fortunatamente esistono dei piccoli chip chiamati RTC che fanno questo lavoro. 
 
-Nella Figura \ref{fig:tinyRTC} si può vedere il dispositivo utilizzato nel progetto, chiamato TinyRTC; è un modulo basato sul clock chip DS1307 (\url{https://datasheets.maximintegrated.com/en/ds/DS1307.pdf}) e supporta il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C") per cui è facilmente utilizzabile dall'Arduino UNO.
-L'orologio può essere programmato con data e ora corrente direttamente dal programma dell'Arduino e, grazie alla batteria al litio (CR1225), continua a tenere traccia del tempo anche senza alimentazione esterna. Il dispositivo è in grado di fornire con abbastanza precisione data e ora in termini di secondi, minuti, ora, giorno, mese e anno. Grazie alla popolarità di Arduino ci sono tante librerie per che permettono il facile utilizzo del dispositivo; io ho usato una libreria chiamata RTClib che si può trovare nel seguente repository: \url{https://github.com/adafruit/RTClib}. Nella Figura \ref{fig:tinyRTC_uno} si può vedere il collegamento con l'UNO.
+Nella Figura \ref{fig:tinyRTC} si può vedere il dispositivo utilizzato nel progetto, chiamato TinyRTC, un modulo basato sul clock chip DS1307 (\url{https://datasheets.maximintegrated.com/en/ds/DS1307.pdf}) e supporta il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C") per cui è facilmente utilizzabile dall'Arduino UNO.
+L'orologio può essere programmato con la data e l'ora corrente direttamente con il programma dell'Arduino e, grazie alla batteria al litio (CR1225), continua a tenere traccia del tempo anche senza alimentazione esterna. Il dispositivo è in grado di fornire, con abbastanza precisione, data e ora in termini di secondi, minuti, ora, giorno, mese e anno. Grazie alla popolarità di Arduino ci sono tante librerie per che permettono il facile utilizzo del dispositivo; nel progetto è stata usata una libreria chiamata RTClib che si può trovare nel seguente repository: \url{https://github.com/adafruit/RTClib}. Nella Figura \ref{fig:tinyRTC_uno} si può vedere il collegamento con l'UNO.
 
 \begin{figure}
 	\centering
@@ -668,7 +670,7 @@ Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un mi
 \textbf{I}nter \textbf{I}ntegrated \textbf{C}ircuit è un protocollo seriale a due vie inventato dalla NXP per far comunicare tra di loro dispositivi come microcontrollori, memorie EEPROM, dispositivi di input/output ecc. E' un protocollo creato per la comunicazione sincrona e a breve distanza tra dispositivi chiamati dispositivi master e slave (Figura \ref{fig:i2c_bus}): 
 
 \begin{itemize}
-	\item Il slave è un dispositivo che riceve i comandi dal master. Ogni slave ha un indirizzo (deve essere unico all'interno del sistema) normalmente specificato nel datasheet (e.g$.$ per il display LCD 16x2 con il backpack PCF8574 utilizzato nel progetto l'indirizzo è 0x27) attraverso il quale viene indirizzato dal master.
+	\item Lo slave è un dispositivo che riceve i comandi dal master. Ogni slave ha un indirizzo (deve essere unico all'interno del sistema) normalmente specificato nel datasheet (e.g$.$ per il display LCD 16x2 con il backpack PCF8574 utilizzato nel progetto l'indirizzo è 0x27) attraverso il quale viene indirizzato dal master.
 	\item Il master non ha bisogno di un indirizzo ed è quello che genera il clock (per via di SCL). Il suo compito è di fare partire la comunicazione con i slave e inviare comandi di lettura/scrittura. Un sistema può avere più dispositivi master.
 \end{itemize}
 I$^2$C è un protocollo a due vie perchè utilizza due linee bidirezionali:
@@ -693,7 +695,7 @@ I$^2$C è un protocollo a due vie perchè utilizza due linee bidirezionali:
 SPI è basato su 4 segnali (4-wire bus):
 
 \begin{itemize}
-	\item SCLK: (\textbf{S}erial \textbf{Cl}oc\textbf{k}) utilizzato dal master per la sincronizzazione.
+	\item SCLK (\textbf{S}erial \textbf{Cl}oc\textbf{k}) utilizzato dal master per la sincronizzazione.
 	\item MISO (\textbf{M}aster \textbf{I}nput \textbf{S}lave \textbf{O}utput) collegato all'input del master e all'output degli slave. Viene utilizzata dagli slave per inviare dati al master.
 	\item MOSI (\textbf{M}aster \textbf{O}utput \textbf{S}lave \textbf{I}nput) collegato all'output del master e all'input degli slave. Viene utilizzata dal master per inviare dati allo slave.
 	\item CS (\textbf{C}hip \textbf{S}elect) utilizzato per selezionare lo slave che deve essere abilitato alla comunicazione con il master. Il master può selezionare lo slave con cui vuole parlare semplicemente mettendo a LOW il segnale CS dello slave.
@@ -721,42 +723,75 @@ Anche se sembrano molto simili, ci sono alcune differenze importanti tra i due p
 	\label{tab:i2c_vs_spi}
 \end{table}
 
-%			CAPITOLO 3: Software
-\chapter{Software}
+
+
+%			CAPITOLO 3
+\chapter{Sviluppo del sito web}
 \label{cap3}
 %
-%
-%
-\section{Strumenti dello sviluppatore}
-Arduino IDE
-\\
-Node.js
-\\
-Postman
-\\
-MongoDB 
-\\
-Per i linguaggi di programmazione metto solo un riferimento alla bibliografia
-%
-%
-\section{Sviluppo del sistema embedded}
-Snippet e spiegazioni di codice
-\\
+
+In questo capitolo vengono descritte le tecnologie e le scelte progettuali che hanno portato allo sviluppo dell'interfaccia grafica richiesta dai requisiti per la gestione del database dell'azienda (si veda la sezione \ref{sec:req} "Requisiti del progetto"). Nella Figura \ref{fig:esempio_libro_soci} si può vedere un esempio della grafica creata per la gestione del libro soci.
+
+\begin{figure}
+	\center{\includegraphics[width=0.85\linewidth]{./img/esempio_libro_soci.png}}
+	\caption{Screenshot fatto durante la fase di test del sito web}
+	\label{fig:esempio_libro_soci}
+\end{figure}
+
 
 %
+\section{Back-End}
+\subsection{Scelte progettuali}
+
+\subsubsection*{NodeJS}
+
+NodeJS e suoi moduli (express, path, body-parser,view-engine ejs, mongoose con riferimento al db) \\
+(si veda la sezione \ref{sec:db} "Database")
+\subsubsection*{MVC}
+
+\begin{figure}
+	\center{\includegraphics[width=0.4\linewidth]{./img/mvc.png}}
+	\caption{Esempio delle interazioni tra i componenti del pattern MVC}
+	\label{fig:mvc}
+\end{figure}
+
+Il sito web è stato creato sulla base di MVC (Model-View-Controller), un pattern architetturale (Figura \ref{fig:mvc}) che separa un'applicazione in tre principali componenti logici: il modello, la vista e il controller. Ognuno di questi componenti è progettato per gestire diversi aspetti specifici dello sviluppo dell'applicazione:
+
+\begin{itemize}
+	\item Il modello corrisponde alla struttura e alla logica dei dati dell'applicazione (esempio nella Figura \ref{fig:log_model}).
+	\item La vista corrisponde alla logica dell'UI (User Interface) dell'applicazione. Rappresenta il modo in cui vengono presentati i dati all'utente (esempio nella Figura \ref{fig:tessere_view}). 
+	\item Il controller accetta l'input dell'utente (e.g. visitare il sito web, cliccare su un pulsante, inviare un modulo ecc.) e lo trasforma in comandi per il modello o per la vista (esempio nella Figura \ref{fig:soci_controller}).
+\end{itemize}
+
+\begin{figure}
+	\center{\includegraphics[width=1\linewidth]{./img/log_model.png}}
+	\caption{Esempio di codice del modello creato per i log}
+	\label{fig:log_model}
+\end{figure}
+
+\begin{figure}
+	\center{\includegraphics[width=1\linewidth]{./img/tessere_view.png}}
+	\caption{Esempio di una parte del codice HTML della vista creata per presentare le tessere all'utente}
+	\label{fig:tessere_view}
+\end{figure}
+
+\begin{figure}
+	\center{\includegraphics[width=1\linewidth]{./img/soci_controller.png}}
+	\caption{Esempio di una parte del codice del controller creato per gestire i comandi relativi ai soci. Questa funzione, quando viene chiamata, cerca nel database i soci in base al termine inviato tra i parametri e poi renderizza una pagina con i risultati.}
+	\label{fig:soci_controller}
+\end{figure}
+
+\subsection{Database}\label{sec:db}
 %
-\section{Sviluppo dell'interfaccia web}
+Mongoose
+MongoDB
+\subsection{API}
 %
-\subsection{Back-End}
-\subsection*{Scelte progettuali}
-MVC
-\subsection*{Database}
-%
-\subsection*{API}
+Postman per testing\\
 Documentazione delle API del back-end
 %
-\subsection{Front-End}
-\subsection*{Scelte progettuali}
+\section{Front-End}
+\subsection{Scelte progettuali}
 Le basi: Javascript, HTML5 \& CSS
 \\
 w3.css
@@ -821,10 +856,13 @@ Arduino, Un po' di storia.
 A. Carraturo, A. Trentini, Sistemi Embedded: Teoria e Pratica, prima edizione: Settembre 2017.
 \url{http://www.ledizioni.it/prodotto/a-carraturo-a-trentini-sistemi-embedded-teoria-pratica/}
 %
-
 \bibitem{i2c_vs_spi}
 S. Hymel, SPI vs I2C Protocol Differences and Things to Consider, ultimo aggiornamento Dicembre 2018.
 \url{https://articles.saleae.com/logic-analyzers/spi-vs-i2c-protocol-differences-and-things-to-consider}
+%
+\bibitem{javascript}
+Mozilla, Javascript, ultimo aggiornamento Maggio 2019.
+\url{https://developer.mozilla.org/en-US/docs/Web/JavaScript}
 
 \end{thebibliography}
 %
