@@ -9,4 +9,5 @@ ATRENT: solo se vedi che ti serve "riempimento" ;)
 
 - fixare tutte le accentate alla fine
 
-- cambio nome del capitolo in 2 in "Sviluppo del sistema embedded" e del capitolo 3 in "Sviluppo dell'interfaccia web" ?
+- cambiato nome del capitolo in 2 in "Sviluppo del sistema embedded" e del capitolo 3 in "Sviluppo dell'interfaccia web" 
+va bene cosi'?

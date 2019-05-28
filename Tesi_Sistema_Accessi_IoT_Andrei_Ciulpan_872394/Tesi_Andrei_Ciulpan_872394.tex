@@ -733,7 +733,7 @@ Anche se sembrano molto simili, ci sono alcune differenze importanti tra i due p
 In questo capitolo vengono descritte le tecnologie e le scelte progettuali che hanno portato allo sviluppo dell'interfaccia grafica richiesta dai requisiti per la gestione del database dell'azienda (si veda la sezione \ref{sec:req} "Requisiti del progetto"). Nella Figura \ref{fig:esempio_libro_soci} si può vedere un esempio della grafica creata per la gestione del libro soci.
 
 \begin{figure}
-	\center{\includegraphics[width=0.85\linewidth]{./img/esempio_libro_soci.png}}
+	\center{\includegraphics[width=0.75\linewidth]{./img/esempio_libro_soci.png}}
 	\caption{Screenshot fatto durante la fase di test del sito web}
 	\label{fig:esempio_libro_soci}
 \end{figure}
@@ -743,10 +743,34 @@ In questo capitolo vengono descritte le tecnologie e le scelte progettuali che h
 \section{Back-End}
 \subsection{Scelte progettuali}
 
-\subsubsection*{NodeJS}
+\subsubsection*{Node.js}
 
-NodeJS e suoi moduli (express, path, body-parser,view-engine ejs, mongoose con riferimento al db) \\
-(si veda la sezione \ref{sec:db} "Database")
+
+Node.js è un framework open-source che esegue codice JavaScript al di fuori da un browser. E' basato sul motore JavaScript V8 di Google ed è stato creato per rendere possibile la creazione di un server utilizzando un linguaggio di programmazione con la stessa sintassi di JavaScript (si parla del paradigma "JavaScript-everywhere"). Tra i vantaggi principali di Node.js abbiamo:
+
+\begin{itemize}
+	\item rende possibile la programmazione ad eventi (un approccio asincrono): un'azione viene lanciata solo quando succede qualcosa (un evento) e non perforza nell'ordine del codice scritto, aumentando l'efficienza soprattutto nell'ambito di networking dove capita spesso dover rimanere in attesa di una risposta;
+	\item scalabilità del software;
+	\item NPM (Node Package Manager): è il più grande ecosistema di librerie open source al mondo. Infatti Node.js ha un enorme quantità disponibile di librerie scritte da altri sviluppatori e possono essere installati facilmente utilizzando NPM;
+	\item utilizza lo stesso linguaggio di programmazione degli sviluppatori front-end, perciò è ancora piu' semplice diventare un full-stack developer grazie al fatto di non dover perforza conoscere linguaggi come Ruby o PHP.
+\end{itemize}
+
+L'applicazione utilizza vari moduli di Node.js (Figura \ref{fig:node_modules}):
+
+\begin{itemize}
+	\item Path (\url{})
+	\item Express (\url{})
+	\item Body-Parser (\url{})
+	\item EJS (\url{})
+	\item Mongoose (\url{}) -- (si veda la sezione \ref{sec:db} "Database")
+\end{itemize}
+
+\begin{figure}
+	\center{\includegraphics[width=0.45\linewidth]{./img/node_modules.png}}
+	\caption{I moduli di Node.js utilizzati dall'applicazione}
+	\label{fig:node_modules}
+\end{figure}
+
 \subsubsection*{MVC}
 
 \begin{figure}
@@ -755,7 +779,7 @@ NodeJS e suoi moduli (express, path, body-parser,view-engine ejs, mongoose con r
 	\label{fig:mvc}
 \end{figure}
 
-Il sito web è stato creato sulla base di MVC (Model-View-Controller), un pattern architetturale (Figura \ref{fig:mvc}) che separa un'applicazione in tre principali componenti logici: il modello, la vista e il controller. Ognuno di questi componenti è progettato per gestire diversi aspetti specifici dello sviluppo dell'applicazione:
+Il sito web è stato creato sulla base di MVC (Model-View-Controller), un pattern architetturale (Figura \ref{fig:mvc}) che separa un'applicazione in tre principali componenti logici: il modello, la vista e il controller. Ognuno di questi componenti è progettato per gestire diversi aspetti specifici dello sviluppo di un'applicazione:
 
 \begin{itemize}
 	\item Il modello corrisponde alla struttura e alla logica dei dati dell'applicazione (esempio nella Figura \ref{fig:log_model}).
