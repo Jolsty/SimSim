@@ -33,11 +33,30 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{tabularx}
+\usepackage{listings}
+
+
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 
 
 \addto{\captionsitalian}{%
 	\renewcommand{\bibname}{Sitografia}
+}
+
+
+
+\lstset{
+	extendedchars=true,
+	basicstyle=\footnotesize\ttfamily,
+	showstringspaces=false,
+	showspaces=false,
+	numbers=left,
+	numberstyle=\footnotesize,
+	numbersep=9pt,
+	tabsize=2,
+	breaklines=true,
+	showtabs=false,
+	captionpos=b
 }
 
 \newcommand\blankpage{%
@@ -746,7 +765,7 @@ In questo capitolo vengono descritte le tecnologie e le scelte progettuali che h
 \subsubsection*{Node.js}
 
 
-Node.js è un framework open-source che esegue codice JavaScript al di fuori da un browser. E' basato sul motore JavaScript V8 di Google ed è stato creato per rendere possibile la creazione di un server utilizzando un linguaggio di programmazione con la stessa sintassi di JavaScript (si parla del paradigma "JavaScript-everywhere"). Tra i vantaggi principali di Node.js abbiamo:
+Node.js è un framework open-source che esegue codice JavaScript al di fuori da un browser. E' basato sul motore JavaScript V8 di Google ed è stato creato per rendere possibile la creazione di un server utilizzando un linguaggio di programmazione con la stessa sintassi di JavaScript (si parla del paradigma "JavaScript-everywhere"). Vengono elencati alcuni vantaggi principali di Node.js
 
 \begin{itemize}
 	\item rende possibile la programmazione ad eventi (un approccio asincrono): un'azione viene lanciata solo quando succede qualcosa (un evento) e non perforza nell'ordine del codice scritto, aumentando l'efficienza soprattutto nell'ambito di networking dove capita spesso dover rimanere in attesa di una risposta;
@@ -758,11 +777,80 @@ Node.js è un framework open-source che esegue codice JavaScript al di fuori da 
 L'applicazione utilizza vari moduli di Node.js (Figura \ref{fig:node_modules}):
 
 \begin{itemize}
-	\item Path (\url{})
-	\item Express (\url{})
-	\item Body-Parser (\url{})
-	\item EJS (\url{})
-	\item Mongoose (\url{}) -- (si veda la sezione \ref{sec:db} "Database")
+	\item Path (\url{https://nodejs.org/docs/latest/api/path.html}) fornisce alcune utilità nel lavorare con i file e con i percorsi delle directory. L'applicazione usa il modulo per definire una directory statica assoluta per i file dell'applicazione senza dover quindi utilizzare l'intero indirizzo della directory "public": 
+\begin{lstlisting}
+app.use(express.static(path.join(__dirname, 'public')));
+\end{lstlisting}
+	\item Express (\url{https://expressjs.com/}) è un framework robusto e flessibile che fornisce un insieme di funzioni che facilitano e velocizzano lo sviluppo di applicazioni web con Node.js. L'applicazione fa uso di express per:
+	\begin{itemize}
+		\item definire delle middleware per rispondere a richieste HTTP e per gestire gli errori. Esempio di middleware per renderizzare la pagina "404.ejs" nel caso in cui un utente provi ad accedere ad una pagina non esistente:
+\begin{lstlisting}
+// Catch 404 and forward to error handler
+
+app.use(function(req, res, next) {
+	var err = new Error('Not Found');
+	err.status = 404;
+	next(err);
+});
+	
+app.use(function(err, req, res, next) {
+
+// render the error page
+	if (err.status === 404) res.render('404');
+	else { // other types of errors
+		res.status(err.status || 500);
+		res.render('error');
+	}
+});
+\end{lstlisting}
+		\item definire una tabella di routing (lista di endpoint) che viene usata per eseguire diverse azioni in base all'URL e al tipo di richiesta HTTP. Un esempio di utilizzo è: 	
+\begin{lstlisting}
+app.get('/', (req, res) => res.render('index'));
+\end{lstlisting}
+		Quando viene fatta una richiesta GET all'endpoint "/" allora, come risposta, l'applicazione invia all'utente un file chiamato "index.ejs" (che rappresenta la homepage) che viene poi renderizzato dal suo browser;
+		\item renderizzare pagine HTML in maniera dinamica passando degli argomenti ai template (e.g. usando un linguaggio di templating chiamato EJS);
+		\item si possono creare in maniera semplice e veloce delle API RESTful (si veda la sezione \ref{sec:api});
+		\item interfacciarsi con vari database (e.g. MongoDB, MySQL ecc.)
+		\item creare un server che ascolta su una porta preimpostata (fornisce un'astrazione del modulo http di Node.js):
+\begin{lstlisting}
+var server = app.listen(port, () => {
+	console.log("Listening on port " + server.address().port);
+});
+\end{lstlisting}   
+	\end{itemize}
+	\item Body-Parser (\url{https://www.npmjs.com/package/body-parser}) ispeziona i contenuti delle richieste HTTP. Utile per poter leggere i dati in formato JSON (e non solo). 
+\begin{lstlisting}
+app.use(bodyParser.json()); // for parsing json
+app.use(bodyParser.urlencoded( { extended: true } )); // for parsing url encoded data
+app.use(bodyParser.text()); // for parsing raw text (data from arduino)
+\end{lstlisting}
+	\item EJS (\url{https://ejs.co/}) è un linguaggio di templating che permette di generare codice JavaScript all'interno di pagine HTML. Il codice nel lato server è molto semplice: 
+\begin{lstlisting}
+app.set('view engine', 'ejs');
+\end{lstlisting}
+Esempio di utilizzo nel lato client (il codice JavaScript all'interno della pagina HTML è racchiuso tra "$<$\% \%$>$" e l'oggetto "tessere" è stato passato dal server in formato JSON):
+\begin{lstlisting}[language=HTML]
+% for(var i=0; i<tessere.length; i++) { %>
+	<tr class="w3-black tessere-table-mobile">
+		<td><%= tessere[i].numero_tessera %></td>
+		<td><%= tessere[i].seriale %></td>
+		<td><%= dateFormat(tessere[i].rilasciato.toLocaleString("it-IT", { "year": "numeric", "month": "2-digit", "day": "2-digit" })) %></td>
+		<td><%= dateFormat(tessere[i].ultimo_rinnovo.toLocaleString("it-IT", { "year": "numeric", "month": "2-digit", "day": "2-digit" })) %></td>
+		<% if ( tessere[i].stato === "ATTIVATA" ) { %>
+			<td>
+				<div class="green-circle" style="margin: auto;"></div>
+			</td>
+		<% } else { %>
+			<td>
+				<div class="red-circle" style="margin: auto;"></div>
+			</td>
+		<% } %>
+	</tr>
+<% } %>
+\end{lstlisting}
+
+	\item Mongoose (\url{https://mongoosejs.com/}) è una libreria di ODM (object data modeling) che fornisce un ambiente per la modelizzazione dei dati di MongoDB permettendo la definizione degli oggetti sotto uno schema fortemente tipizzato (si veda la sezione \ref{sec:db} "Database")
+	
 \end{itemize}
 
 \begin{figure}
@@ -809,7 +897,7 @@ Il sito web è stato creato sulla base di MVC (Model-View-Controller), un patter
 %
 Mongoose
 MongoDB
-\subsection{API}
+\subsection{API}\label{sec:api}
 %
 Postman per testing\\
 Documentazione delle API del back-end

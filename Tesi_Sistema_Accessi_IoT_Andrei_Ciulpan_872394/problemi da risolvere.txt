@@ -9,5 +9,15 @@ ATRENT: solo se vedi che ti serve "riempimento" ;)
 
 - fixare tutte le accentate alla fine
 
-- cambiato nome del capitolo in 2 in "Sviluppo del sistema embedded" e del capitolo 3 in "Sviluppo dell'interfaccia web" 
-va bene cosi'?
+-  i pezzi di codice su sfondo nero sono poco leggibili, li includerei con un lstlistings
+environment (https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings)
+
+- *brevemente* il contesto di lavoro del fablab, se e come sei stato seguito/aiutato, etc.
+
+- fixare le immagini troppo grandi
+
+- elenco API
+
+- problema del package color (provato anche xcolor).. compila con tanti errori riguardanti alle figure 
+(ho cercato ovunque online, non trovo una soluzione)
+questo significa che non posso avere colori nel \lstset
