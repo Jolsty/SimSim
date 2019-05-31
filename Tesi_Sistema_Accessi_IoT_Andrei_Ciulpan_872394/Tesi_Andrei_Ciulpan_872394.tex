@@ -280,7 +280,34 @@ L'orologio può essere programmato con la data e l'ora corrente direttamente con
 Ci sono due principali tipi di tecnologie per i telecomandi: a raggi infrarossi o a radio-frequenza (RF).
 La tecnologia a raggi infrarossi è quella più utilizzata ed è usata da tanti dispositivi elettronici (un esempio molto comune è il telecomando della TV). In questo caso trasmettitore e ricevitore devono essere messi "faccia-a-faccia" e non troppo distanti tra di loro, perciò non è il caso di usare questa tecnologia nel progetto (non si potrebbe, ad esempio, aprire la porta stando dietro ad un muro).
 
-La tecnologia scelta è quindi quella a radio-frequenza, in cui trasmettitore e ricevitore possono comunicare anche se sono messi in camere diverse. Il dispositivo scelto (MX-05V/XD-RF-5V, Figura \ref{fig:rx_tx_module}) è un modulo composto da trasmettitore e ricevitore in radio-frequenza a 433 MHz (\url{https://sites.google.com/site/summerfuelrobots/arduino-sensor-tutorials/rf-wireless-transmitter-receiver-module-433mhz-for-arduino}). Il trasmettitore è stato utilizzato soltanto per programmare i telecomandi dell'azienda con i codici voluti grazie alla loro funzione di clonazione (codice nella Figura \ref{fig:clone_code}). Il ricevitore, invece, è sempre collegato all'Arduino (Figura \ref{fig:rf_uno}) e riesce a ricevere i segnali mandati dai telecomandi anche da qualche decine di metri di distanza. Se il codice che viene mandato dal telecomando è corretto allora l'Arduino lo risconosce e apre la porta, altrimenti fa finta di niente. 
+La tecnologia scelta è quindi quella a radio-frequenza, in cui trasmettitore e ricevitore possono comunicare anche se sono messi in camere diverse. Il dispositivo scelto (MX-05V/XD-RF-5V, Figura \ref{fig:rx_tx_module}) è un modulo composto da trasmettitore e ricevitore in radio-frequenza a 433 MHz (\url{https://sites.google.com/site/summerfuelrobots/arduino-sensor-tutorials/rf-wireless-transmitter-receiver-module-433mhz-for-arduino}). Il trasmettitore è stato utilizzato soltanto per programmare i telecomandi dell'azienda con i codici voluti grazie alla loro funzione di clonazione (codice sottostante).
+\begin{lstlisting}
+#include <RCSwitch.h>
+
+int i = 0;
+const char code[24] = "011100011011000110011010";
+RCSwitch mySwitch = RCSwitch();
+
+void setup() {
+	Serial.begin(9600);
+	mySwitch.enableTransmit(A0);
+	mySwitch.setPulseLength(600);
+	mySwitch.setProtocol(1);
+}
+
+void loop() {
+	i = 0;
+		while ( i<4) {
+		mySwitch.send(code);
+		i++;
+		delay(400);
+	}
+	delay(3000);
+}
+\end{lstlisting}
+
+
+Il ricevitore, invece, è sempre collegato all'Arduino (Figura \ref{fig:rf_uno}) e riesce a ricevere i segnali mandati dai telecomandi anche da qualche decine di metri di distanza. Se il codice che viene mandato dal telecomando è corretto allora l'Arduino lo risconosce e apre la porta, altrimenti fa finta di niente. 
 
 
 Il ricevitore, per aumentare il range, è stato accoppiato con un'antenna lunga 17,3 cm. Il motivo di questa scelta è che la lunghezza dell'antenna deve essere 1/4 di quella della lunghezza d'onda. Bisogna quindi calcolare la lunghezza d'onda $\lambda$:
@@ -293,16 +320,11 @@ dove \textit{v} è la velocità della luce e \textit{f} è la frequenza (433 MHz
 %
 
 \begin{figure}
-	\center{\includegraphics[width=0.5\linewidth]{./img/receiver_transmitter_module.jpg}}
+	\center{\includegraphics[width=0.3\linewidth]{./img/receiver_transmitter_module.jpg}}
 	\caption{Modulo transceiver MX-05V/XD-RF-5V}
 	\label{fig:rx_tx_module}
 \end{figure}
 
-\begin{figure}
-	\center{\includegraphics[width=0.5\linewidth]{./img/clonare_telecomando.png}}
-	\caption{Programma di Arduino per mandare i codici che poi vengono clonati dai telecomandi}
-	\label{fig:clone_code}
-\end{figure}
 
 \begin{figure}
 	\center{\includegraphics[width=0.5\linewidth]{./img/rf_uno.png}}
@@ -363,19 +385,36 @@ Generalmente, nel caso dei servomotori, si ha un periodo totale \textit{T} = 20 
 \end{itemize}
 
 
-Controllare un servomotore con l'Arduino è in realtà semplice perché esiste una libreria (\url{https://www.arduino.cc/en/reference/servo}) che ne facilita il lavoro: basta pensare in gradi (esempio di collegamento tra servo e Arduino nella Figura \ref{fig:servo_uno} e di codice nella Figura \ref{fig:servo_code}).
+Controllare un servomotore con l'Arduino è in realtà semplice perché esiste una libreria (\url{https://www.arduino.cc/en/reference/servo}) che ne facilita il lavoro: basta pensare in gradi. Nella Figura \ref{fig:servo_uno} viene fatto vedere un esempio di collegamento tra il servo e l'Arduino e il codice per controllarlo si può trovare sotto.
+
+\begin{lstlisting}
+#include <Servo.h>
+
+Servo myservo;
+int pos = 0;
+
+void setup() {
+	myservo.attach(9);
+}
+
+void loop() {
+	for (pos = 0; pos <= 180; pos += 1) {  
+		myservo.write(pos);				 
+		delay(15);                      
+	}
+	
+	for (pos = 1800; pos >= 0; pos -= 1) {  
+		myservo.write(pos);				   
+		delay(15);                        
+	}
+}
+\end{lstlisting}
 
 
 \begin{figure}
 	\center{\includegraphics[width=0.3\linewidth]{./img/servo_uno.png}}
 	\caption{Servomotore e Arduino UNO}
 	\label{fig:servo_uno}
-\end{figure}
-
-\begin{figure}
-	\center{\includegraphics[width=0.9\linewidth]{./img/servo_code.png}}
-	\caption{Codice per controllare un servomotore tramite la libreria "servo.h"}
-	\label{fig:servo_code}
 \end{figure}
 
 %
@@ -397,9 +436,23 @@ La tecnologia RFID si diversifica anche nella frequenza utilizzata e trova utili
 	\label{fig:mfrc522}
 \end{figure}
 
-Il lettore RFID utilizzato nel progetto è il MFRC522 (\url{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}; Figura \ref{fig:mfrc522}). Esso opera su una frequenza di 13.56 MHz ed è in grado di comunicare con tag che si conformano allo standard ISO/IEC 14443 A/MIFARE. Implementa vari protocolli di comunicazione (SPI, Serial UART, I$^2$C) ma è stata sviluppata solo una libreria di Arduino (\url{https://github.com/miguelbalboa/rfid}) basata sul protocollo SPI (si veda la sezione \ref{sec:spi} "SPI").
+Il lettore RFID utilizzato nel progetto è il MFRC522 illustrato nella Figura \ref{fig:mfrc522} (\url{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}). Esso opera su una frequenza di 13.56 MHz ed è in grado di comunicare con tag che si conformano allo standard ISO/IEC 14443 A/MIFARE. Implementa vari protocolli di comunicazione (SPI, Serial UART, I$^2$C) ma è stata sviluppata solo una libreria di Arduino (\url{https://github.com/miguelbalboa/rfid}) basata sul protocollo SPI (si veda la sezione \ref{sec:spi} "SPI").
 
-Nelle Figure \ref{fig:rfid_uno} e \ref{fig:rfid_code} si trovano rispettivamente il circuito per collegare il lettore RFID con l'UNO e un esempio di codice per la lettura dei tag.
+Nella Figura \ref{fig:rfid_uno} si trova il circuito per collegare il lettore RFID con l'UNO e un esempio di codice di Arduino per leggere i tag si trova sotto.
+
+\begin{lstlisting}
+boolean rfidCardRead(void) {
+	if ( !rfid.PICC_IsNewCardPresent() ) return false;
+	if ( !rfid.PICC_ReadCardSerial() ) return false;
+	currentCardNumber = "";
+	for ( uint8_t i=0; i<5; i++ ) {
+		currentCardNumber.concat(String(rfid.uid.uidByte[i], HEX));
+	}
+	currentCardNumber.toUpperCase();
+	rfid.PICC_HaltA(); 
+	return true;
+}
+\end{lstlisting} 
 
 \begin{figure}
 	\center{\includegraphics[width=0.65\linewidth]{./img/rfid_uno.png}}
@@ -407,11 +460,6 @@ Nelle Figure \ref{fig:rfid_uno} e \ref{fig:rfid_code} si trovano rispettivamente
 	\label{fig:rfid_uno}
 \end{figure}
 
-\begin{figure}
-	\center{\includegraphics[width=0.75\linewidth]{./img/rfid_code.png}}
-	\caption{Esempio di codice in Arduino per la lettura dei tag}
-	\label{fig:rfid_code}
-\end{figure}
 
 %
 \section{Display LCD 16x2}
@@ -421,18 +469,31 @@ I moduli LCD trovano ampio utilizzo nei sistemi embedded grazie al basso costo, 
 e mandarli all'LCD.
 
 \begin{figure}
-	\center{\includegraphics[width=0.6\linewidth]{./img/16x2.jpg}}
+	\center{\includegraphics[width=0.4\linewidth]{./img/16x2.jpg}}
 	\caption{Display LCD 16x2}
 	\label{fig:16x2}
 \end{figure}
 
-\begin{figure}
-	\center{\includegraphics[width=0.9\linewidth]{./img/lcd_code.png}}
-	\caption{Esempio di codice per utilizzare il LCD 16x2 con la libreria LiquidCrystal\_PCF8574)}
-	\label{fig:lcd_code}
-\end{figure}
+Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab:lcd_pinout}, è il numero di pin necessari da collegare (e la pazienza per farlo) all'Arduino per poter farlo funzionare correttamente. Questo significa che, siccome l'Arduino ha un numero limitato di pin (13 digitali e 6 analogici), essi potrebbero non bastare per un progetto di dimensioni più grandi. Fortunatamente c'è una soluzione: I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C"). Esiste un chip che rende possibile la riduzione del numero di pin utilizzati a 2 (SDA e SCL) cambiando l'interfaccia parallela del controller in una seriale. Questo chip si chiama PCF8574 I/O Expander ed è definito come un backpack (è letteralmente uno "zaino" che si salda sopra l'LCD) e permette appunto all'LCD e all'Arduino di comunicare utilizzando il protocollo I$^2$C. Per utilizzarlo con Arduino esiste già una libreria che si chiama LiquidCrystal\_PCF8574 (\url{https://platformio.org/lib/show/1165/LiquidCrystal_PCF8574/installation}) che sfrutta la libreria Wire (\url{https://www.arduino.cc/en/Reference/Wire}) per implementare alcune funzioni utili al programmatore. Esempio di codice per utilizzare il LCD 16x2 con la libreria LiquidCrystal\_PCF8574:
 
-Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab:lcd_pinout}, è il numero di pin necessari da collegare (e la pazienza per farlo) all'Arduino per poter farlo funzionare correttamente. Questo significa che, siccome l'Arduino ha un numero limitato di pin (13 digitali e 6 analogici), essi potrebbero non bastare per un progetto di dimensioni più grandi. Fortunatamente c'è una soluzione: I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C"). Esiste un chip che rende possibile la riduzione del numero di pin utilizzati a 2 (SDA e SCL) cambiando l'interfaccia parallela del controller in una seriale. Questo chip si chiama PCF8574 I/O Expander ed è definito come un backpack (è letteralmente uno "zaino" che si salda sopra l'LCD) e permette appunto all'LCD e all'Arduino di comunicare utilizzando il protocollo I$^2$C. Per utilizzarlo con Arduino esiste già una libreria che si chiama LiquidCrystal\_PCF8574 (\url{https://platformio.org/lib/show/1165/LiquidCrystal_PCF8574/installation}) che sfrutta la libreria Wire (\url{https://www.arduino.cc/en/Reference/Wire}) per implementare alcune funzioni utili al programmatore (esempio di codice nella Figura \ref{fig:lcd_code}).
+\begin{lstlisting}
+LiquidCrystal_PCF8574 lcd(lcdAddr); // lcdAddr = 0x27
+
+void lcdSetup(void) {
+	Wire.beginTransmission(lcdAddr);
+	if ( Wire.endTransmission() == 0 ) Serial.println(F("LCD OK"));
+	else Serial.println(F("LCD MISSING"));
+	lcd.begin(16,2);
+	lcd.noBlink();
+	lcdHomeMode();
+}
+
+void lcdHomeMode(void) {
+	lcd.setBacklight(0);
+	lcd.clear();
+}
+
+\end{lstlisting}
 
 
 \begin{table}[h!]
@@ -484,14 +545,22 @@ Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab
 	\label{fig:keypad_both}
 \end{figure}
 
-I tastierini sono dei dispositivi di input ampiamente utilizzati per dare la possibilità alle persone di interagire con un sistema (e.g$.$ inserire una password, controllare un robot ecc.). Normalmente i tasti sono disposti in un formato a matrice (in questo caso 4x4, ovvero 16 pulsanti) e permettono ad un microcontrollore di capire facilmente quale tasto è stato premuto in base alle linee che si attivano: nella Figura \ref{fig:keypad_both} si può facilmente vedere che premendo il pulsante "2" vengono attivate le linee "R0" e "C1" e il microcontrollore, grazie a come è stato programmato (esempio di configurazione nella Figura \ref{fig:keypad_config}), è in grado di dire che quel pulsante specifico è stato premuto. Le funzioni per utilizzare il tastierino sono implementate nella libreria Keypad di Arduino (\url{https://playground.arduino.cc/Code/Keypad/}). Nella Figura \ref{fig:keypad_uno} si può vedere un esempio di collegamento tra il tastierino e l'Arduino UNO.
+I tastierini sono dei dispositivi di input ampiamente utilizzati per dare la possibilità alle persone di interagire con un sistema (e.g$.$ inserire una password, controllare un robot ecc.). Normalmente i tasti sono disposti in un formato a matrice (in questo caso 4x4, ovvero 16 pulsanti) e permettono ad un microcontrollore di capire facilmente quale tasto è stato premuto in base alle linee che si attivano: nella Figura \ref{fig:keypad_both} si può facilmente vedere che premendo il pulsante "2" vengono attivate le linee "R0" e "C1" e il microcontrollore, grazie a come è stato configurato, è in grado di dire che quel pulsante specifico è stato premuto. Segue un esempio di configurazione in Arduino del tastierino (in questo caso non viene utilizzata l'ultima colonna con le lettere): 
+\begin{lstlisting}
+const byte keypadRows = 4;   // quattro righe
+const byte keypadCols = 3;  // tre colonne
+const byte keypadRowPins[keypadRows] = {5, 4, 3, 15}; // 15 = A1
+const byte keypadColPins[keypadCols] = {8, 7, 6};
+const char keypadConfig[keypadRows][keypadCols] =
+{
+{'1','2','3'},
+{'4','5','6'},
+{'7','8','9'},
+{'*','0','#'}
+};
+\end{lstlisting}
+Le funzioni per utilizzare il tastierino sono implementate nella libreria Keypad di Arduino (\url{https://playground.arduino.cc/Code/Keypad/}). Nella Figura \ref{fig:keypad_uno} si può vedere un esempio di collegamento tra il tastierino e l'Arduino UNO.
 
-
-\begin{figure}
-	\center{\includegraphics[width=0.9\linewidth]{./img/keypad_config.png}}
-	\caption{Esempio di configurazione in Arduino della tastiera (in questo caso non viene utilizzata l'ultima colonna con le lettere)}
-	\label{fig:keypad_config}
-\end{figure}
 
 \begin{figure}
 	\center{\includegraphics[width=0.5\linewidth]{./img/keypad_uno.png}}
@@ -564,11 +633,45 @@ Il circuito si può trovare nella Figura \ref{fig:esp_uno}.
 \end{figure}
 
 
-Il dispositivo viene pre-programmato con il firmware AT  (\url{https://www.electrodragon.com/w/ESP8266\_AT-Command\_firmware}) ma è possibile programmarlo anche con codice proprio (vedere la Tabella \ref{tab:esp01_modes} per le modalità di funzionamento) utilizzando l'IDE di Arduino. Nella Figura \ref{fig:esp01_flashed_code} si può vedere una parte del codice caricato sull'ESP-01: all'accensione non fa altro che connettersi alla rete WiFi locale.
+Il dispositivo viene pre-programmato con il firmware AT  (\url{https://www.electrodragon.com/w/ESP8266\_AT-Command\_firmware}) ma è possibile programmarlo anche con codice proprio (vedere la Tabella \ref{tab:esp01_modes} per le modalità di funzionamento) utilizzando l'IDE di Arduino. Segue una parte del codice caricato sull'ESP-01:
 
-Dopo aver effettuato la connessione, l'ESP-01 si mette in ascolto sulla porta seriale per dati in arrivo dall'Arduino (Figura \ref{fig:esp01_listen}) per poi eseguire varie funzioni in base alla richiesta.
+\begin{lstlisting}
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include "wifi_secrets.h"
 
+const char* ssid = SECRET_SSID;
+const char* password = SECRET_PASS;
 
+void setup () {
+
+	Serial.begin(9600);
+	WiFi.begin(ssid, password);
+	Serial.print("Connecting");
+	while (WiFi.status() != WL_CONNECTED) {
+		delay(1000);
+		Serial.print(".");
+	}
+	Serial.println("connected");
+}
+\end{lstlisting}
+Come si può notare, all'accensione non fa altro che connettersi alla rete WiFi locale. La libreria utilizzata è molto bene documentata e si trova a \url{https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/readme.html}.
+Dopo aver effettuato la connessione, l'ESP-01 si mette in ascolto sulla porta seriale per dati in arrivo dall'Arduino per poi eseguire varie funzioni in base alla richiesta:
+\begin{lstlisting}
+void loop() {
+	if ( WiFi.status() == WL_CONNECTED ) {
+		if ( Serial.available() ) {
+		String from_arduinoJSON = Serial.readString();
+			if (from_arduinoJSON.startsWith("check")) {
+				checkTesseraAPI(from_arduinoJSON.substring(5));
+			}
+			else if (from_arduinoJSON.startsWith("log")) {
+				sendLogAPI(from_arduinoJSON.substring(3));
+			}
+		}
+	}
+}
+\end{lstlisting}
 \begin{table}[h!]
 	\begin{center}
 		\begin{tabular}{l|l} 
@@ -581,81 +684,70 @@ Dopo aver effettuato la connessione, l'ESP-01 si mette in ascolto sulla porta se
 		\label{tab:esp01_modes}
 	\end{center}
 \end{table}
-
-\begin{figure}
-	\center{\includegraphics[width=0.5\linewidth]{./img/esp01_flashed_code.png}}
-	\caption{Snippet del codice caricato sull'ESP-01. La libreria utilizzata è molto bene documentata e si trova a \url{https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/readme.html}}
-	\label{fig:esp01_flashed_code}
-\end{figure}
-
-\begin{figure}
-	\center{\includegraphics[width=0.5\linewidth]{./img/esp01_listen.png}}
-	\caption{Snippet del codice caricato sull'ESP-01}
-	\label{fig:esp01_listen}
-\end{figure}
-
-L'Arduino è programmato per mandare 2 tipi di richieste: 
+L'Arduino è programmato per mandare 2 tipi di richieste:
 
 \begin{itemize}
-	\item "check" per quando deve inoltrare all'ESP-01 il codice del tag letto (Figura \ref{fig:uno_check})
-	\item "log" per quando deve inoltrare all'ESP-01 un log (Figura \ref{fig:uno_log})
+	\item "check" per quando deve inoltrare all'ESP-01 il codice del tag per la verifica:
+\begin{lstlisting}
+boolean checkCardSerial(String serial) {
+	boolean allowed = false;
+	String bodyJSON = "check{\"seriale\":\"" + serial + "\"}";
+	int statusCode = printBodyToESP(bodyJSON);
+	...
+}
+\end{lstlisting}
+	\item "log" per quando deve inoltrare all'ESP-01 un log:
+\begin{lstlisting}
+void sendLog(String tipo) {
+	String date = getCurrentFormattedDate();
+	String bodyJSON = "log{\"data\":\"";
+	bodyJSON.concat(date);
+	bodyJSON.concat("Z\",\"tipo\":\"" + tipo + "\"}\0");
+	int statusCode = printBodyToESP(bodyJSON);
+	if (statusCode == 200) Serial.println("Log sent");
+	else Serial.println("Problem with sending log. Code: " + String(statusCode));
+}
+\end{lstlisting}
 \end{itemize}
-
-\begin{figure}
-	\centering
-	\begin{subfigure}{0.5\textwidth}
-		\centering
-		\includegraphics[width=0.99\linewidth]{./img/uno_check.png}
-		\caption{Funzione per verificare un tag}
-		\label{fig:uno_check}
-	\end{subfigure}%
-	\begin{subfigure}{0.5\textwidth}
-		\centering
-		\includegraphics[width=0.99\linewidth]{./img/uno_log.png}
-		\caption{Funzione per mandare un log all'ESP-01}
-		\label{fig:uno_log}
-	\end{subfigure}
-	\caption{Snippet di codici caricati sull'Arduino UNO}
-	\label{fig:uno_functions}
-\end{figure}
-
 In base alla richiesta vengono attivate 2 funzioni diverse:
-
 \begin{itemize}
-	\item una per mandare la verifica del tag al server (Figura \ref{fig:esp_check})
-	\item una per mandare il log al server (Figura \ref{fig:esp_log})
+	\item una per mandare la verifica del tag al server tramite una chiamata HTTP:
+\begin{lstlisting}
+void checkTesseraAPI(String tesseraJSON) {
+	HTTPClient http;
+	http.begin("http://192.168.1.71:3000/api/tessere/check");
+	http.addHeader("Content-Type", "text/plain");
+	int statusCode = http.POST(tesseraJSON);
+	delay(10);
+	Serial.print(String(statusCode)); // send code to Arduino;
+	http.end();
+}
+\end{lstlisting}
+	\item una per mandare il log al server tramite una chiamata HTTP: 
+\begin{lstlisting}
+void sendLogAPI(String logJSON) {
+	HTTPClient http;
+	http.begin("http://192.168.1.71:3000/api/logs/add");
+	http.addHeader("Content-Type", "text/plain");
+	int statusCode = http.POST(logJSON);
+	delay(10);
+	Serial.print(String(statusCode)); // send code to Arduino;
+	http.end();
+}
+\end{lstlisting}
 \end{itemize}
-
-\begin{figure}
-	\centering
-	\begin{subfigure}{0.5\textwidth}
-		\centering
-		\includegraphics[width=0.95\linewidth]{./img/esp_check.png}
-		\caption{Funzione per mandare la verifica del tag al server tramite una chiamata HTTP}
-		\label{fig:esp_check}
-	\end{subfigure}%
-	\begin{subfigure}{0.5\textwidth}
-		\centering
-		\includegraphics[width=0.95\linewidth]{./img/esp_log.png}
-		\caption{Funzione per mandare il log al server tramite una chiamata HTTP}
-		\label{fig:esp_log}
-	\end{subfigure}
-	\caption{Snippet di codici caricati sull'ESP-01}
-	\label{fig:esp_functions}
-\end{figure}
 
 \subsection{Comunicazione tra l'Arduino UNO e l'ESP-01 }
 
-L'Arduino UNO è programmato per comunicare con l'ESP-01 tramite SoftwareSerial (https://www.arduino.cc/en/Reference/SoftwareSerial), una libreria che replica, per via software, le funzionalità della comunicazione seriale hardware (sui pin 0 e 1) anche su altri pin digitali. Un esempio di inizializzazione si può trovare nella Figura \ref{fig:arduino_esp_serial_setup}.
+L'Arduino UNO è programmato per comunicare con l'ESP-01 tramite SoftwareSerial (https://www.arduino.cc/en/Reference/SoftwareSerial), una libreria che replica, per via software, le funzionalità della comunicazione seriale hardware (sui pin 0 e 1) anche su altri pin digitali. Esempio di codice per il setup della comunicazione seriale tra l'ESP-01 e l'Arduino UNO utilizzando SoftwareSerial:
+\begin{lstlisting}
+SoftwareSerial ESP(16, 17);
 
-
-\begin{figure}
-	\center{\includegraphics[width=0.6\linewidth]{./img/arduino_esp_serial_setup.png}}
-	\caption{Snippet del codice per il setup della comunicazione seriale tra l'ESP-01 e l'Arduino UNO}
-	\label{fig:arduino_esp_serial_setup}
-\end{figure}
-
-Come si è visto nelle Figure \ref{fig:esp_check} e \ref{fig:esp_log}, l'Arduino inoltra all'ESP-01 delle stringhe che sono quasi in formato JSON: prima dell'oggetto JSON c'è un'altra stringa usata per identificare la funzione voluta (e.g$.$ "check\{object\}" e "log\{object\}"). L'ESP-01 poi filtra questi dettagli non più necessari (come nella Figura \ref{fig:esp01_listen}) e chiama la funzione richiesta. Viene presentato un esempio che descrive la sequenza degli eventi per la verifica del tag:
+void arduinoEspSerialSetup() {
+	ESP.begin(9600);
+}
+\end{lstlisting}
+Come si è visto precedentemente, l'Arduino inoltra all'ESP-01 delle stringhe che sono quasi in formato JSON: prima dell'oggetto JSON c'è un'altra stringa usata per identificare la funzione voluta (e.g$.$ "check\{object\}" e "log\{object\}"). L'ESP-01 poi filtra questi dettagli non più necessari e chiama la funzione richiesta. Viene presentata la sequenza degli eventi per la verifica del tag:
 
 \begin{enumerate}
 	\item L'utente avvicina il tag al lettore RFID
@@ -742,8 +834,6 @@ Anche se sembrano molto simili, ci sono alcune differenze importanti tra i due p
 	\label{tab:i2c_vs_spi}
 \end{table}
 
-
-
 %			CAPITOLO 3
 \chapter{Sviluppo del sito web}
 \label{cap3}
@@ -752,7 +842,7 @@ Anche se sembrano molto simili, ci sono alcune differenze importanti tra i due p
 In questo capitolo vengono descritte le tecnologie e le scelte progettuali che hanno portato allo sviluppo dell'interfaccia grafica richiesta dai requisiti per la gestione del database dell'azienda (si veda la sezione \ref{sec:req} "Requisiti del progetto"). Nella Figura \ref{fig:esempio_libro_soci} si può vedere un esempio della grafica creata per la gestione del libro soci.
 
 \begin{figure}
-	\center{\includegraphics[width=0.75\linewidth]{./img/esempio_libro_soci.png}}
+	\center{\includegraphics[width=0.77\linewidth]{./img/esempio_libro_soci.png}}
 	\caption{Screenshot fatto durante la fase di test del sito web}
 	\label{fig:esempio_libro_soci}
 \end{figure}
@@ -830,7 +920,7 @@ app.set('view engine', 'ejs');
 \end{lstlisting}
 Esempio di utilizzo nel lato client (il codice JavaScript all'interno della pagina HTML è racchiuso tra "$<$\% \%$>$" e l'oggetto "tessere" è stato passato dal server in formato JSON):
 \begin{lstlisting}[language=HTML]
-% for(var i=0; i<tessere.length; i++) { %>
+<% for(var i=0; i<tessere.length; i++) { %>
 	<tr class="w3-black tessere-table-mobile">
 		<td><%= tessere[i].numero_tessera %></td>
 		<td><%= tessere[i].seriale %></td>
@@ -848,16 +938,8 @@ Esempio di utilizzo nel lato client (il codice JavaScript all'interno della pagi
 	</tr>
 <% } %>
 \end{lstlisting}
-
-	\item Mongoose (\url{https://mongoosejs.com/}) è una libreria di ODM (object data modeling) che fornisce un ambiente per la modelizzazione dei dati di MongoDB permettendo la definizione degli oggetti sotto uno schema fortemente tipizzato (si veda la sezione \ref{sec:db} "Database")
-	
+	\item Mongoose (\url{https://mongoosejs.com/}) è una libreria di ODM (\textbf{O}bject \textbf{D}ata \textbf{M}odeling) che fornisce un ambiente per la modelizzazione dei dati di MongoDB permettendo la definizione degli oggetti sotto uno schema fortemente tipizzato (si veda la sezione \ref{sec:db} "Database")	
 \end{itemize}
-
-\begin{figure}
-	\center{\includegraphics[width=0.45\linewidth]{./img/node_modules.png}}
-	\caption{I moduli di Node.js utilizzati dall'applicazione}
-	\label{fig:node_modules}
-\end{figure}
 
 \subsubsection*{MVC}
 
@@ -870,33 +952,98 @@ Esempio di utilizzo nel lato client (il codice JavaScript all'interno della pagi
 Il sito web è stato creato sulla base di MVC (Model-View-Controller), un pattern architetturale (Figura \ref{fig:mvc}) che separa un'applicazione in tre principali componenti logici: il modello, la vista e il controller. Ognuno di questi componenti è progettato per gestire diversi aspetti specifici dello sviluppo di un'applicazione:
 
 \begin{itemize}
-	\item Il modello corrisponde alla struttura e alla logica dei dati dell'applicazione (esempio nella Figura \ref{fig:log_model}).
-	\item La vista corrisponde alla logica dell'UI (User Interface) dell'applicazione. Rappresenta il modo in cui vengono presentati i dati all'utente (esempio nella Figura \ref{fig:tessere_view}). 
-	\item Il controller accetta l'input dell'utente (e.g. visitare il sito web, cliccare su un pulsante, inviare un modulo ecc.) e lo trasforma in comandi per il modello o per la vista (esempio nella Figura \ref{fig:soci_controller}).
+	\item Il modello corrisponde alla struttura e alla logica dei dati dell'applicazione. Esempio che descrive il modello dei log:
+\begin{lstlisting}
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var LogSchema = new Schema (
+{
+	tipo: { type: String, enum: ["telecomando", "tessera", "keypad"], required: true, lowercase: true, trim: true },
+	seriale: { type: String, default: "N/A", uppercase: true, trim: true },
+	nome: { type: String, default: "N/A", lowercase: true, trim: true },
+	cognome:  { type: String, default: "N/A", lowercase: true, trim: true },
+	numero_tessera: { type: String, default: ""},
+	data: { type: Date, required: true }
+});
+
+LogSchema.index( { '$**': 'text'});
+
+// export function to create "Log" model class
+module.exports = mongoose.model("Log", LogSchema);
+\end{lstlisting}
+	\item La vista corrisponde alla logica dell'UI (User Interface) dell'applicazione. Rappresenta il modo in cui vengono presentati i dati all'utente. Esempio di una parte del codice HTML della vista creata per presentare le tessere all'utente:
+\begin{lstlisting}
+<table class="w3-table w3-left w3-border w3-centered w3-animate-opacity">
+	<thead>
+		<tr class="w3-white tessere-table-mobile w3-large">
+			<th>Numero tessera</th>
+			<th>Seriale</th>
+			...
+		</tr>
+	</thead>
+	<tbody>
+		<% for(var i=0; i<tessere.length; i++) { %>
+			<tr class="w3-black tessere-table-mobile">
+				<td><%= tessere[i].numero_tessera %></td>
+				<td><%= tessere[i].seriale %></td>
+				...
+			</tr>
+	</tbody>
+</table>
+\end{lstlisting}
+	\item Il controller accetta l'input dell'utente (e.g. visitare il sito web, cliccare su un pulsante, inviare un modulo ecc.) e lo trasforma in comandi per il modello o per la vista. Esempio di una parte del codice del controller creato per gestire i comandi relativi ai soci:
+\begin{lstlisting}
+exports.fullTableSearch = (req, res) => {
+	let searchTerm = req.params.term;
+	Socio.find( { $text: { $search: searchTerm }})
+		.exec(function(err, soci) {
+		if (err) {
+			console.error(err);
+			return res.status(500).send("Internal Server Error: fullTableSearch ha rilevato un errore");
+		} else return res.render("../views/soci/soci_index", { searched: "true", soci: soci, sociString: JSON.stringify(soci) });
+	});
+}
+\end{lstlisting}
+	 Questa funzione, quando viene chiamata, cerca nel database i soci in base al termine inviato tra i parametri e poi renderizza una pagina con i risultati.
 \end{itemize}
 
-\begin{figure}
-	\center{\includegraphics[width=1\linewidth]{./img/log_model.png}}
-	\caption{Esempio di codice del modello creato per i log}
-	\label{fig:log_model}
-\end{figure}
-
-\begin{figure}
-	\center{\includegraphics[width=1\linewidth]{./img/tessere_view.png}}
-	\caption{Esempio di una parte del codice HTML della vista creata per presentare le tessere all'utente}
-	\label{fig:tessere_view}
-\end{figure}
-
-\begin{figure}
-	\center{\includegraphics[width=1\linewidth]{./img/soci_controller.png}}
-	\caption{Esempio di una parte del codice del controller creato per gestire i comandi relativi ai soci. Questa funzione, quando viene chiamata, cerca nel database i soci in base al termine inviato tra i parametri e poi renderizza una pagina con i risultati.}
-	\label{fig:soci_controller}
-\end{figure}
 
 \subsection{Database}\label{sec:db}
 %
-Mongoose
-MongoDB
+Il DBMS (\textbf{D}ata\textbf{B}ase \textbf{M}anagement \textbf{S}ystem) scelto per l'applicazione si chiama MongoDB (\url{https://www.mongodb.com/}). MongoDB è un DBMS non relazionale (classificato come un database di tipo NoSQL) ed è orientato ai documenti: al posto delle tipiche tabelle dei database relazionali vengono utilizzati dei documenti in formato JSON, facilitando quindi l'integrazione dei dati con quasi tutte le applicazioni web (infatti JSON è il formato di dati più utilizzato per lo scambio dei dati in rete).
+MongoDB si integra facilmente con Node.js grazie a dei driver creati dagli sviluppatori stessi (\url{https://mongodb.github.io/node-mongodb-native/3.2/}). Questi driver, purtroppo, non portano tanta astrazione e sollevano dei problemi per chi non è abituato a un database NoSQL: 
+\begin{itemize}
+	\item la logica dei dati è diversa rispetto a quella che viene insegnata nei corsi tradizionali di basi di dati perciò potrebbe essere difficile abituarsi (ma, come si vedrà, anche non necessario);
+	\item non c'è la possibilità di validare i dati in maniera semplice ma bisogna scrivere del codice che potrebbe essere soggetto a errori;
+	\item le query con i driver nativi di MongoDB non sono tanto leggibili e possono diventare molto complesse perchè usano un insieme di operatori (e.g. quello di uguaglianza "\$eq"). Esempio:
+\begin{lstlisting}
+Account.find({ nome: { $eq: 'Andrea' } });
+\end{lstlisting}
+	\item la manutenzione è resa più complicata per la mancanza di una struttura fissa dei dati.
+\end{itemize}
+
+E' possibile però avere più astrazione (ad un basso costo di performance) utilizzando Mongoose, una libreria basata sui driver di MongoDB ideata per la modellazione degli oggetti di MongoDB e progettata per funzionare in un ambiente asincrono (come Node.js). Mongoose rende più semplice e immediato l'utilizzo di MongoDB per alcuni motivi:
+\begin{itemize}
+	\item facilità di apprendimento;
+	\item query più semplificate e leggibili grazie al "method chaining" di JavaScript (soprattutto quando diventano complesse). Esempio:
+\begin{lstlisting}
+const query = Account.find({})
+.where('nome').equals('Andrea');
+query.exec();
+\end{lstlisting}
+	\item fornisce un modo per dare una struttura ai dati grazie alla creazione degli schemi; ogni schema può essere compilato in un modello, ovvero una classe con cui vengono costruiti i documenti con i comportamenti (metodi) e le proprietà (attributi) dello schema dato;
+	\item permette di validare i dati all'interno degli schemi (e.g. attributo: \{ type: String, lowercase: true \});
+	\item libreria progettata per un ambiente asincrono: è possibile definire delle middleware (pre, post) da chiamare prima o dopo una certa operazione (e.g. di salvataggio). Ad esempio:
+\begin{lstlisting}
+var schema = new Schema(..);
+schema.pre('save', function(next) {
+	// do stuff
+	next(); // chiama il prossimo middleware
+});
+\end{lstlisting}
+\end{itemize}
+
 \subsection{API}\label{sec:api}
 %
 Postman per testing\\
