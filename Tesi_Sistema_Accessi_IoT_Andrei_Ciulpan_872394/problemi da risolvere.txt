@@ -7,13 +7,7 @@ ATRENT: baco noto e mai risolto, prova a metterli in footnote
 
 ATRENT: solo se vedi che ti serve "riempimento" ;)
 
-- fixare tutte le accentate alla fine
-
 - *brevemente* il contesto di lavoro del fablab, se e come sei stato seguito/aiutato, etc.
-
-- fixare le immagini troppo grandi
-
-- elenco API
 
 - problema del package color (provato anche xcolor).. compila con tanti errori per colpa delle figure 
 (ho cercato ovunque online, non trovo una soluzione)
@@ -21,3 +15,16 @@ questo significa che non posso avere colori nel \lstset
 come posso rendere il codice più bello?
 
 - pagina 29 non viene riempita oltre alla tabella
+
+- pagina 39 non viene riempita con l'altra immagine che sta sotto (in teoria lo spazio c'è)
+
+- rendere tabella delle API più bella.. come fare?
+
+
+DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
+
+- fixare tutte le accentate 
+
+- cambiare i " " che sono brutti 
+
+- fixare le immagini troppo grandi 

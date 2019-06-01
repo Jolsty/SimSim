@@ -34,6 +34,7 @@
 \usepackage{subcaption}
 \usepackage{tabularx}
 \usepackage{listings}
+\usepackage{enumerate}
 
 
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
@@ -850,10 +851,12 @@ In questo capitolo vengono descritte le tecnologie e le scelte progettuali che h
 
 %
 \section{Back-End}
+
+In ingegneria del software, il termine back-end rappresenta il lato server di un'applicazione, ovvero un programma che si occupa dei dati dell'applicazione con i quali un utente interagisce indirettamente tramite il front-end. Generalmente il back-end è implementato utilizzando Javascript (Node.js), Python, PHP o Ruby.
+
 \subsection{Scelte progettuali}
 
 \subsubsection*{Node.js}
-
 
 Node.js è un framework open-source che esegue codice JavaScript al di fuori da un browser. E' basato sul motore JavaScript V8 di Google ed è stato creato per rendere possibile la creazione di un server utilizzando un linguaggio di programmazione con la stessa sintassi di JavaScript (si parla del paradigma "JavaScript-everywhere"). Vengono elencati alcuni vantaggi principali di Node.js
 
@@ -873,7 +876,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 \end{lstlisting}
 	\item Express (\url{https://expressjs.com/}) è un framework robusto e flessibile che fornisce un insieme di funzioni che facilitano e velocizzano lo sviluppo di applicazioni web con Node.js. L'applicazione fa uso di express per:
 	\begin{itemize}
-		\item definire delle middleware per rispondere a richieste HTTP e per gestire gli errori. Esempio di middleware per renderizzare la pagina "404.ejs" nel caso in cui un utente provi ad accedere ad una pagina non esistente:
+		\item definire delle middleware per rispondere a richieste HTTP e per gestire gli errori. Esempio di middleware per caricare la pagina "404.ejs" nel caso in cui un utente provi ad accedere ad una pagina non esistente:
 \begin{lstlisting}
 // Catch 404 and forward to error handler
 
@@ -897,8 +900,8 @@ app.use(function(err, req, res, next) {
 \begin{lstlisting}
 app.get('/', (req, res) => res.render('index'));
 \end{lstlisting}
-		Quando viene fatta una richiesta GET all'endpoint "/" allora, come risposta, l'applicazione invia all'utente un file chiamato "index.ejs" (che rappresenta la homepage) che viene poi renderizzato dal suo browser;
-		\item renderizzare pagine HTML in maniera dinamica passando degli argomenti ai template (e.g. usando un linguaggio di templating chiamato EJS);
+		Quando viene fatta una richiesta GET all'endpoint "/" allora, come risposta, l'applicazione invia all'utente un file chiamato "index.ejs" (che rappresenta la homepage) che viene poi caricato dal suo browser;
+		\item caricare pagine HTML in maniera dinamica passando degli argomenti ai template (e.g. usando un linguaggio di templating chiamato EJS);
 		\item si possono creare in maniera semplice e veloce delle API RESTful (si veda la sezione \ref{sec:api});
 		\item interfacciarsi con vari database (e.g. MongoDB, MySQL ecc.)
 		\item creare un server che ascolta su una porta preimpostata (fornisce un'astrazione del modulo http di Node.js):
@@ -1005,7 +1008,7 @@ exports.fullTableSearch = (req, res) => {
 	});
 }
 \end{lstlisting}
-	 Questa funzione, quando viene chiamata, cerca nel database i soci in base al termine inviato tra i parametri e poi renderizza una pagina con i risultati.
+	 Questa funzione, quando viene chiamata, cerca nel database i soci in base al termine inviato tra i parametri e poi carica una pagina con i risultati.
 \end{itemize}
 
 
@@ -1026,11 +1029,18 @@ Account.find({ nome: { $eq: 'Andrea' } });
 E' possibile però avere più astrazione (ad un basso costo di performance) utilizzando Mongoose, una libreria basata sui driver di MongoDB ideata per la modellazione degli oggetti di MongoDB e progettata per funzionare in un ambiente asincrono (come Node.js). Mongoose rende più semplice e immediato l'utilizzo di MongoDB per alcuni motivi:
 \begin{itemize}
 	\item facilità di apprendimento;
-	\item query più semplificate e leggibili grazie al "method chaining" di JavaScript (soprattutto quando diventano complesse). Esempio:
+	\item query più semplificate e leggibili grazie al "method chaining" di JavaScript (soprattutto quando diventano complesse). Ad esempio:
 \begin{lstlisting}
-const query = Account.find({})
-.where('nome').equals('Andrea');
-query.exec();
+exports.updateSocio = (req, res) => {
+	Socio.
+	findOne( { _id: req.params.id } ).
+	exec( (err, socio) => {
+		if (err) {
+			console.error(err);
+			return res.status(500).send("Internal Server Error");
+		} else return res.render("../views/soci/soci_update", { socio: socio });
+	});
+};
 \end{lstlisting}
 	\item fornisce un modo per dare una struttura ai dati grazie alla creazione degli schemi; ogni schema può essere compilato in un modello, ovvero una classe con cui vengono costruiti i documenti con i comportamenti (metodi) e le proprietà (attributi) dello schema dato;
 	\item permette di validare i dati all'interno degli schemi (e.g. attributo: \{ type: String, lowercase: true \});
@@ -1043,13 +1053,152 @@ schema.pre('save', function(next) {
 });
 \end{lstlisting}
 \end{itemize}
+Come esempio, viene presentata la sequenza degli eventi per aggiungere un log (dopo un accesso con la tessera) all'interno del database e poi visualizzarlo sul sito:
+\begin{enumerate}[(I)]
+	\item L'Arduino manda una richiesta di aggiunta del log all'endpoint \emph{/api/logs/add} del server tramite l'ESP-01:
+\begin{lstlisting}
+void sendLogAPI(String logJSON) {
+	HTTPClient http;
+	http.begin("http://192.168.1.71:3000/api/logs/add");
+	http.addHeader("Content-Type", "text/plain");
+	int statusCode = http.POST(logJSON); // HTTP POST request
+	delay(10);
+	Serial.print(String(statusCode)); // invia lo status code all'arduino
+	http.end();
+}
+\end{lstlisting}
+	\item L'applicazione, dopo aver ricevuto una richiesta POST all'endpoint specificato precedentemente, chiama una funzione per gestire la richiesta:
+\begin{lstlisting}
+app.post('/api/logs/add', logs.addLog);
+\end{lstlisting}
+	\item La funzione gestisce la richiesta e salva il log nel database:
+\begin{lstlisting}
+exports.addLog = (req, res) => {
+	var body = JSON.parse(req.body);
+	... // alcune righe di codice per validare i dati
+	if (body.tipo === "tessera") { // log con tessera 
+		Tessera.
+		findOne( { seriale: body.seriale } ). // trova la tessera 
+		populate('socio').
+		exec( (err, tessera) => {
+			if (err) return console.error(err);
+			if (tessera) {
+				let log = new Log ({
+					nome: tessera.socio.nome,
+					cognome: tessera.socio.cognome,
+					numero_tessera: tessera.numero_tessera,
+					seriale: tessera.seriale,
+					data: date,
+					tipo: body.tipo
+				});	
+				log.save( (err) => {
+					if (err) console.error(err);
+					else {
+						console.log("Log aggiunto");
+						return res.status(200).send();
+					}
+				});
+			} else return res.status(404).send("Not Found");
+		});
+	} else { ... } // log senza tessera
+}
+\end{lstlisting}
+\item Il log è visualizzabile sul sito accedendo all'endpoint \emph{/api/logs/view} (il risultato si può vedere nella Figura \ref{fig:logbook})$.$ Il codice eseguito dopo una richiesta GET all'endpoint specificato:
+\begin{lstlisting}
+exports.viewAllLogs = (req, res) => {
+	Log.find( (err, logs) => {
+		if (err) {
+			console.error(err);
+			return res.status(500).send("Internal Server Error");
+		}
+		else return res.render("../views/logs/logs_index", { logs: logs });
+	});
+}
+\end{lstlisting}
+\end{enumerate}
 
-\subsection{API}\label{sec:api}
+\begin{figure}
+	\center{\includegraphics[width=0.8\linewidth]{./img/logbook.png}}
+	\caption{Il logbook dell'azienda}
+	\label{fig:logbook}
+\end{figure}
+
+Il ragionamento per aggiungere i soci e le tessere al database è simile, solo che si può fare direttamente dal sito: il browser manda i form compilati (esempio nella Figura \ref{fig:add_tessera_form}) tramite una richiesta POST al server. Per ogni tipo di richiesta diversa, verrà chiamata una funzione specifica per gestirla.
+ 
+\begin{figure}
+	\center{\includegraphics[width=0.8\linewidth]{./img/add_tessera_form.png}}
+	\caption{Form da compilare per aggiungere una tessera nel database}
+	\label{fig:add_tessera_form}
+\end{figure}
+
+\subsection{RESTful API}\label{sec:api}
 %
-Postman per testing\\
-Documentazione delle API del back-end
+Le API (\textbf{A}pplication \textbf{P}rogramming \textbf{I}nterface) in ambito web sono un insieme di specificazioni per far comunicare tra di loro client (generalmente il browser) e server tramite richieste e risposte HTTP. Vengono specificati e descritti gli endpoint, i tipi di richiesta (e.g. GET/POST/UPDATE/DELETE) e i tipi di risposta (struttura dei dati inviati, messaggi di errore ecc.).
+Le API RESTful sono basate su tecnologia REST (\textbf{RE}presentational \textbf{S}tate \textbf{T}ransfer), uno stile architetturale spesso usata nello sviluppo delle applicazioni web. Il concetto più importante in REST è l'esistenza di risorse a cui si possono accedere tramite identificatori univoci (URI - \textbf{U}niform \textbf{R}esource \textbf{I}dentifier), ovvero gli endpoint.
+Tipicamente le API RESTful sfruttano le chiamate HTTP per dare la possibilità a utenti di leggere (GET), aggiornare (PUT), creare (POST) e rimuovere (DELETE) risorse. 
+
+Un elenco delle API dell'applicazione si può trovare nella Tabella \ref{tab:api}.
+Le API sono state testate con Postman (\url{https://www.getpostman.com/}), un software progettato per lo sviluppo e il testing delle API web. Postman dà la possibilità allo sviluppatore di creare diversi tipi di richieste HTTP da inviare ad un URL. Un esempio di utilizzo di Postman si può trovare nella Figura \ref{fig:postman_test}.
+
+\begin{table}[H]
+	\scriptsize
+	\centering
+	\renewcommand\arraystretch{1.8}
+	\renewcommand\tabcolsep{3.0pt}
+	\begin{tabularx}{\textwidth}{|L|L|L|L|}
+		\hline
+		\textbf{Metodo + URI} & \textbf{Parametro} & \textbf{Body} & \textbf{Descrizione} \\
+		\hline                              
+		GET / & N/A & N/A & Carica l'homepage \\ 
+		\hline
+		GET /api/logs/search/:key & Chiave per la ricerca & N/A 
+		& Cerca nel database dei log in base al parametro inviato e carica la pagina con i risultati \\
+		\hline
+		GET /api/logs/view & N/A & N/A & Carica la pagina con tutti i log \\
+		\hline  
+		POST /api/logs/add & N/A & Oggetto in formato JSON secondo lo schema Log & Aggiunge un log nel database \\
+		\hline
+		GET /api/soci/search/:key & Chiave per la ricerca & N/A & Cerca nel database dei soci in base al parametro inviato e carica la pagina con i risultati \\ 
+		\hline
+		GET /api/soci/view & N/A & N/A & Carica la pagina con tutti i log \\ 
+		\hline
+		GET /api/soci/create & N/A & N/A & Carica la pagina per creare i soci \\ 
+		\hline
+		GET /api/soci/update/:id & Chiave identificativa del socio & N/A & Carica la pagina per aggiornare un socio \\ 
+		\hline
+		POST /api/soci/add & N/A & Oggetto in formato JSON secondo lo schema Socio & Aggiunge un socio nel database \\ 
+		\hline
+		PUT /api/soci/update/:id & Chiave identificativa del socio & Oggetto in formato JSON secondo lo schema Socio & Aggiorna un socio \\ 
+		\hline
+		DELETE /api/soci/delete/:id & Chiave identificativa del socio & N/A & Cancella un socio dal database \\ 
+		\hline
+		GET /api/tessere/view & N/A & N/A & Carica la pagina con tutte le tessere \\ 
+		\hline
+		POST /api/tessere/check & N/A & Oggetto in formato JSON secondo lo schema Tessera & Verifica se un tag esiste nel database \\
+		\hline
+		POST /api/tessere/add & N/A & Oggetto in formato JSON secondo lo schema Tessera & Aggiunge una tessera \\ 
+		\hline
+		PUT /api/tessere/update/:id & Chiave identificativa della tessera & N/A & Cambia lo stato di una tessera (attiva/disattiva) \\ 
+		\hline
+		DELETE /api/tessere/delete/:id & Chiave identificativa della tessera & N/A & Cancella una tessera dal database \\ 
+		\hline
+	\end{tabularx}
+	\captionsetup{font={footnotesize}}
+	\caption{Specificazione delle API dell'applicazione}
+	\label{tab:api}
+\end{table}    
+
+\begin{figure}
+	\center{\includegraphics[width=1\linewidth]{./img/postman_test.png}}
+	\caption{Esempio di testing con Postman dell'endpoint relativo all'aggiunta dei log}
+	\label{fig:postman_test}
+\end{figure}
+
 %
 \section{Front-End}
+
+In ingegneria del software, il termine front-end rappresenta l'interfaccia dell'applicazione, ovvero la parte visibile agli utenti e quella con cui essi interagiscono. Per creare il front-end vengono utilizzati linguaggi come HTML (per la struttura e contenuto), CSS (per lo stile) e JavaScript per aggiungere dinamicità al sito (pulsanti, chiamate AJAX ecc.).
+
 \subsection{Scelte progettuali}
 Le basi: Javascript, HTML5 \& CSS
 \\
