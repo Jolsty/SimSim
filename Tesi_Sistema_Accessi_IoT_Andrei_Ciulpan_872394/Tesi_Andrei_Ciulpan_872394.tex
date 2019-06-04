@@ -700,7 +700,7 @@ void sendLog(String tipo) {
 	bodyJSON.concat("Z\",\"tipo\":\"" + tipo + "\"}\0");
 	int statusCode = printBodyToESP(bodyJSON);
 	if (statusCode == 200) Serial.println("Log sent");
-	else Serial.println("Problem with sending log. Code: " + String(statusCode));
+	else Serial.println("Error code = " + String(statusCode));
 }
 \end{lstlisting}
 \end{itemize}
@@ -749,12 +749,12 @@ Come si è visto precedentemente, l'Arduino inoltra all'ESP-01 delle stringhe ch
 	\item L'Arduino legge il seriale del tag e chiama "checkCardSerial(serial)"
 	\item Questa funzione manda un'oggetto in formato quasi-JSON all'ESP-01
 	\item L'ESP-01 riceve questa stringa e filtra l'informazione non più necessaria
-	\item L'ESP-01 chiama la funzione richiesta (in questo caso "checkTesseraAPI(serialeJSON)")
+	\item L'ESP-01 chiama la funzione richiesta (in questo caso "checkTesseraAPI(tesseraJSON)")
 	\item La funzione eseguita manda l'oggetto JSON al server e aspetta una risposta con lo status code.
 	\item L'ESP-01 inoltra lo status code all'Arduino
-	\item In base allo status code l'Arduino prende una decisione: se statusCode = 200 allora il tag è accettato e l'Arduino apre la porta, altrimenti viene rifiutato.
+	\item L'Arduino prende una decisione un base allo Status Code: se 200 allora il tag è accettato e l'Arduino apre la porta, altrimenti viene rifiutato.
 \end{enumerate}
-Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un middleman tra l'Arduino e il server.
+Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un intermediario tra l'Arduino e il server.
 %
 \section{Protocolli di comunicazione tra dispositivi}
 %
@@ -898,7 +898,7 @@ app.get('/', (req, res) => res.render('index'));
 		\item caricare pagine HTML in maniera dinamica passando degli argomenti ai template (e.g. usando un linguaggio di templating chiamato EJS);
 		\item si possono creare in maniera semplice e veloce delle API RESTful (si veda la sezione \ref{sec:api});
 		\item interfacciarsi con vari database (e.g. MongoDB, MySQL ecc.)
-		\item creare un server che ascolta su una porta preimpostata (fornisce un'astrazione del modulo http di Node.js):
+		\item creare un server che ascolta su una porta preimpostata (fornisce un'astrazione del modulo \emph{http} di Node.js):
 \begin{lstlisting}
 var server = app.listen(port, () => {
 	console.log("Listening on port " + server.address().port);
@@ -965,14 +965,20 @@ var LogSchema = new Schema (
 	data: { type: Date, required: true }
 });
 
-LogSchema.index( { '$**': 'text'});
+LogSchema.index( { '$**': 'text'}); // full-table search index
+
+/* 
+ *	Tutte le stringhe vengono incluse nell'indice.
+ *	Permette di fare le query in questo modo: 
+ *	Log.find( { $text: { $search: searchTerm }}) 
+ */
 
 // export function to create "Log" model class
 module.exports = mongoose.model("Log", LogSchema);
 \end{lstlisting}
-	\item La vista corrisponde alla logica dell'UI (User Interface) dell'applicazione. Rappresenta il modo in cui vengono presentati i dati all'utente. Esempio di una parte del codice HTML della vista creata per presentare le tessere all'utente:
+	\item La vista corrisponde alla logica dell'UI (\textbf{U}ser \textbf{I}nterface) dell'applicazione. Rappresenta il modo in cui vengono presentati i dati all'utente. Come esempio viene esposta una parte del codice HTML della vista creata per presentare le tessere all'utente:
 \begin{lstlisting}
-<table class="w3-table w3-left w3-border w3-centered w3-animate-opacity">
+<table class="w3-table w3-left w3-border w3-centered">
 	<thead>
 		<tr class="w3-white tessere-table-mobile w3-large">
 			<th>Numero tessera</th>
@@ -994,11 +1000,12 @@ module.exports = mongoose.model("Log", LogSchema);
 \begin{lstlisting}
 exports.fullTableSearch = (req, res) => {
 	let searchTerm = req.params.term;
-	Socio.find( { $text: { $search: searchTerm }})
-		.exec(function(err, soci) {
+	Socio.
+	find( { $text: { $search: searchTerm } } ).
+	exec(function(err, soci) {
 		if (err) {
 			console.error(err);
-			return res.status(500).send("Internal Server Error: fullTableSearch ha rilevato un errore");
+			return res.status(500).send("Internal Server Error");
 		} else return res.render("../views/soci/soci_index", { searched: "true", soci: soci, sociString: JSON.stringify(soci) });
 	});
 }
@@ -1058,7 +1065,7 @@ void sendLogAPI(String logJSON) {
 	http.addHeader("Content-Type", "text/plain");
 	int statusCode = http.POST(logJSON); // HTTP POST request
 	delay(10);
-	Serial.print(String(statusCode)); // invia lo status code all'arduino
+	Serial.print(String(statusCode)); // invia all'Arduino
 	http.end();
 }
 \end{lstlisting}
@@ -1144,7 +1151,7 @@ Le API sono state testate con Postman (\url{https://www.getpostman.com/}), un so
 		\hline
 		\textbf{Metodo + URI} & \textbf{Parametro} & \textbf{Body} & \textbf{Descrizione} \\
 		\hline                              
-		GET / & N/A & N/A & Carica l'homepage \\ 
+		GET / & N/A & N/A & Carica la homepage \\ 
 		\hline
 		GET /api/logs/search/:key & Chiave per la ricerca & N/A 
 		& Cerca nel database dei log in base al parametro inviato e carica la pagina con i risultati \\
@@ -1215,7 +1222,7 @@ I documenti HTML sono stilizzati con il linguaggio di stile più diffuso al mond
 <link rel="stylesheet" href="/css/custom.css">
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 \end{lstlisting}
-Normalmente le persone non scrivono le proprie regole (è un lavoro molto lungo e per fare una cosa bella serve tanta esperienza in web design) ma trovano dei template (esistono sia gratis che a pagamento) da utilizzare. In questo caso è stato utilizzato un template (\url{https://www.w3schools.com/w3css/tryw3css_templates_dark_portfolio.htm}) di W3.CSS (\url{https://www.w3schools.com/w3css/default.asp}) scelto dal tutor aziendale. Inoltre è stato utilizzato \emph{Font Awesome}, un toolkit di icone distribuito sotto licenze libere (CC e MIT).
+Normalmente gli sviluppatori non scrivono le proprie regole (è un lavoro molto lungo e per fare una cosa bella serve tanta esperienza in web design) ma trovano dei template (esistono sia gratis che a pagamento) da utilizzare. In questo caso è stato utilizzato un template (\url{https://www.w3schools.com/w3css/tryw3css_templates_dark_portfolio.htm}) di W3.CSS (\url{https://www.w3schools.com/w3css/default.asp}) scelto dal tutor aziendale. Inoltre è stato utilizzato \emph{Font Awesome}, un toolkit di icone distribuito sotto licenze libere (CC e MIT).
 %
 \subsubsection*{JavaScript}
 %
@@ -1228,31 +1235,31 @@ DOM
 %			CAPITOLO 4: Analisi del progetto
 \chapter{Analisi del progetto}
 \label{cap4}
-Prestazioni
+Prestazioni: ?
 \\
-Problema sicurezza
+Problema sicurezza: clonare il telecomando, ...
 \\
-Possibili miglioramenti
+Possibili miglioramenti: sistema di login sul sito per l'amministratore,
+sensore per il rilevamento delle persone durante la chiusura delle porte,
+...
 \\
-%
-% 
+
+
 %			CAPITOLO 5: Conclusioni
 \chapter{Conclusioni}
-
-
 \label{cap5}
-%
 %
 
 \appendix
 \chapter{Una prima Appendice (?)}
 ...
 
-%
+
 %			BIBLIOGRAFIA
 %
 \begin{thebibliography}{00}
-	
+%
+%	
 
 \bibitem{controllo_accessi}
 J. Allen, Opening new doors with IP access control, 16 Marzo, 2018. \url{https://www.axis.com/blog/secure-insights/opening-new-doors-with-ip-access-control/}
