@@ -9,7 +9,7 @@
 %                                                                         %
 %			AUTORE: Andrei Ciulpan                                        %
 %                                                                         %
-%			Ultima revisione: 31.05.2019                                  %
+%			Ultima revisione: 5.06.2019                                  %
 %                                                                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -143,7 +143,7 @@ L'attività principale del tirocinio è la realizzazione di un sistema di contro
 		\item Log degli accessi
 		\item Soci
 	\end{enumerate}
-	\item Deve avere un'interfaccia grafica (in questo caso sito web) tramite la quale l'utente amministratore possa gestire il database con le seguenti funzioni: 
+	\item Deve avere un'interfaccia grafica (in questo caso un sito web) tramite la quale l'utente amministratore possa gestire il database con le seguenti funzioni: 
 	\begin{enumerate}
 		\item Aggiungere/modificare/cancellare soci 
 		\item Aggiungere/modificare/cancellare tessere 
@@ -336,7 +336,7 @@ dove \textit{v} è la velocità della luce e \textit{f} è la frequenza (433 MHz
 Esistono tanti tipi diversi di motori Arduino-compatibili, ognuno con i propri punti forti e deboli, perciò bisogna valutare bene quale scegliere in base alle necessità del progetto. In questo caso il lavoro del motore è semplice: deve girare la serratura di una porta da una parte e dall'altra, quindi senza particolare precisione, velocità o potenza. Siccome non c'è nemmeno il bisogno di avere una rotazione completa (bastano 180$^{\circ}$), è immediato pensare al servomotore che è anche facilmente controllabile da un Arduino grazie ai suoi pin PWM e alla libreria Servo (\url{https://www.arduino.cc/en/reference/servo}).
 
 Il servomotore (Figura \ref{fig:servo}) è un dispositivo elettromeccanico a basso consumo energetico ed è costituito da un motore DC, un gruppo di ingranaggi, un circuito di controllo (un ponte-H integrato) e un contenitore di plastica che lo racchiude.
-La particolarità del servomotore è che può ruotare con una precisione di alcuni gradi (normalmente da 0$^{\circ}$ a 180$^{\circ}$) in base alla larghezza dell'impulso che riceve. Questa tecnica si chiama Pulse Width Modulation (PWM) e consiste in una serie di impulsi di larghezza variabile che determinano la posizione del servo.
+La particolarità del servomotore è che può ruotare con una precisione di alcuni gradi (normalmente da 0$^{\circ}$ a 180$^{\circ}$) in base alla larghezza dell'impulso che riceve. Questa è una tecnica che si chiama PWM.
 
 \marginpar{\textbf{TO DO TO DO} se vuoi aggiungere, descrivi il funzionamento interno (potenziometro)} 
 
@@ -350,7 +350,7 @@ La particolarità del servomotore è che può ruotare con una precisione di alcu
 \subsection{PWM}
 %
 
-\textbf{P}ulse \textbf{W}idth \textbf{M}odulation è una tecnica che consiste in una serie di impulsi di larghezza variabile che determinano la posizione del servo. E' quindi un modo di ricavare un risultato analogico a partire da un segnale digitale. Un segnale PWM ha una forma d'onda quadra, con periodo fisso, ma spesso non simmetrica: la durata della semi-onda alta può variare (si veda la Figura \ref{fig:pwm}). La durata \textit{T[ON]} del segnale alto viene misurata in percentuale e si chiama duty cycle: ad esempio un duty cycle del 25\% significa che \textit{T[ON]} dura per 1/4 della durata del periodo fisso \textit{T}. Questo tipo di segnale non è un vero e proprio segnale analogico, però può essere interpretato tale: quello che succede è che la tensione viene applicata e levata nel giro di frazioni di secondo perciò quello che si chiama "tensione efficace" è in realtà minore della tensione reale applicata. Per calcolare la tensione efficace \textit{Veff} basta sapere la tensione applicata \textit{Vcc} e il duty cycle \textit{DC} (che si trova facendo il rapporto tra \textit{T[ON]} e \textit{T}):
+\emph{Pulse Width Modulation} (PWM) è una tecnica che consiste in una serie di impulsi di larghezza variabile che determinano la posizione del servo. E' quindi un modo di ricavare un risultato analogico a partire da un segnale digitale. Un segnale PWM ha una forma d'onda quadra, con periodo fisso, ma spesso non simmetrica: la durata della semi-onda alta può variare (si veda la Figura \ref{fig:pwm}). La durata \textit{T[ON]} del segnale alto viene misurata in percentuale e si chiama duty cycle: ad esempio un duty cycle del 25\% significa che \textit{T[ON]} dura per 1/4 della durata del periodo fisso \textit{T}. Questo tipo di segnale non è un vero e proprio segnale analogico, però può essere interpretato tale: quello che succede è che la tensione viene applicata e levata nel giro di frazioni di secondo perciò quello che si chiama tensione efficace è in realtà minore della tensione reale applicata. Per calcolare la tensione efficace \textit{Veff} basta sapere la tensione applicata \textit{Vcc} e il duty cycle \textit{DC} (che si trova facendo il rapporto tra \textit{T[ON]} e \textit{T}):
 
 %
 \[Veff = Vcc \cdot DC\]
@@ -416,7 +416,7 @@ void loop() {
 \section{RFID Reader}
 %
 
-\textbf{R}adio \textbf{F}requency \textbf{ID}entification (RFID) è un termine utilizzato per descrivere tecnologie contactless che fanno uso delle onde radio per identificare oggetti, persone e animali sia da vicino (tag passivi) che da lontano (tag attivi). L'identificazione è resa possibile grazie ad un lettore RFID in grado di interrogare i cosidetti tag, ovvero dei dispositivi elettronici di varie forme e dimensioni che possiedono i dati necessari per l'identificazione e che principalmente si dividono in due categorie: 
+\emph{Radio Frequency Identification} (RFID) è un termine utilizzato per descrivere tecnologie contactless che fanno uso delle onde radio per identificare oggetti, persone e animali sia da vicino (tag passivi) che da lontano (tag attivi). L'identificazione è resa possibile grazie ad un lettore RFID in grado di interrogare i cosidetti tag, ovvero dei dispositivi elettronici di varie forme e dimensioni che possiedono i dati necessari per l'identificazione e che principalmente si dividono in due categorie: 
 
 \begin{itemize}
 	\item I tag passivi sono poco costosi e contengono un'antenna e un piccolo chip con identificativo univoco e privo di alimentazione. Questi tag vengono utilizzati per l'identificazione a breve distanza (qualche centimetro) e vengono "attivati" dalle onde radio del lettore.
@@ -773,7 +773,7 @@ Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un in
 	\label{fig:i2c_bus}
 \end{figure}
 
-\textbf{I}nter \textbf{I}ntegrated \textbf{C}ircuit è un protocollo seriale a due vie inventato dalla NXP per far comunicare tra di loro dispositivi come microcontrollori, memorie EEPROM, dispositivi di input/output ecc. E' un protocollo creato per la comunicazione sincrona e a breve distanza tra dispositivi chiamati dispositivi master e slave (Figura \ref{fig:i2c_bus}): 
+\emph{Inter-Integrated Circuit} (I$^2$C) è un protocollo seriale a due vie inventato dalla NXP per far comunicare tra di loro dispositivi come microcontrollori, memorie EEPROM, dispositivi di input/output ecc. E' un protocollo creato per la comunicazione sincrona e a breve distanza tra dispositivi chiamati dispositivi master e slave (Figura \ref{fig:i2c_bus}): 
 
 \begin{itemize}
 	\item Lo slave è un dispositivo che riceve i comandi dal master. Ogni slave ha un indirizzo (deve essere unico all'interno del sistema) normalmente specificato nel datasheet (e.g$.$ per il display LCD 16x2 con il backpack PCF8574 utilizzato nel progetto l'indirizzo è 0x27) attraverso il quale viene indirizzato dal master.
@@ -782,8 +782,8 @@ Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un in
 I$^2$C è un protocollo a due vie perchè utilizza due linee bidirezionali:
 
 \begin{itemize}
-	\item SDA (\textbf{S}erial \textbf{Da}ta) attraverso il quale viaggiano i dati. I dati vengono trasferiti in \textit{messaggi} che vengono divisi in blocchi di dati a 8 bit. Ogni messaggio parte con il "Start Condition" e finisce con "Stop Condition" e ha al suo interno, oltre ai blocchi di dati, l'indirizzo dello slave con cui il master desidera comunicare. Per gestire i comandi di lettura/scrittura è presente un Read/Write bit. Nel messaggio vengono inclusi anche i cosidetti ACK/NACK (acknowledge/no-acknowledge) bit che vengono mandati dal destinatario (lo slave in modalità "write", il master in modalità "read") dei blocchi di dati inviati. Un esempio di messaggio si trova nella Figura \ref{fig:i2c_data_bus}. 
-	\item SCL (\textbf{S}erial \textbf{Cl}ock) utilizzato dal master per la sincronizzazione.
+	\item \emph{Serial Data} (SDA) attraverso il quale viaggiano i dati. I dati vengono trasferiti in \textit{messaggi} che vengono divisi in blocchi di dati a 8 bit. Ogni messaggio parte con il "Start Condition" e finisce con "Stop Condition" e ha al suo interno, oltre ai blocchi di dati, l'indirizzo dello slave con cui il master desidera comunicare. Per gestire i comandi di lettura/scrittura è presente un Read/Write bit. Nel messaggio vengono inclusi anche i cosidetti ACK/NACK (acknowledge/no-acknowledge) bit che vengono mandati dal destinatario (lo slave in modalità "write", il master in modalità "read") dei blocchi di dati inviati. Un esempio di messaggio si trova nella Figura \ref{fig:i2c_data_bus}. 
+	\item \emph{Serial Clock} (SCL) utilizzato dal master per la sincronizzazione.
 \end{itemize}
 
 \begin{figure}
@@ -797,14 +797,14 @@ I$^2$C è un protocollo a due vie perchè utilizza due linee bidirezionali:
 \subsection{SPI}\label{sec:spi}
 % 
 
-\textbf{S}erial \textbf{P}eripheral \textbf{I}nterface è un protocollo di comunicazione sincrona inventato dalla Motorola e ampiamente utilizzato nei sistemi embedded. Similmente al protocollo I$^2$C, è stato creato per la comunicazione a breve distanza tra un dispositivo master (in questo caso può essere uno solo) e uno o più slave.
+\emph{Serial Peripheral Interface} (SPI) è un protocollo di comunicazione sincrona inventato dalla Motorola e ampiamente utilizzato nei sistemi embedded. Similmente al protocollo I$^2$C, è stato creato per la comunicazione a breve distanza tra un dispositivo master (in questo caso può essere uno solo) e uno o più slave.
 SPI è basato su 4 segnali (4-wire bus):
 
 \begin{itemize}
-	\item SCLK (\textbf{S}erial \textbf{Cl}oc\textbf{k}) utilizzato dal master per la sincronizzazione.
-	\item MISO (\textbf{M}aster \textbf{I}nput \textbf{S}lave \textbf{O}utput) collegato all'input del master e all'output degli slave. Viene utilizzata dagli slave per inviare dati al master.
-	\item MOSI (\textbf{M}aster \textbf{O}utput \textbf{S}lave \textbf{I}nput) collegato all'output del master e all'input degli slave. Viene utilizzata dal master per inviare dati allo slave.
-	\item CS (\textbf{C}hip \textbf{S}elect) utilizzato per selezionare lo slave che deve essere abilitato alla comunicazione con il master. Il master può selezionare lo slave con cui vuole parlare semplicemente mettendo a LOW il segnale CS dello slave.
+	\item \emph{Serial Clock} (SCLK) utilizzato dal master per la sincronizzazione.
+	\item \emph{Master Input Slave Output} (MISO) collegato all'input del master e all'output degli slave. Viene utilizzata dagli slave per inviare dati al master.
+	\item \emph{Master Output Slave Input} (MOSI) collegato all'output del master e all'input degli slave. Viene utilizzata dal master per inviare dati allo slave.
+	\item \emph{Chip Select} (CS) utilizzato per selezionare lo slave che deve essere abilitato alla comunicazione con il master. Il master può selezionare lo slave con cui vuole parlare semplicemente mettendo a LOW il segnale CS dello slave.
 \end{itemize}
 Anche se sembrano molto simili, ci sono alcune differenze importanti tra i due protocolli presentati che li rendono adatti per varie applicazioni. Le differenze vengono descritte nella Tabella \ref{tab:i2c_vs_spi}.
 
@@ -848,7 +848,7 @@ In questo capitolo vengono descritte le tecnologie e le scelte progettuali che h
 
 In ingegneria del software, il termine back-end rappresenta il lato server di un'applicazione, ovvero un programma che si occupa dei dati dell'applicazione con i quali un utente interagisce indirettamente tramite il front-end. Generalmente il back-end è implementato utilizzando Javascript (Node.js), Python, PHP o Ruby.
 
-\subsection{Scelte progettuali}
+\subsection{Tecnologie utilizzate}
 
 \subsubsection*{Node.js}
 
@@ -936,7 +936,7 @@ Esempio di utilizzo nel lato client (il codice JavaScript all'interno della pagi
 	</tr>
 <% } %>
 \end{lstlisting}
-	\item Mongoose (\url{https://mongoosejs.com/}) è una libreria di ODM (\textbf{O}bject \textbf{D}ata \textbf{M}odeling) che fornisce un ambiente per la modelizzazione dei dati di MongoDB permettendo la definizione degli oggetti sotto uno schema fortemente tipizzato (si veda la sezione \ref{sec:db} "Database")	
+	\item Mongoose (\url{https://mongoosejs.com/}) è una libreria di \emph{Object Data Modeling} (ODM) che fornisce un ambiente per la modelizzazione dei dati di MongoDB permettendo la definizione degli oggetti sotto uno schema fortemente tipizzato (si veda la sezione \ref{sec:db} "Database")	
 \end{itemize}
 
 \subsubsection*{MVC}
@@ -977,7 +977,7 @@ LogSchema.index( { '$**': 'text'}); // full-table search index
 // export function to create "Log" model class
 module.exports = mongoose.model("Log", LogSchema);
 \end{lstlisting}
-	\item La vista corrisponde alla logica dell'UI (\textbf{U}ser \textbf{I}nterface) dell'applicazione. Rappresenta il modo in cui vengono presentati i dati all'utente. Come esempio viene esposta una parte del codice HTML della vista creata per presentare le tessere all'utente:
+	\item La vista corrisponde alla logica dell'\emph{User Interface} (UI) dell'applicazione. Rappresenta il modo in cui vengono presentati i dati all'utente. Come esempio viene esposta una parte del codice HTML della vista creata per presentare le tessere all'utente:
 \begin{lstlisting}
 <table class="w3-table w3-left w3-border w3-centered">
 	<thead>
@@ -1017,7 +1017,7 @@ exports.fullTableSearch = (req, res) => {
 
 \subsection{Database}\label{sec:db}
 %
-Il DBMS (\textbf{D}ata\textbf{B}ase \textbf{M}anagement \textbf{S}ystem) scelto per l'applicazione si chiama MongoDB (\url{https://www.mongodb.com/}). MongoDB è un DBMS open source e non relazionale (classificato come un database di tipo NoSQL) ed è orientato ai documenti: al posto delle tipiche tabelle dei database relazionali vengono utilizzati dei documenti in formato JSON, facilitando quindi l'integrazione dei dati con quasi tutte le applicazioni web (infatti JSON è il formato di dati più utilizzato per lo scambio dei dati in rete).
+Il {Database Management System} (DBMS) scelto per l'applicazione si chiama MongoDB (\url{https://www.mongodb.com/}). MongoDB è un DBMS open-source e non relazionale (è classificato come un database di tipo NoSQL) ed è orientato ai documenti: al posto delle tipiche tabelle dei database relazionali vengono utilizzati dei documenti in formato JSON, facilitando quindi l'integrazione dei dati con quasi tutte le applicazioni web (infatti JSON è il formato di dati più utilizzato per lo scambio dei dati in rete).
 MongoDB si integra facilmente con Node.js grazie a dei driver creati dagli sviluppatori stessi (\url{https://mongodb.github.io/node-mongodb-native/3.2/}). Questi driver, purtroppo, non portano tanta astrazione e sollevano dei problemi per chi non è abituato a un database NoSQL: 
 \begin{itemize}
 	\item la logica dei dati è diversa rispetto a quella che viene insegnata nei corsi tradizionali di basi di dati perciò potrebbe essere difficile abituarsi (ma, come si vedrà, anche non necessario);
@@ -1136,8 +1136,8 @@ Il ragionamento per aggiungere i soci e le tessere al database è simile, solo c
 
 \subsection{RESTful API}\label{sec:api}
 %
-Le API (\textbf{A}pplication \textbf{P}rogramming \textbf{I}nterface) in ambito web sono un insieme di specificazioni per far comunicare tra di loro client (generalmente il browser) e server tramite richieste e risposte HTTP. Vengono specificati e descritti gli endpoint, i tipi di richiesta (e.g. GET/POST/UPDATE/DELETE) e i tipi di risposta (struttura dei dati inviati, messaggi di errore ecc.).
-Le API RESTful sono basate su tecnologia REST (\textbf{RE}presentational \textbf{S}tate \textbf{T}ransfer), uno stile architetturale spesso usata nello sviluppo delle applicazioni web. Il concetto più importante in REST è l'esistenza di risorse a cui si possono accedere tramite identificatori univoci (URI - \textbf{U}niform \textbf{R}esource \textbf{I}dentifier), ovvero gli endpoint.
+In ambito web, il termine \emph{Application Programming Interface} (API) è utilizzato per rappresentare un insieme di specificazioni per far comunicare tra di loro client (generalmente il browser) e server tramite richieste e risposte HTTP. Vengono specificati e descritti gli endpoint, i tipi di richiesta (e.g. GET/POST/UPDATE/DELETE) e i tipi di risposta (struttura dei dati inviati, messaggi di errore ecc.).
+Le API RESTful sono basate su tecnologia \emph{Representational State Transfer} (REST), uno stile architetturale spesso utilizzata nello sviluppo delle applicazioni web. Il concetto più importante in REST è l'esistenza di risorse a cui si possono accedere tramite identificatori univoci chiamati \emph{Uniform Resource Identifier} (URI), ovvero gli endpoint.
 Tipicamente le API RESTful sfruttano le chiamate HTTP per dare la possibilità a utenti di leggere (GET), aggiornare (PUT), creare (POST) e rimuovere (DELETE) risorse. 
 
 Un elenco delle API dell'applicazione si può trovare nella Tabella \ref{tab:api}.
@@ -1204,7 +1204,7 @@ Le API sono state testate con Postman (\url{https://www.getpostman.com/}), un so
 In ingegneria del software, il termine front-end rappresenta l'interfaccia dell'applicazione, ovvero la parte visibile agli utenti e quella con cui essi interagiscono.
 
 %
-\subsection{Scelte progettuali}
+\subsection{Tecnologie utilizzate}
 %
 
 Per creare il front-end vengono utilizzati linguaggi come HTML (per la struttura e contenuto), CSS (per lo stile) e client-side JavaScript per aggiungere dinamicità al sito (pulsanti, chiamate AJAX ecc.).
@@ -1212,12 +1212,12 @@ Per creare il front-end vengono utilizzati linguaggi come HTML (per la struttura
 %
 \subsubsection*{HTML5}
 %
-\textbf{H}yper \textbf{T}ext \textbf{M}arkup \textbf{L}anguage è il linguaggio di markup standard nato all'inizio degli anni novanta per la formattazione e impaginazione di documenti progettati per essere visualizzati in un browser. E' stato sviluppato assieme al protocollo HTTP dedicato al trasferimento di documenti di tale formato. Viene spesso utilizzato insieme ad un linguaggio di stile (CSS) e uno di scripting (JavaScript). L'ultima versione standardizzata dal W3C è HTML 5.1.
+\emph{Hyper Text Markup Language} (HTML) è il linguaggio di markup standard nato all'inizio degli anni novanta per la formattazione e impaginazione di documenti progettati per essere visualizzati in un browser. E' stato sviluppato assieme al protocollo HTTP dedicato al trasferimento di documenti di tale formato. Viene spesso utilizzato insieme ad un linguaggio di stile (CSS) e uno di scripting (JavaScript). L'ultima versione standardizzata dal W3C è HTML 5.1.
 I file HTML generati nel progetto hanno l'estensione EJS perchè vengono usati assieme al linguaggio di templating per portare i dati provenienti dal server direttamente nel documento stesso.
 %
 \subsubsection*{CSS}
 %
-I documenti HTML sono stilizzati con il linguaggio di stile più diffuso al mondo chiamato CSS (\textbf{C}ascading \textbf{S}tyle \textbf{S}heets): esso descrive, attraverso delle regole, i modi in cui gli elementi di un documento devono essere presentati e animati nell'interfaccia grafica. Le regole possono essere scritte direttamente nel file HTML, ma ciò crea solo confusione ed è generalmente buona norma avere i file CSS separati e poi importati nel documento, così come segue:
+I documenti HTML sono stilizzati con il linguaggio di stile più diffuso al mondo chiamato \emph{Cascading Style Sheets} (CSS): esso descrive, attraverso delle regole, i modi in cui gli elementi di un documento devono essere presentati e animati nell'interfaccia grafica. Le regole possono essere scritte direttamente nel file HTML, ma ciò crea solo confusione ed è generalmente buona norma avere i file CSS separati e poi importati nel documento, così come segue:
 \begin{lstlisting}
 <link rel="stylesheet" href="/css/w3.css">
 <link rel="stylesheet" href="/css/custom.css">
@@ -1259,7 +1259,7 @@ function myFunction() {
 	}, 3000);
 }
 \end{lstlisting}
-JavaScript interagisce col browser attraverso il DOM (\textbf{D}ocument \textbf{O}bject \textbf{M}odel) della pagina HTML. Il DOM è stato standardizzato dalla W3C e viene creato dal browser dopo che una pagina è stata caricata. Esso segue un modello gerarchico di oggetti (Figura \ref{fig:dom}) che possono essere manipolati dagli script dando la possibilità di aggiornare dinamicamente il contenuto, la struttura e lo stile dei documenti. Grazie al DOM è possibile accedere agli elementi (e loro proprietà, metodi ed eventi) delle pagine HTML.
+JavaScript interagisce col browser attraverso il \emph{Document Object Model} (DOM) della pagina HTML. Il DOM è stato standardizzato dalla W3C e viene creato dal browser dopo che una pagina è stata caricata. Esso segue un modello gerarchico di oggetti (Figura \ref{fig:dom}) che possono essere manipolati dagli script dando la possibilità di aggiornare dinamicamente il contenuto, la struttura e lo stile dei documenti. Grazie al DOM è possibile accedere agli elementi (e loro proprietà, metodi ed eventi) delle pagine HTML.
 
 \begin{figure}
 	\center{\includegraphics[width=0.6\linewidth]{./img/dom.png}}
@@ -1276,7 +1276,7 @@ Un elemento molto importante di JavaScript di cui ne vale la pena parlare è la 
 	\item utilizzo minore della larghezza di banda sia dal lato del client che dal lato del server
 	\item validazione istantanea dei form
 \end{itemize}
-Tutto ciò è possibile grazie all'utilizzo di un oggetto chiamato XMLHttpRequest che può comunicare con il server per mandare e ricevere informazioni in vari formati quali JSON, XML, HTML e file di testo in maniera asincrona. Un esempio che descrive l'utilizzo di AJAX dopo che l'utente preme il pulsante per cancellare un socio dal database:
+Tutto ciò è possibile grazie all'utilizzo di un oggetto chiamato XMLHttpRequest che può comunicare con il server per mandare e ricevere dati in vari formati quali JSON, XML, HTML e file di testo in maniera asincrona. Un esempio che descrive l'utilizzo di AJAX dopo che l'utente preme il pulsante per cancellare un socio dal database:
 \begin{lstlisting}
 const rimuoviSocioButton = $(".w3-btn.w3-round.rimuoviSocioButton");
 
@@ -1366,7 +1366,7 @@ M. Haverbeke, ELOQUENT JAVASCRIPT: A modern Introduction to Programming, terza e
 \url{https://eloquentjavascript.net/}
 %
 \bibitem{jquery}
-Marco Trombino, You might not need jquery: A 2018 performance
+M. Trombino, You might not need jquery: A 2018 performance
 case study. Maggio 2018. 
 \url{https://medium.com/@trombino.marco/you-might-not-need-jquery-a-2018-performance-case-study-aa6531d0b0c3}
 \end{thebibliography}

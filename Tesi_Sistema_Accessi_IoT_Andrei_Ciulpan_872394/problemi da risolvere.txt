@@ -23,6 +23,8 @@ come posso rendere il codice più bello?
 
 - prova turnitin just in case (io non posso farlo, penso)
 
+- - indice figure, indice tabelle, indice dei link (??)
+
 
 DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
 
@@ -32,13 +34,9 @@ DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
 
 - fixare le immagini troppo grandi 
 
-- commentare il codice (server ?)
+- commentare il codice (serve ?)
 
 - mettere il codice in appendice?
-
-- acronimi: mettere prima il nome per esteso (in corsivo??) e poi l'acronimo tra parentesi
-
-- indice figure, indice tabelle, indice dei link (??)
 
 - da mettere nell'introduzione: 
 introduzione dell'ente, rapporto con i colleghi, modalità di svolgimento delle attività, come sono stato aiutato, ecc
