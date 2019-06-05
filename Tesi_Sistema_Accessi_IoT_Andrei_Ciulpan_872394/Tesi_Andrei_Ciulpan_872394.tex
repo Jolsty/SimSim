@@ -1261,14 +1261,40 @@ function myFunction() {
 \end{lstlisting}
 JavaScript interagisce col browser attraverso il DOM (\textbf{D}ocument \textbf{O}bject \textbf{M}odel) della pagina HTML. Il DOM è stato standardizzato dalla W3C e viene creato dal browser dopo che una pagina è stata caricata. Esso segue un modello gerarchico di oggetti (Figura \ref{fig:dom}) che possono essere manipolati dagli script dando la possibilità di aggiornare dinamicamente il contenuto, la struttura e lo stile dei documenti. Grazie al DOM è possibile accedere agli elementi (e loro proprietà, metodi ed eventi) delle pagine HTML.
 
-jQuery (sezione javascript della mia relazione di pwm), libro headfirstjavascript pagina 664 \\
-AJAX altro esempio di evento (sezione ajax della mia relazione di pwm)
-
 \begin{figure}
-	\center{\includegraphics[width=0.55\linewidth]{./img/dom.png}}
+	\center{\includegraphics[width=0.6\linewidth]{./img/dom.png}}
 	\caption{Esempio di gerarchia del DOM in un documento HTML. Immagine sotto licenza CC BY-SA 3.0. Autore: Birger Eriksson. Link: \url{https://commons.wikimedia.org/wiki/File:DOM-model.svg}}
 	\label{fig:dom}
 \end{figure}
+
+Nel progetto è stato utilizzato jQuery (\url{https://jquery.com/}), una libreria molto diffusa (ormai di meno rispetto a qualche anno fa dato che ora ci sono altre scelte più moderne come React.js, Vue.js e Angular.js) di JavaScript proposta a ridurre e semplificare il codice per lo sviluppo del front-end. Esistono tanti test di benchmark per quanto riguarda la prestazione di jQuery rispetto al "vanilla JavaScript". Secondo Marco Trombino, uno sviluppatore di front-end che ha testato una funzione che inserisce 10,000 elementi nuovi con una classe all'interno di un altro elemento, è stato rilevato che jQuery è molto meno performante rispetto al JavaScript normale: \textit{"As we could have expected Vanilla performed the task in 18,99 ms, whereas jQuery did it in 195,89 ms. Ten times faster."} \cite{jquery}. Nonostante ciò, la scelta di usare jQuery è stata fatta poichè il progetto non è di grosse dimensioni e il costo da pagare per la prestazione non è notevole; in cambio il codice scritto è più corto e semplificato. 
+
+Un elemento molto importante di JavaScript di cui ne vale la pena parlare è la tecnica \emph{Asynchronous JavaScript and XML} (AJAX). AJAX è una tecnica molto utilizzata in ambito web che consente l'aggiornamento dinamico di una pagina web senza dover ricaricarla: lo scambio dei dati tra client e server (e.g. invio di un form) avviene nel background. Alcuni vantaggi dovuti al fatto di non dover ricaricare la pagina sono: 
+\begin{itemize}
+	\item velocità ed efficienza: il traffico sul server viene ridotto grazie al fatto di dover scambiare solo i dati necessari anzichè l'intera pagina
+	\item sito più responsivo: è possibile aggiornare solo una parte della pagina
+	\item utilizzo minore della larghezza di banda sia dal lato del client che dal lato del server
+	\item validazione istantanea dei form
+\end{itemize}
+Tutto ciò è possibile grazie all'utilizzo di un oggetto chiamato XMLHttpRequest che può comunicare con il server per mandare e ricevere informazioni in vari formati quali JSON, XML, HTML e file di testo in maniera asincrona. Un esempio che descrive l'utilizzo di AJAX dopo che l'utente preme il pulsante per cancellare un socio dal database:
+\begin{lstlisting}
+const rimuoviSocioButton = $(".w3-btn.w3-round.rimuoviSocioButton");
+
+rimuoviSocioButton.on('click', function(e) {
+	e.preventDefault();
+	if (!confirm("Rimuovere il socio?")) return false;
+	let xHttp = new XMLHttpRequest();
+	xHttp.onreadystatechange = function() {
+		if (xHttp.readyState == 4) {
+			if (xHttp.status === 200) alert("Socio rimosso dal database");
+			else alert("Problema: Status Code = " + xHttp.status);
+		}
+	};
+	let id = this.value;
+	xHttp.open("DELETE", "/api/soci/delete/" + id, true);
+	xHttp.send();
+});
+\end{lstlisting}
 
 
 %
@@ -1284,6 +1310,7 @@ Possibili miglioramenti: sistema di login sul sito per l'amministratore,
 sensore per il rilevamento delle persone durante la chiusura delle porte,
 ...
 \\
+Problemi affrontati: sistema operativo raspbian e mongo db, ...
 
 
 %			CAPITOLO 5: Conclusioni
@@ -1322,7 +1349,6 @@ M. Rouse, Internet of Things (IoT), ultimo aggiornamento Marzo 2019.
 Arduino, Un po' di storia.
 \url{https://playground.arduino.cc/Italiano/StoriaDiArduino/}
 %
-
 \bibitem{sistemi_embedded_atrent}
 A. Carraturo, A. Trentini, Sistemi Embedded: Teoria e Pratica, prima edizione: Settembre 2017.
 \url{http://www.ledizioni.it/prodotto/a-carraturo-a-trentini-sistemi-embedded-teoria-pratica/}
@@ -1338,6 +1364,11 @@ Mozilla, JavaScript, ultimo aggiornamento Maggio 2019.
 \bibitem{eloquent_javascript}
 M. Haverbeke, ELOQUENT JAVASCRIPT: A modern Introduction to Programming, terza edizione.
 \url{https://eloquentjavascript.net/}
+%
+\bibitem{jquery}
+Marco Trombino, You might not need jquery: A 2018 performance
+case study. Maggio 2018. 
+\url{https://medium.com/@trombino.marco/you-might-not-need-jquery-a-2018-performance-case-study-aa6531d0b0c3}
 \end{thebibliography}
 %
 \end{document}

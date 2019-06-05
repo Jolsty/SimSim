@@ -7,10 +7,6 @@ ATRENT: baco noto e mai risolto, prova a metterli in footnote
 
 ATRENT: solo se vedi che ti serve "riempimento" ;)
 
-- da qualche parte descrivi anche il contesto in cui hai lavorato, serve per capire che 
-le richieste funzionali che ti sono state fatte erano adeguate
-*brevemente* il contesto di lavoro del fablab, se e come sei stato seguito/aiutato, etc.
-
 - problema del package color (provato anche xcolor).. compila con tanti errori per colpa delle figure 
 (ho cercato ovunque online, non trovo una soluzione)
 questo significa che non posso avere colori nel \lstset
@@ -25,6 +21,8 @@ come posso rendere il codice più bello?
 - meglio centrare il testo? C'è più spazio libero a sinistra che a destra 
 (il template scaricato sul sito unimi è fatto cosi')
 
+- prova turnitin just in case (io non posso farlo, penso)
+
 
 DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
 
@@ -33,3 +31,20 @@ DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
 - cambiare le " " che sono brutte 
 
 - fixare le immagini troppo grandi 
+
+- commentare il codice (server ?)
+
+- mettere il codice in appendice?
+
+- acronimi: mettere prima il nome per esteso (in corsivo??) e poi l'acronimo tra parentesi
+
+- indice figure, indice tabelle, indice dei link (??)
+
+- da mettere nell'introduzione: 
+introduzione dell'ente, rapporto con i colleghi, modalità di svolgimento delle attività, come sono stato aiutato, ecc
+
+- attività preliminari, studio delle tecnologie utilizzate ecc 
+
+- attività, tempi, strumenti utilizzati, problemi
+
+- https://www.unimi.it/sites/default/files/2019-03/Schema%20di%20stesura%20del%20riassunto%20dell%E2%80%99attivit%C3%A0%20svolta%20informatica%20triennali.pdf
