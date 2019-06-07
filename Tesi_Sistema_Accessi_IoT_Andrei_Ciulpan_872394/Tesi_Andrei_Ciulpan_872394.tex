@@ -106,11 +106,11 @@
 
 Il controllo accessi è un sistema di protezione che permette l'accesso solo a determinate persone per via di qualche procedura di autenticazione: nel mondo fisico si può parlare di una semplice serratura (storicamente il sistema più utilizzato in assoluto) che può essere aperta solo dalle persone in possesso della chiave, mentre nel mondo dell'informatica si può notare l'enorme utilizzo delle procedure di autenticazione (login) che aiutano il sistema, tramite l'inserimento di un nome utente e password, a determinare automaticamente se una persona è autorizzata ad accedere alle risorse del sistema stesso.
 
-Il controllo accessi\cite{controllo_accessi} è un tema molto sviluppato nel campo della sicurezza sia fisica che informatica: è stato segnalato che nel 2017, per il secondo anno consecutivo, il mercato del controllo accessi ha avuto la crescita più rapida nell'industria della sicurezza fisica\cite{crescita_controllo_accessi}. E' anche un sistema onnipresente, utilizzato in ospedali, fabbriche, supermercati, aziende, sistemi di trasporto pubblico (e.g l'ATM di Milano), case e tanti altri campi.  
+Il controllo accessi\cite{controllo_accessi} è un tema molto sviluppato nel campo della sicurezza sia fisica che informatica: è stato segnalato che nel 2017, per il secondo anno consecutivo, il mercato del controllo accessi ha avuto la crescita più rapida nell'industria della sicurezza fisica\cite{crescita_controllo_accessi}. È anche un sistema onnipresente, utilizzato in ospedali, fabbriche, supermercati, aziende, sistemi di trasporto pubblico (e.g l'ATM di Milano), case e tanti altri campi.  
 
 La tesi si propone di trattare un sistema ibrido in cui il mondo fisico e il mondo informatico lavorano insieme: attraverso sensori ed attuatori è possibile avere la comunicazione tra i due mondi. 
 
-Si tratta di un sistema IoT (Internet of Things), ovvero un sistema in cui la connessione Internet viene estesa anche al mondo degli oggetti fisici (smart objects\cite{smart_objects}) di uso comune. Gli oggetti si rendono riconoscibili e "acquisiscono intelligenza" grazie al fatto di possedere una o più delle seguenti funzionalità: identificazione, localizzazione, diagnosi di stato, interazione con l'ambiente circostante, elaborazione dati e ovviamente connessione.
+Si tratta di un sistema IoT (Internet of Things), ovvero un sistema in cui la connessione Internet viene estesa anche al mondo degli oggetti fisici (smart objects\cite{smart_objects}) di uso comune. Gli oggetti si rendono riconoscibili e \textquotedblleft{} acquisiscono intelligenza \textquotedblright{} grazie al fatto di possedere una o più delle seguenti funzionalità: identificazione, localizzazione, diagnosi di stato, interazione con l'ambiente circostante, elaborazione dati e ovviamente connessione.
 Gli oggetti intelligenti di un sistema IoT sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado di agire sui dati raccolti dall'ambiente e, ancora più importante, mandare questi dati in rete dove possono poi essere analizzati\cite{IoT}. Un semplice esempio di un sistema IoT si può trovare nella Figura \ref{fig:iot_diagram}.
 
 Le seguente sezione di questo capitolo introdurrà il progetto stesso (denominato SimSim) che poi verrà dettagliato nei prossimi capitoli.
@@ -201,7 +201,7 @@ In questo capitolo vengono dettagliati i dispositivi hardware utilizzati all'int
 
 Raspberry Pi (Figura \ref{fig:raspi}) è una serie di piccoli computer (system-on-chip) dalle dimensioni simili a quelle di una carta di credito. La scheda è stata sviluppata nel Regno Unito (Fondazione Raspberry Pi). Le prime versioni avevano poca potenza computazionale e sono state progettate con l'intenzione di offrire a insegnanti e studenti uno strumento semplice e poco costoso con cui poter insegnare e imparare a programmare. La scheda ha avuto un enorme successo anche in altri campi (e.g$.$ robotica) e con ogni nuova versione è stata migliorata. Le ultime versioni sono assai potenti e possono essere utilizzate per tante altre cose. Le schede sono basate su sistemi operativi di tipo GNU/Linux, in particolare Raspbian che può essere scaricato dal sito della fondazione (\url{https://www.raspberrypi.org/downloads/}). 
 
-La scheda utilizzata nel progetto (Raspberry Pi 3B+, \url{https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/}) possiede un'architettura su 64 bit, essenziale per poter utilizzare in maniera efficiente MongoDB (che è limitato a una memoria di 2 GB su un sistema a 32bit). Durante lo sviluppo del progetto ho scoperto che Raspbian in realtà non è stato ancora aggiornato per essere un sistema operativo a 64 bit, perciò non poteva sfruttare al meglio la scheda. Come soluzione a questo problema, è stato installato un sistema operativo chiamato openSUSE Tumbleweed (\url{https://software.opensuse.org/distributions/tumbleweed}) che funziona su architetture a 64 bit. 
+La scheda utilizzata nel progetto (Raspberry Pi 3B+, \url{https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/}) possiede un'architettura su 64 bit, essenziale per poter utilizzare in maniera efficiente MongoDB (che è limitato a una memoria di 2 GB su un sistema a 32bit). 
 Il Raspberry Pi 3B+ possiede inoltre una scheda WiFi, il che la rende un buon candidato per lo scopo principale del progetto, ovvero quello di ospitare il server.
 
 
@@ -217,8 +217,8 @@ La scheda utilizzata nel progetto, Arduino UNO (Figura \ref{fig:uno}), è assolu
 
 \begin{itemize}
 	\item Microcontrollore: ATmega328 (\url{https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf})
-	\item Digital I/O Pins: 14 tra cui 6 offrono la funzione PWM (si veda la sezione \ref{sec:servomotore} "Servomotore") e 4 implementano il protocollo SPI (si veda la sezione \ref{sec:spi} "SPI")
-	\item Analog I/O Pins: 6 tra cui 2 implementano il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C")
+	\item Digital I/O Pins: 14 tra cui 6 offrono la funzione PWM (si veda la sezione \ref{sec:servomotore} \textquotedblleft{} Servomotore \textquotedblright{}) e 4 implementano il protocollo SPI (si veda la sezione \ref{sec:spi} \textquotedblleft{} SPI \textquotedblright{})
+	\item Analog I/O Pins: 6 tra cui 2 implementano il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} \textquotedblleft{} I$^2$C \textquotedblright{})
 	\item Flash Memory: 32 KB
 	\item EEPROM: 1 KB
 	\item Clock Speed: 16 MHz
@@ -228,7 +228,7 @@ La scheda utilizzata nel progetto, Arduino UNO (Figura \ref{fig:uno}), è assolu
 	\item Input Voltage (recommended): 7-12V
 \end{itemize}
 
-L'Arduino UNO è quindi un dispositivo ideale per il progetto; l'unica cosa che manca è la possibilità di accedere alla connessione WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip WiFi chiamato ESP8266 (si veda la sezione \ref{sec:esp8266} "ESP8266").
+L'Arduino UNO è quindi un dispositivo ideale per il progetto; l'unica cosa che manca è la possibilità di accedere alla connessione WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip WiFi chiamato ESP8266 (si veda la sezione \ref{sec:esp8266} \textquotedblleft{} ESP8266 \textquotedblright{}).
 
 \begin{figure}
 	\center{\includegraphics[width=0.4\linewidth]{./img/uno.jpg}}
@@ -240,7 +240,7 @@ L'Arduino UNO è quindi un dispositivo ideale per il progetto; l'unica cosa che 
 \subsection{Arduino Programming Language}
 %
 
-La scheda Arduino UNO (e qualsiasi altra board compatibile con Arduino) può essere facilmente programmata utilizzando, ma non solo, l'Arduino IDE (Arduino Integrated Development Software), un software sviluppato da Arduino.cc e funzionante sulle 3 piattaforme dominanti (Windows, Linux e MacOS). Il linguaggio di programmazione si chiama "Arduino Programming Language"\cite{sistemi_embedded_atrent} ed è un derivato di Wiring (una piattaforma di sviluppo open-source composta da un linguaggio di programmazione, un IDE ed un circuito stampato basato su un microcontrollore). La sintassi è molto simile a quella del linguaggio C/C++; infatti il linguaggio Arduino è un insieme di funzioni e librerie C/C++ che possono essere chiamate dal codice. Forse la cosa diversa e che si nota di più rispetto ad altri linguaggi di programmazione è la diversa strutturazione dello sketch (sinonimo di programma): per poter funzionare vengono sempre definite due funzioni iniziali, setup() e loop(); la prima viene eseguita soltanto una volta all'avvio del programma e serve per dichiarare variabili, modalità dei pin (e.g input o output) ecc., mentre nella seconda viene messo il programma vero e proprio che viene eseguito ripetutamente... all'infinito.
+La scheda Arduino UNO (e qualsiasi altra board compatibile con Arduino) può essere facilmente programmata utilizzando, ma non solo, l'Arduino IDE (Arduino Integrated Development Software), un software sviluppato da Arduino.cc e funzionante sulle 3 piattaforme dominanti (Windows, Linux e MacOS). Il linguaggio di programmazione si chiama \textquotedblleft{} Arduino Programming Language \textquotedblright{}\cite{sistemi_embedded_atrent} ed è un derivato di Wiring (una piattaforma di sviluppo open-source composta da un linguaggio di programmazione, un IDE ed un circuito stampato basato su un microcontrollore). La sintassi è molto simile a quella del linguaggio C/C++; infatti il linguaggio Arduino è un insieme di funzioni e librerie C/C++ che possono essere chiamate dal codice. Forse la cosa diversa e che si nota di più rispetto ad altri linguaggi di programmazione è la diversa strutturazione dello sketch (sinonimo di programma): per poter funzionare vengono sempre definite due funzioni iniziali, setup() e loop(); la prima viene eseguita soltanto una volta all'avvio del programma e serve per dichiarare variabili, modalità dei pin (e.g input o output) ecc., mentre nella seconda viene messo il programma vero e proprio che viene eseguito ripetutamente... all'infinito.
 
 
 %
@@ -249,7 +249,7 @@ La scheda Arduino UNO (e qualsiasi altra board compatibile con Arduino) può ess
 
 I requisiti del progetto richiedono il salvataggio del log dopo ogni accesso avvenuto con successo, e per fare ciò è necessario essere in grado di tenere traccia del tempo. Il Raspberry Pi, diversamente dai PC a cui siamo abituati, può tenere traccia del tempo solo se ha accesso alla connessione Internet per accedere ad un server NTP (Network Time Protocol); nel progetto in questione, il Raspberry Pi, nonostante sia connesso alla rete LAN, è stato privato della connessione Internet per questioni di sicurezza (nessun utente esterno alla rete può accedere al server in locale perciò elimina gran parte degli attacchi possibili). Ciò significa che per poter avere il cosiddetto timestamp nei log bisogna trovare un modo di tenere traccia della data e dell'ora. Fortunatamente esistono dei piccoli chip chiamati RTC che fanno questo lavoro. 
 
-Nella Figura \ref{fig:tinyRTC} si può vedere il dispositivo utilizzato nel progetto, chiamato TinyRTC, un modulo basato sul clock chip DS1307 (\url{https://datasheets.maximintegrated.com/en/ds/DS1307.pdf}) e supporta il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C") per cui è facilmente utilizzabile dall'Arduino UNO.
+Nella Figura \ref{fig:tinyRTC} si può vedere il dispositivo utilizzato nel progetto, chiamato TinyRTC, un modulo basato sul clock chip DS1307 (\url{https://datasheets.maximintegrated.com/en/ds/DS1307.pdf}) e supporta il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} \textquotedblleft{} I$^2$C \textquotedblright{}) per cui è facilmente utilizzabile dall'Arduino UNO.
 L'orologio può essere programmato con la data e l'ora corrente direttamente con il programma dell'Arduino e, grazie alla batteria al litio (CR1225), continua a tenere traccia del tempo anche senza alimentazione esterna. Il dispositivo è in grado di fornire, con abbastanza precisione, data e ora in termini di secondi, minuti, ora, giorno, mese e anno. Grazie alla popolarità di Arduino ci sono tante librerie per che permettono il facile utilizzo del dispositivo; nel progetto è stata usata una libreria chiamata RTClib che si può trovare nel seguente repository: \url{https://github.com/adafruit/RTClib}. Nella Figura \ref{fig:tinyRTC_uno} si può vedere il collegamento con l'UNO.
 
 \begin{figure}
@@ -273,7 +273,7 @@ L'orologio può essere programmato con la data e l'ora corrente direttamente con
 %
 
 Ci sono due principali tipi di tecnologie per i telecomandi: a raggi infrarossi o a radio-frequenza (RF).
-La tecnologia a raggi infrarossi è quella più utilizzata ed è usata da tanti dispositivi elettronici (un esempio molto comune è il telecomando della TV). In questo caso trasmettitore e ricevitore devono essere messi "faccia-a-faccia" e non troppo distanti tra di loro, perciò non è il caso di usare questa tecnologia nel progetto (non si potrebbe, ad esempio, aprire la porta stando dietro ad un muro).
+La tecnologia a raggi infrarossi è quella più utilizzata ed è usata da tanti dispositivi elettronici (un esempio molto comune è il telecomando della TV). In questo caso trasmettitore e ricevitore devono essere messi faccia-a-faccia e non troppo distanti tra di loro, perciò non è il caso di usare questa tecnologia nel progetto (non si potrebbe, ad esempio, aprire la porta stando dietro ad un muro).
 
 La tecnologia scelta è quindi quella a radio-frequenza, in cui trasmettitore e ricevitore possono comunicare anche se sono messi in camere diverse. Il dispositivo scelto (MX-05V/XD-RF-5V, Figura \ref{fig:rx_tx_module}) è un modulo composto da trasmettitore e ricevitore in radio-frequenza a 433 MHz (\url{https://sites.google.com/site/summerfuelrobots/arduino-sensor-tutorials/rf-wireless-transmitter-receiver-module-433mhz-for-arduino}). Il trasmettitore è stato utilizzato soltanto per programmare i telecomandi dell'azienda con i codici voluti grazie alla loro funzione di clonazione (codice sottostante).
 \begin{lstlisting}
@@ -350,7 +350,7 @@ La particolarità del servomotore è che può ruotare con una precisione di alcu
 \subsection{PWM}
 %
 
-\emph{Pulse Width Modulation} (PWM) è una tecnica che consiste in una serie di impulsi di larghezza variabile che determinano la posizione del servo. E' quindi un modo di ricavare un risultato analogico a partire da un segnale digitale. Un segnale PWM ha una forma d'onda quadra, con periodo fisso, ma spesso non simmetrica: la durata della semi-onda alta può variare (si veda la Figura \ref{fig:pwm}). La durata \textit{T[ON]} del segnale alto viene misurata in percentuale e si chiama duty cycle: ad esempio un duty cycle del 25\% significa che \textit{T[ON]} dura per 1/4 della durata del periodo fisso \textit{T}. Questo tipo di segnale non è un vero e proprio segnale analogico, però può essere interpretato tale: quello che succede è che la tensione viene applicata e levata nel giro di frazioni di secondo perciò quello che si chiama tensione efficace è in realtà minore della tensione reale applicata. Per calcolare la tensione efficace \textit{Veff} basta sapere la tensione applicata \textit{Vcc} e il duty cycle \textit{DC} (che si trova facendo il rapporto tra \textit{T[ON]} e \textit{T}):
+\emph{Pulse Width Modulation} (PWM) è una tecnica che consiste in una serie di impulsi di larghezza variabile che determinano la posizione del servo. È quindi un modo di ricavare un risultato analogico a partire da un segnale digitale. Un segnale PWM ha una forma d'onda quadra, con periodo fisso, ma spesso non simmetrica: la durata della semi-onda alta può variare (si veda la Figura \ref{fig:pwm}). La durata \textit{T[ON]} del segnale alto viene misurata in percentuale e si chiama duty cycle: ad esempio un duty cycle del 25\% significa che \textit{T[ON]} dura per 1/4 della durata del periodo fisso \textit{T}. Questo tipo di segnale non è un vero e proprio segnale analogico, però può essere interpretato tale: quello che succede è che la tensione viene applicata e levata nel giro di frazioni di secondo perciò quello che si chiama tensione efficace è in realtà minore della tensione reale applicata. Per calcolare la tensione efficace \textit{Veff} basta sapere la tensione applicata \textit{Vcc} e il duty cycle \textit{DC} (che si trova facendo il rapporto tra \textit{T[ON]} e \textit{T}):
 
 %
 \[Veff = Vcc \cdot DC\]
@@ -419,7 +419,7 @@ void loop() {
 \emph{Radio Frequency Identification} (RFID) è un termine utilizzato per descrivere tecnologie contactless che fanno uso delle onde radio per identificare oggetti, persone e animali sia da vicino (tag passivi) che da lontano (tag attivi). L'identificazione è resa possibile grazie ad un lettore RFID in grado di interrogare i cosidetti tag, ovvero dei dispositivi elettronici di varie forme e dimensioni che possiedono i dati necessari per l'identificazione e che principalmente si dividono in due categorie: 
 
 \begin{itemize}
-	\item I tag passivi sono poco costosi e contengono un'antenna e un piccolo chip con identificativo univoco e privo di alimentazione. Questi tag vengono utilizzati per l'identificazione a breve distanza (qualche centimetro) e vengono "attivati" dalle onde radio del lettore.
+	\item I tag passivi sono poco costosi e contengono un'antenna e un piccolo chip con identificativo univoco e privo di alimentazione. Questi tag vengono utilizzati per l'identificazione a breve distanza (pochi centimetri) e vengono \textquotedblleft{} attivati \textquotedblright{} dalle onde radio del lettore.
 	\item I tag attivi sono più costosi e permettono, grazie all'alimentazione interna (emettono loro stessi i segnali radio), l'identificazione a lunga distanza (fino a 200 metri).
 \end{itemize}
 
@@ -431,8 +431,7 @@ La tecnologia RFID si diversifica anche nella frequenza utilizzata e trova utili
 	\label{fig:mfrc522}
 \end{figure}
 
-Il lettore RFID utilizzato nel progetto è il MFRC522 illustrato nella Figura \ref{fig:mfrc522} (\url{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}). Esso opera su una frequenza di 13.56 MHz ed è in grado di comunicare con tag che si conformano allo standard ISO/IEC 14443 A/MIFARE. Implementa vari protocolli di comunicazione (SPI, Serial UART, I$^2$C) ma è stata sviluppata solo una libreria di Arduino (\url{https://github.com/miguelbalboa/rfid}) basata sul protocollo SPI (si veda la sezione \ref{sec:spi} "SPI").
-
+Il lettore RFID utilizzato nel progetto è il MFRC522 illustrato nella Figura \ref{fig:mfrc522} (\url{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}). Esso opera su una frequenza di 13.56 MHz ed è in grado di comunicare con tag che si conformano allo standard ISO/IEC 14443 A/MIFARE. Implementa vari protocolli di comunicazione (SPI, Serial UART, I$^2$C) ma è stata sviluppata solo una libreria di Arduino (\url{https://github.com/miguelbalboa/rfid}) basata sul protocollo SPI (si veda la sezione \ref{sec:spi} \textquotedblleft{} SPI \textquotedblright{}).
 Nella Figura \ref{fig:rfid_uno} si trova il circuito per collegare il lettore RFID con l'UNO e un esempio di codice di Arduino per leggere i tag si trova sotto.
 
 \begin{lstlisting}
@@ -460,7 +459,7 @@ boolean rfidCardRead(void) {
 \section{Display LCD 16x2}
 %
 
-I moduli LCD trovano ampio utilizzo nei sistemi embedded grazie al basso costo, disponibilità e utilità. Il display utilizzato si chiama "16x2 LCD" (Figura \ref{fig:16x2}) proprio perchè possiede uno schermo su cui si possono scrivere 2 linee di 16 caratteri ciascuna. Questi dispositivi sono abbastanza complessi (ci sono 1280 pixel da indirizzare) e per poterli utilizzare in maniera semplice ed efficiente è necessario avere un'interfaccia. Infatti i display LCD spesso vengono accoppiati con un controller che rende la vita facile al programmatore. Il controller più utilizzato (infatti è considerato uno standard \textit{de facto}) si chiama HD44780 (\url{https://www.sparkfun.com/datasheets/LCD/HD44780.pdf}), costruito dalla Hitachi, ed è in grado di controllare display LCD capaci di visualizzare solo caratteri. L'HD44780 supporta il trasferimento parallelo a 8 bit (possiede 8 bit di dati) e il suo compito principale è di ricevere i comandi e i dati in arrivo dall'MCU per poi processarli
+I moduli LCD trovano ampio utilizzo nei sistemi embedded grazie al basso costo, disponibilità e utilità. Il display utilizzato si chiama \textquotedblleft{} 16x2 LCD \textquotedblright{} (Figura \ref{fig:16x2}) proprio perchè possiede uno schermo su cui si possono scrivere 2 linee di 16 caratteri ciascuna. Questi dispositivi sono abbastanza complessi (ci sono 1280 pixel da indirizzare) e per poterli utilizzare in maniera semplice ed efficiente è necessario avere un'interfaccia. Infatti i display LCD spesso vengono accoppiati con un controller che rende la vita facile al programmatore. Il controller più utilizzato (infatti è considerato uno standard \textit{de facto}) si chiama HD44780 (\url{https://www.sparkfun.com/datasheets/LCD/HD44780.pdf}), costruito dalla Hitachi, ed è in grado di controllare display LCD capaci di visualizzare solo caratteri. L'HD44780 supporta il trasferimento parallelo a 8 bit (possiede 8 bit di dati) e il suo compito principale è di ricevere i comandi e i dati in arrivo dall'MCU per poi processarli
 e mandarli all'LCD.
 
 \begin{figure}
@@ -469,7 +468,7 @@ e mandarli all'LCD.
 	\label{fig:16x2}
 \end{figure}
 
-Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab:lcd_pinout}, è il numero di pin necessari da collegare (e la pazienza per farlo) all'Arduino per poter farlo funzionare correttamente. Questo significa che, siccome l'Arduino ha un numero limitato di pin (13 digitali e 6 analogici), essi potrebbero non bastare per un progetto di dimensioni più grandi. Fortunatamente c'è una soluzione: I$^2$C (si veda la sezione \ref{sec:i2c} "I$^2$C"). Esiste un chip che rende possibile la riduzione del numero di pin utilizzati a 2 (SDA e SCL) cambiando l'interfaccia parallela del controller in una seriale. Questo chip si chiama PCF8574 I/O Expander ed è definito come un backpack (è letteralmente uno "zaino" che si salda sopra l'LCD) e permette appunto all'LCD e all'Arduino di comunicare utilizzando il protocollo I$^2$C. Per utilizzarlo con Arduino esiste già una libreria che si chiama LiquidCrystal\_PCF8574 (\url{https://platformio.org/lib/show/1165/LiquidCrystal_PCF8574/installation}) che sfrutta la libreria Wire (\url{https://www.arduino.cc/en/Reference/Wire}) per implementare alcune funzioni utili al programmatore. Esempio di codice per utilizzare il LCD 16x2 con la libreria LiquidCrystal\_PCF8574:
+Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab:lcd_pinout}, è il numero di pin necessari da collegare (e la pazienza per farlo) all'Arduino per poter farlo funzionare correttamente. Questo significa che, siccome l'Arduino ha un numero limitato di pin (13 digitali e 6 analogici), essi potrebbero non bastare per un progetto di dimensioni più grandi. Fortunatamente c'è una soluzione: I$^2$C (si veda la sezione \ref{sec:i2c} \textquotedblleft{} I$^2$C \textquotedblright{}). Esiste un chip che rende possibile la riduzione del numero di pin utilizzati a 2 (SDA e SCL) cambiando l'interfaccia parallela del controller in una seriale. Questo chip si chiama PCF8574 I/O Expander ed è definito come un backpack (è letteralmente uno zaino che si salda sopra l'LCD) e permette appunto all'LCD e all'Arduino di comunicare utilizzando il protocollo I$^2$C. Per utilizzarlo con Arduino esiste già una libreria che si chiama LiquidCrystal\_PCF8574 (\url{https://platformio.org/lib/show/1165/LiquidCrystal_PCF8574/installation}) che sfrutta la libreria Wire (\url{https://www.arduino.cc/en/Reference/Wire}) per implementare alcune funzioni utili al programmatore. Esempio di codice per utilizzare il LCD 16x2 con la libreria LiquidCrystal\_PCF8574:
 
 \begin{lstlisting}
 LiquidCrystal_PCF8574 lcd(lcdAddr); // lcdAddr = 0x27
@@ -540,7 +539,7 @@ void lcdHomeMode(void) {
 	\label{fig:keypad_both}
 \end{figure}
 
-I tastierini sono dei dispositivi di input ampiamente utilizzati per dare la possibilità alle persone di interagire con un sistema (e.g$.$ inserire una password, controllare un robot ecc.). Normalmente i tasti sono disposti in un formato a matrice (in questo caso 4x4, ovvero 16 pulsanti) e permettono ad un microcontrollore di capire facilmente quale tasto è stato premuto in base alle linee che si attivano: nella Figura \ref{fig:keypad_both} si può facilmente vedere che premendo il pulsante "2" vengono attivate le linee "R0" e "C1" e il microcontrollore, grazie a come è stato configurato, è in grado di dire che quel pulsante specifico è stato premuto. Segue un esempio di configurazione in Arduino del tastierino (in questo caso non viene utilizzata l'ultima colonna con le lettere): 
+I tastierini sono dei dispositivi di input ampiamente utilizzati per dare la possibilità alle persone di interagire con un sistema (e.g$.$ inserire una password, controllare un robot ecc.). Normalmente i tasti sono disposti in un formato a matrice (in questo caso 4x4, ovvero 16 pulsanti) e permettono ad un microcontrollore di capire facilmente quale tasto è stato premuto in base alle linee che si attivano: nella Figura \ref{fig:keypad_both} si può facilmente vedere che premendo il pulsante \textquotedblleft{} 2 \textquotedblright{} vengono attivate le linee \textquotedblleft{} R0 \textquotedblright{} e \textquotedblleft{} C1 \textquotedblright{} e il microcontrollore, grazie a come è stato configurato, è in grado di dire che quel pulsante specifico è stato premuto. Segue un esempio di configurazione in Arduino del tastierino (in questo caso non viene utilizzata l'ultima colonna con le lettere): 
 \begin{lstlisting}
 const byte keypadRows = 4;   // quattro righe
 const byte keypadCols = 3;  // tre colonne
@@ -658,10 +657,10 @@ void loop() {
 		if ( Serial.available() ) {
 		String from_arduinoJSON = Serial.readString();
 			if (from_arduinoJSON.startsWith("check")) {
-				checkTesseraAPI(from_arduinoJSON.substring(5));
+				checkTessera(from_arduinoJSON.substring(5));
 			}
 			else if (from_arduinoJSON.startsWith("log")) {
-				sendLogAPI(from_arduinoJSON.substring(3));
+				sendLog(from_arduinoJSON.substring(3));
 			}
 		}
 	}
@@ -682,7 +681,7 @@ void loop() {
 L'Arduino è programmato per mandare 2 tipi di richieste:
 
 \begin{itemize}
-	\item "check" per quando deve inoltrare all'ESP-01 il codice del tag per la verifica:
+	\item \textquotedblleft{} check \textquotedblright{} per quando deve inoltrare all'ESP-01 il codice del tag per la verifica:
 \begin{lstlisting}
 boolean checkCardSerial(String serial) {
 	boolean allowed = false;
@@ -691,7 +690,7 @@ boolean checkCardSerial(String serial) {
 	...
 }
 \end{lstlisting}
-	\item "log" per quando deve inoltrare all'ESP-01 un log:
+	\item \textquotedblleft{} log \textquotedblright{} per quando deve inoltrare all'ESP-01 un log:
 \begin{lstlisting}
 void sendLog(String tipo) {
 	String date = getCurrentFormattedDate();
@@ -708,7 +707,7 @@ In base alla richiesta vengono attivate 2 funzioni diverse:
 \begin{itemize}
 	\item una per mandare la verifica del tag al server tramite una chiamata HTTP:
 \begin{lstlisting}
-void checkTesseraAPI(String tesseraJSON) {
+void checkTessera(String tesseraJSON) {
 	HTTPClient http;
 	http.begin("http://192.168.1.71:3000/api/tessere/check");
 	http.addHeader("Content-Type", "text/plain");
@@ -720,7 +719,7 @@ void checkTesseraAPI(String tesseraJSON) {
 \end{lstlisting}
 	\item una per mandare il log al server tramite una chiamata HTTP: 
 \begin{lstlisting}
-void sendLogAPI(String logJSON) {
+void sendLog(String logJSON) {
 	HTTPClient http;
 	http.begin("http://192.168.1.71:3000/api/logs/add");
 	http.addHeader("Content-Type", "text/plain");
@@ -742,14 +741,14 @@ void arduinoEspSerialSetup() {
 	ESP.begin(9600);
 }
 \end{lstlisting}
-Come si è visto precedentemente, l'Arduino inoltra all'ESP-01 delle stringhe che sono quasi in formato JSON: prima dell'oggetto JSON c'è un'altra stringa usata per identificare la funzione voluta (e.g$.$ "check\{object\}" e "log\{object\}"). L'ESP-01 poi filtra questi dettagli non più necessari e chiama la funzione richiesta. Viene presentata la sequenza degli eventi per la verifica del tag:
+Come si è visto precedentemente, l'Arduino inoltra all'ESP-01 delle stringhe che sono quasi in formato JSON: prima dell'oggetto JSON c'è un'altra stringa usata per identificare la funzione voluta (e.g$.$ \textquotedblleft{} check\{object\} \textquotedblright{} e \textquotedblleft{} log\{object\} \textquotedblright{}). L'ESP-01 poi filtra questi dettagli non più necessari e chiama la funzione richiesta. Viene presentata la sequenza degli eventi per la verifica del tag:
 
 \begin{enumerate}
 	\item L'utente avvicina il tag al lettore RFID
-	\item L'Arduino legge il seriale del tag e chiama "checkCardSerial(serial)"
-	\item Questa funzione manda un'oggetto in formato quasi-JSON all'ESP-01
+	\item L'Arduino legge il seriale del tag e chiama \textquotedblleft{} checkCardSerial(serial) \textquotedblright{}
+	\item Questa funzione manda un'oggetto in formato \textquotedblleft{} quasi-JSON \textquotedblright{} all'ESP-01
 	\item L'ESP-01 riceve questa stringa e filtra l'informazione non più necessaria
-	\item L'ESP-01 chiama la funzione richiesta (in questo caso "checkTesseraAPI(tesseraJSON)")
+	\item L'ESP-01 chiama la funzione richiesta (in questo caso \textquotedblleft{} checkTessera(tessera) \textquotedblright{})
 	\item La funzione eseguita manda l'oggetto JSON al server e aspetta una risposta con lo status code.
 	\item L'ESP-01 inoltra lo status code all'Arduino
 	\item L'Arduino prende una decisione un base allo Status Code: se 200 allora il tag è accettato e l'Arduino apre la porta, altrimenti viene rifiutato.
@@ -758,10 +757,6 @@ Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un in
 %
 \section{Protocolli di comunicazione tra dispositivi}
 %
-%
-\subsection{Logica IoT}
-%
-\textbf{Da fare come riempimento?}
 
 %
 \subsection{I$^2$C}\label{sec:i2c}
@@ -773,7 +768,7 @@ Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un in
 	\label{fig:i2c_bus}
 \end{figure}
 
-\emph{Inter-Integrated Circuit} (I$^2$C) è un protocollo seriale a due vie inventato dalla NXP per far comunicare tra di loro dispositivi come microcontrollori, memorie EEPROM, dispositivi di input/output ecc. E' un protocollo creato per la comunicazione sincrona e a breve distanza tra dispositivi chiamati dispositivi master e slave (Figura \ref{fig:i2c_bus}): 
+\emph{Inter-Integrated Circuit} (I$^2$C) è un protocollo seriale a due vie inventato dalla NXP per far comunicare tra di loro dispositivi come microcontrollori, memorie EEPROM, dispositivi di input/output ecc. È un protocollo creato per la comunicazione sincrona e a breve distanza tra dispositivi chiamati dispositivi master e slave (Figura \ref{fig:i2c_bus}): 
 
 \begin{itemize}
 	\item Lo slave è un dispositivo che riceve i comandi dal master. Ogni slave ha un indirizzo (deve essere unico all'interno del sistema) normalmente specificato nel datasheet (e.g$.$ per il display LCD 16x2 con il backpack PCF8574 utilizzato nel progetto l'indirizzo è 0x27) attraverso il quale viene indirizzato dal master.
@@ -782,7 +777,7 @@ Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un in
 I$^2$C è un protocollo a due vie perchè utilizza due linee bidirezionali:
 
 \begin{itemize}
-	\item \emph{Serial Data} (SDA) attraverso il quale viaggiano i dati. I dati vengono trasferiti in \textit{messaggi} che vengono divisi in blocchi di dati a 8 bit. Ogni messaggio parte con il "Start Condition" e finisce con "Stop Condition" e ha al suo interno, oltre ai blocchi di dati, l'indirizzo dello slave con cui il master desidera comunicare. Per gestire i comandi di lettura/scrittura è presente un Read/Write bit. Nel messaggio vengono inclusi anche i cosidetti ACK/NACK (acknowledge/no-acknowledge) bit che vengono mandati dal destinatario (lo slave in modalità "write", il master in modalità "read") dei blocchi di dati inviati. Un esempio di messaggio si trova nella Figura \ref{fig:i2c_data_bus}. 
+	\item \emph{Serial Data} (SDA) attraverso il quale viaggiano i dati. I dati vengono trasferiti in \textit{messaggi} che vengono divisi in blocchi di dati a 8 bit. Ogni messaggio parte con il \textquotedblleft{} Start Condition \textquotedblright{} e finisce con \textquotedblleft{} Stop Condition \textquotedblright{} e ha al suo interno, oltre ai blocchi di dati, l'indirizzo dello slave con cui il master desidera comunicare. Per gestire i comandi di lettura/scrittura è presente un Read/Write bit. Nel messaggio vengono inclusi anche i cosidetti ACK/NACK (acknowledge/no-acknowledge) bit che vengono mandati dal destinatario (lo slave in modalità \textquotedblleft{} write \textquotedblright{}, il master in modalità \textquotedblleft{} read \textquotedblright{}) dei blocchi di dati inviati. Un esempio di messaggio si trova nella Figura \ref{fig:i2c_data_bus}. 
 	\item \emph{Serial Clock} (SCL) utilizzato dal master per la sincronizzazione.
 \end{itemize}
 
@@ -834,7 +829,7 @@ Anche se sembrano molto simili, ci sono alcune differenze importanti tra i due p
 \label{cap3}
 %
 
-In questo capitolo vengono descritte le tecnologie e le scelte progettuali che hanno portato allo sviluppo dell'interfaccia grafica richiesta dai requisiti per la gestione del database dell'azienda (si veda la sezione \ref{sec:req} "Requisiti del progetto"). Nella Figura \ref{fig:esempio_libro_soci} si può vedere un esempio della grafica creata per la gestione del libro soci.
+In questo capitolo vengono descritte le tecnologie e le scelte progettuali che hanno portato allo sviluppo dell'interfaccia grafica richiesta dai requisiti per la gestione del database dell'azienda (si veda la sezione \ref{sec:req} \textquotedblleft{} Requisiti del progetto \textquotedblright{}). Nella Figura \ref{fig:esempio_libro_soci} si può vedere un esempio della grafica creata per la gestione del libro soci.
 
 \begin{figure}
 	\center{\includegraphics[width=0.77\linewidth]{./img/esempio_libro_soci.png}}
@@ -852,25 +847,25 @@ In ingegneria del software, il termine back-end rappresenta il lato server di un
 
 \subsubsection*{Node.js}
 
-Node.js è un framework open-source che esegue codice JavaScript al di fuori da un browser. E' basato sul motore JavaScript V8 di Google ed è stato creato per rendere possibile la creazione di un server utilizzando un linguaggio di programmazione con la stessa sintassi di JavaScript (si parla del paradigma "JavaScript-everywhere"). Vengono elencati alcuni vantaggi principali di Node.js
+Node.js è un framework open-source che esegue codice JavaScript al di fuori da un browser. È basato sul motore JavaScript V8 di Google ed è stato creato per rendere possibile la creazione di un server utilizzando un linguaggio di programmazione con la stessa sintassi di JavaScript (si parla del paradigma \textquotedblleft{} JavaScript-everywhere \textquotedblright{}). Vengono elencati alcuni vantaggi principali di Node.js
 
 \begin{itemize}
 	\item rende possibile la programmazione ad eventi (un approccio asincrono): un'azione viene lanciata solo quando succede qualcosa (un evento) e non perforza nell'ordine del codice scritto, aumentando l'efficienza soprattutto nell'ambito di networking dove capita spesso dover rimanere in attesa di una risposta;
 	\item scalabilità del software;
 	\item NPM (Node Package Manager): è il più grande ecosistema di librerie open source al mondo. Infatti Node.js ha un enorme quantità disponibile di librerie scritte da altri sviluppatori e possono essere installati facilmente utilizzando NPM;
-	\item utilizza lo stesso linguaggio di programmazione degli sviluppatori front-end, perciò è ancora piu' semplice diventare un full-stack developer grazie al fatto di non dover perforza conoscere linguaggi come Ruby o PHP.
+	\item utilizza lo stesso linguaggio di programmazione degli sviluppatori front-end, perciò è ancora più semplice diventare un full-stack developer grazie al fatto di non dover perforza conoscere linguaggi come Ruby o PHP.
 \end{itemize}
 
 L'applicazione utilizza vari moduli di Node.js:
 
 \begin{itemize}
-	\item Path (\url{https://nodejs.org/docs/latest/api/path.html}) fornisce alcune utilità nel lavorare con i file e con i percorsi delle directory. L'applicazione usa il modulo per definire una directory statica assoluta per i file dell'applicazione senza dover quindi utilizzare l'intero indirizzo della directory "public": 
+	\item Path (\url{https://nodejs.org/docs/latest/api/path.html}) fornisce alcune utilità nel lavorare con i file e con i percorsi delle directory. L'applicazione usa il modulo per definire una directory statica assoluta per i file dell'applicazione senza dover quindi utilizzare l'intero indirizzo della directory \textquotedblleft{} public \textquotedblright{}: 
 \begin{lstlisting}
 app.use(express.static(path.join(__dirname, 'public')));
 \end{lstlisting}
 	\item Express (\url{https://expressjs.com/}) è un framework robusto e flessibile che fornisce un insieme di funzioni che facilitano e velocizzano lo sviluppo di applicazioni web con Node.js. L'applicazione fa uso di express per:
 	\begin{itemize}
-		\item definire delle middleware per rispondere a richieste HTTP e per gestire gli errori. Esempio di middleware per caricare la pagina "404.ejs" nel caso in cui un utente provi ad accedere ad una pagina non esistente:
+		\item definire delle middleware per rispondere a richieste HTTP e per gestire gli errori. Esempio di middleware per caricare la pagina \textquotedblleft{} 404.ejs \textquotedblright{} nel caso in cui un utente provi ad accedere ad una pagina non esistente:
 \begin{lstlisting}
 // Catch 404 and forward to error handler
 
@@ -894,7 +889,7 @@ app.use(function(err, req, res, next) {
 \begin{lstlisting}
 app.get('/', (req, res) => res.render('index'));
 \end{lstlisting}
-		Quando viene fatta una richiesta GET all'endpoint "/" allora, come risposta, l'applicazione invia all'utente un file chiamato "index.ejs" (che rappresenta la homepage) che viene poi caricato dal suo browser;
+		Quando viene fatta una richiesta GET all'endpoint \emph{\textquotedblleft{} / \textquotedblright{}} allora, come risposta, l'applicazione invia all'utente un file chiamato \textquotedblleft{} index.ejs \textquotedblright{} (che rappresenta la homepage) che viene poi caricato dal suo browser;
 		\item caricare pagine HTML in maniera dinamica passando degli argomenti ai template (e.g. usando un linguaggio di templating chiamato EJS);
 		\item si possono creare in maniera semplice e veloce delle API RESTful (si veda la sezione \ref{sec:api});
 		\item interfacciarsi con vari database (e.g. MongoDB, MySQL ecc.)
@@ -916,7 +911,7 @@ app.use(bodyParser.text());
 \begin{lstlisting}
 app.set('view engine', 'ejs');
 \end{lstlisting}
-Esempio di utilizzo nel lato client (il codice JavaScript all'interno della pagina HTML è racchiuso tra "$<$\% \%$>$" e l'oggetto "tessere" è stato passato dal server in formato JSON):
+Esempio di utilizzo nel lato client (il codice JavaScript all'interno della pagina HTML è racchiuso tra \textquotedblleft{} $<$\% \%$>$ \textquotedblright{} e l'oggetto \textquotedblleft{} tessere \textquotedblright{} è stato passato dal server in formato JSON):
 \begin{lstlisting}[language=HTML]
 <% for(var i=0; i<tessere.length; i++) { %>
 	<tr class="w3-black tessere-table-mobile">
@@ -936,7 +931,7 @@ Esempio di utilizzo nel lato client (il codice JavaScript all'interno della pagi
 	</tr>
 <% } %>
 \end{lstlisting}
-	\item Mongoose (\url{https://mongoosejs.com/}) è una libreria di \emph{Object Data Modeling} (ODM) che fornisce un ambiente per la modelizzazione dei dati di MongoDB permettendo la definizione degli oggetti sotto uno schema fortemente tipizzato (si veda la sezione \ref{sec:db} "Database")	
+	\item Mongoose (\url{https://mongoosejs.com/}) è una libreria di \emph{Object Data Modeling} (ODM) che fornisce un ambiente per la modelizzazione dei dati di MongoDB permettendo la definizione degli oggetti sotto uno schema fortemente tipizzato (si veda la sezione \ref{sec:db} \textquotedblleft{} Database \textquotedblright{})	
 \end{itemize}
 
 \subsubsection*{MVC}
@@ -1022,17 +1017,17 @@ MongoDB si integra facilmente con Node.js grazie a dei driver creati dagli svilu
 \begin{itemize}
 	\item la logica dei dati è diversa rispetto a quella che viene insegnata nei corsi tradizionali di basi di dati perciò potrebbe essere difficile abituarsi (ma, come si vedrà, anche non necessario);
 	\item non c'è la possibilità di validare i dati in maniera semplice ma bisogna scrivere del codice che potrebbe essere soggetto a errori;
-	\item le query con i driver nativi di MongoDB non sono tanto leggibili e possono diventare molto complesse perchè usano un insieme di operatori (e.g. quello di uguaglianza "\$eq"). Esempio:
+	\item le query con i driver nativi di MongoDB non sono tanto leggibili e possono diventare molto complesse perchè usano un insieme di operatori (e.g. quello di uguaglianza \textquotedblleft{} \$eq \textquotedblright{}). Esempio:
 \begin{lstlisting}
 Account.find({ nome: { $eq: 'Andrea' } });
 \end{lstlisting}
 	\item la manutenzione è resa più complicata per la mancanza di una struttura fissa dei dati.
 \end{itemize}
 
-E' possibile però avere più astrazione (ad un basso costo di performance) utilizzando Mongoose, una libreria basata sui driver di MongoDB ideata per la modellazione degli oggetti di MongoDB e progettata per funzionare in un ambiente asincrono (come Node.js). Mongoose rende più semplice e immediato l'utilizzo di MongoDB per alcuni motivi:
+È possibile però avere più astrazione (ad un basso costo di performance) utilizzando Mongoose, una libreria basata sui driver di MongoDB ideata per la modellazione degli oggetti di MongoDB e progettata per funzionare in un ambiente asincrono (come Node.js). Mongoose rende più semplice e immediato l'utilizzo di MongoDB per alcuni motivi:
 \begin{itemize}
 	\item facilità di apprendimento;
-	\item query più semplificate e leggibili grazie al "method chaining" di JavaScript (soprattutto quando diventano complesse). Ad esempio:
+	\item query più semplificate e leggibili grazie al \textquotedblleft{} method chaining \textquotedblright{} di JavaScript (soprattutto quando diventano complesse). Ad esempio:
 \begin{lstlisting}
 exports.updateSocio = (req, res) => {
 	Socio.
@@ -1058,9 +1053,9 @@ schema.pre('save', function(next) {
 \end{itemize}
 Come esempio, viene presentata la sequenza degli eventi per aggiungere un log (dopo un accesso con la tessera) all'interno del database e poi visualizzarlo sul sito:
 \begin{enumerate}[(I)]
-	\item L'Arduino manda una richiesta di aggiunta del log all'endpoint \emph{/api/logs/add} del server tramite l'ESP-01:
+	\item L'ESP-01 manda una richiesta di aggiunta del log all'endpoint \emph{/api/logs/add} del server:
 \begin{lstlisting}
-void sendLogAPI(String logJSON) {
+void sendLog(String logJSON) {
 	HTTPClient http;
 	http.begin("http://192.168.1.71:3000/api/logs/add");
 	http.addHeader("Content-Type", "text/plain");
@@ -1212,7 +1207,7 @@ Per creare il front-end vengono utilizzati linguaggi come HTML (per la struttura
 %
 \subsubsection*{HTML5}
 %
-\emph{Hyper Text Markup Language} (HTML) è il linguaggio di markup standard nato all'inizio degli anni novanta per la formattazione e impaginazione di documenti progettati per essere visualizzati in un browser. E' stato sviluppato assieme al protocollo HTTP dedicato al trasferimento di documenti di tale formato. Viene spesso utilizzato insieme ad un linguaggio di stile (CSS) e uno di scripting (JavaScript). L'ultima versione standardizzata dal W3C è HTML 5.1.
+\emph{Hyper Text Markup Language} (HTML) è il linguaggio di markup standard nato all'inizio degli anni novanta per la formattazione e impaginazione di documenti progettati per essere visualizzati in un browser. È stato sviluppato assieme al protocollo HTTP dedicato al trasferimento di documenti di tale formato. Viene spesso utilizzato insieme ad un linguaggio di stile (CSS) e uno di scripting (JavaScript). L'ultima versione standardizzata dal W3C è HTML 5.1.
 I file HTML generati nel progetto hanno l'estensione EJS perchè vengono usati assieme al linguaggio di templating per portare i dati provenienti dal server direttamente nel documento stesso.
 %
 \subsubsection*{CSS}
@@ -1244,14 +1239,14 @@ Inoltre è stato utilizzato \emph{Font Awesome}, un toolkit di icone distribuito
 %
 \subsubsection*{JavaScript}
 %
-JavaScript è un linguaggio di programmazione introdotto nel 1995 con lo scopo di aggiungere programmi all'interno di siti web sul browser Netscape Navigator. Il linguaggio è stato adottato da quasi tutti gli altri browser esistenti (è stato anche standardizzato sotto il nome di ECMAScript) e ha reso possibile avere applicazioni web moderne con cui un utente può interagire direttamente senza dover ricaricare la pagina\cite{eloquent_javascript}. E' un linguaggio molto evoluto e studiato nel tempo e ora si definisce come un linguaggio di scripting client-side (ma non solo, come si è visto con Node.js) eseguito dai browser. Il codice JavaScript può essere scritto all'interno di qualsiasi documento, ma è buona norma avere i file con estensione .js separati e poi inclusi alla fine del documento (per far sì che tutti gli elementi vengano caricati dal browser), così come segue: 
+JavaScript è un linguaggio di programmazione introdotto nel 1995 con lo scopo di aggiungere programmi all'interno di siti web sul browser Netscape Navigator. Il linguaggio è stato adottato da quasi tutti gli altri browser esistenti (è stato anche standardizzato sotto il nome di ECMAScript) e ha reso possibile avere applicazioni web moderne con cui un utente può interagire direttamente senza dover ricaricare la pagina\cite{eloquent_javascript}. È un linguaggio molto evoluto e studiato nel tempo e ora si definisce come un linguaggio di scripting client-side (ma non solo, come si è visto con Node.js) eseguito dai browser. Il codice JavaScript può essere scritto all'interno di qualsiasi documento, ma è buona norma avere i file con estensione .js separati e poi inclusi alla fine del documento (per far sì che tutti gli elementi vengano caricati dal browser), così come segue: 
 \begin{lstlisting}
 <script type="text/javascript" src=/js/jquery-3.3.1.min.js></script>
 <script type="text/javascript" src=/js/forms.js></script>
 <script type="text/javascript" src=/js/buttons.js></script>
 <script type="text/javascript" src=/js/dettagliSoci.js></script>
 \end{lstlisting}
-JavaScript è un linguaggio che utilizza un singolo thread (organizza l'esecuzione in un'unica pila chiamata \emph{call stack}) e segue il paradigma della programmazione a eventi, perciò è possibile costruire un comportamento non bloccante. Il motore JavaScript crea una coda di eventi (che possono essere operazioni di I/O, richieste di rete, chiamate di WebWorker, funzioni inserite in timer ecc.) che, al verificarsi di un evento, possono modificare l'ordine di esecuzione sequenziale del codice. Si prenda come esempio una funzione che scrive "Hello World" ogni 3 secondi: 
+JavaScript è un linguaggio che utilizza un singolo thread (organizza l'esecuzione in un'unica pila chiamata \emph{call stack}) e segue il paradigma della programmazione a eventi, perciò è possibile costruire un comportamento non bloccante. Il motore JavaScript crea una coda di eventi (che possono essere operazioni di I/O, richieste di rete, chiamate di WebWorker, funzioni inserite in timer ecc.) che, al verificarsi di un evento, possono modificare l'ordine di esecuzione sequenziale del codice. Si prenda come esempio una funzione che scrive \textquotedblleft{} Hello World \textquotedblright{} ogni 3 secondi: 
 \begin{lstlisting}
 function myFunction() {
 	setInterval(function() { 
@@ -1267,7 +1262,7 @@ JavaScript interagisce col browser attraverso il \emph{Document Object Model} (D
 	\label{fig:dom}
 \end{figure}
 
-Nel progetto è stato utilizzato jQuery (\url{https://jquery.com/}), una libreria molto diffusa (ormai di meno rispetto a qualche anno fa dato che ora ci sono altre scelte più moderne come React.js, Vue.js e Angular.js) di JavaScript proposta a ridurre e semplificare il codice per lo sviluppo del front-end. Esistono tanti test di benchmark per quanto riguarda la prestazione di jQuery rispetto al "vanilla JavaScript". Secondo Marco Trombino, uno sviluppatore di front-end che ha testato una funzione che inserisce 10,000 elementi nuovi con una classe all'interno di un altro elemento, è stato rilevato che jQuery è molto meno performante rispetto al JavaScript normale: \textit{"As we could have expected Vanilla performed the task in 18,99 ms, whereas jQuery did it in 195,89 ms. Ten times faster."} \cite{jquery}. Nonostante ciò, la scelta di usare jQuery è stata fatta poichè il progetto non è di grosse dimensioni e il costo da pagare per la prestazione non è notevole; in cambio il codice scritto è più corto e semplificato. 
+Nel progetto è stato utilizzato jQuery (\url{https://jquery.com/}), una libreria molto diffusa (ormai di meno rispetto a qualche anno fa dato che ora ci sono altre scelte più moderne come React.js, Vue.js e Angular.js) di JavaScript proposta a ridurre e semplificare il codice per lo sviluppo del front-end. Esistono tanti test di benchmark per quanto riguarda la prestazione di jQuery rispetto al \textquotedblleft{} vanilla JavaScript \textquotedblright{}. Secondo Marco Trombino, uno sviluppatore di front-end che ha testato una funzione che inserisce 10,000 elementi nuovi con una classe all'interno di un altro elemento, è stato rilevato che jQuery è molto meno performante rispetto al JavaScript normale: \textit{\textquotedblleft{} As we could have expected Vanilla performed the task in 18,99 ms, whereas jQuery did it in 195,89 ms. Ten times faster. \textquotedblright{}}\cite{jquery}. Nonostante ciò, la scelta di usare jQuery è stata fatta poichè il progetto non è di grosse dimensioni e il costo da pagare per la prestazione non è notevole; in cambio il codice scritto è più corto e semplificato. 
 
 Un elemento molto importante di JavaScript di cui ne vale la pena parlare è la tecnica \emph{Asynchronous JavaScript and XML} (AJAX). AJAX è una tecnica molto utilizzata in ambito web che consente l'aggiornamento dinamico di una pagina web senza dover ricaricarla: lo scambio dei dati tra client e server (e.g. invio di un form) avviene nel background. Alcuni vantaggi dovuti al fatto di non dover ricaricare la pagina sono: 
 \begin{itemize}
@@ -1300,24 +1295,83 @@ rimuoviSocioButton.on('click', function(e) {
 %
 % 
 %			CAPITOLO 4: Analisi del progetto
-\chapter{Analisi del progetto}
+\chapter{Analisi e Conclusioni}
 \label{cap4}
-Prestazioni: ?
-\\
-Problema sicurezza: clonare il telecomando, ...
-\\
-Possibili miglioramenti: sistema di login sul sito per l'amministratore,
-sensore per il rilevamento delle persone durante la chiusura delle porte,
-...
-\\
-Problemi affrontati: sistema operativo raspbian e mongo db, ...
-
-
-%			CAPITOLO 5: Conclusioni
-\chapter{Conclusioni}
-\label{cap5}
 %
 
+\section{Problemi affrontati}
+%
+
+In seguito vengono descritti alcuni problemi affrontati durante lo sviluppo del progetto e le soluzioni adottate per superarli.
+
+%
+\subsection{Incompatibilità tra il sistema operativo del Raspberry Pi e le ultime versioni di MongoDB}
+%
+Durante lo sviluppo del progetto ho scoperto che Raspbian in realtà non è stato ancora aggiornato per essere un sistema operativo a 64 bit, perciò non poteva sfruttare al meglio l'architettura a 64 bit del Raspberry Pi 3B+.
+L'ultima versione di MongoDB che può essere installata sul sistema operativo Raspbian è v2.4 (rilasciato nel 2013) che ha alcuni problemi a connettersi con le ultime versioni di Node.js. Inoltre la versione di MongoDB installata su Raspbian è stata progettata per un'architettura a 32 bit, limitata, per motivi tecnici, a 2GB di dati\cite{mongodb_32bit_limitations}.
+Come soluzione a questo problema, è stato installato un sistema operativo chiamato openSUSE Tumbleweed (\url{https://software.opensuse.org/distributions/tumbleweed}) che funziona su architetture ARMv8 a 64 bit. Ci sono alcune inconvenienze tra cui la più notevole è la minore prestazione offerta dalla Raspberry Pi, però non ha creato grossi problemi e il server è abbastanza responsivo ai comandi. 
+
+%
+\subsection{Problema di sicurezza all'interno della rete locale}
+%
+Siccome non è stato sviluppato un sistema di login per il sito web (per questioni di tempo), qualsiasi persona connessa alla rete locale dell'azienda poteva accedere al sito e vedere/modificare le informazioni del database, perciò è stato deciso di utilizzare un router dedicato per creare una rete LAN privata (e priva di connessione Internet dato che il server risiede in locale) all'interno del progetto. All'ESP-01 e Raspberry Pi sono stati assegnati indirizzi IP statici per far sì che, una volta configurati, riescano a comunicare tra di loro. L'amministratore, per poter accedere al sito web, deve semplicemente connettersi alla rete LAN (solo lui conosce SSID e password).
+
+
+%
+\subsection{Disattivazione delle tessere dei soci non più iscritti all'anno corrente}
+%
+
+L'ingresso nello spazio di Yatta è regolato da un tesseramento. Ogni anno, a fine Gennaio, tutte le tessere che non sono state rinnovate vengono disattivate: questo significa che devono essere disattivate automaticamente anche nel database.
+Per fare questo lavoro è stato creato uno scheduler dal lato del server:
+\begin{lstlisting}
+var Tessera = require('../models/tessera.model.js');
+var schedule = require('node-schedule');
+
+var rule = new schedule.RecurrenceRule();
+rule.month = 0; // gennaio - 0
+rule.date = 30; // giorno 30
+rule.hour = 18; // ore 18
+rule.minute = 30; // minuti 30
+rule.second = 0; // secondi 0
+
+// e.g. a Gennaio 2019 disattiva le tessere con ultimo_rinnovo<=2018
+var j = schedule.scheduleJob(rule, function(){
+	nowYear = new Date().getFullYear();
+	Tessera.find( (err, tessere) => {
+		if (err) console.error(err);
+		else {
+			for (i=0; i<tessere.length; i++) {
+				tessera = tessere[i];
+				if ( (nowYear !== tessera.ultimo_rinnovo.getFullYear()) 
+				     && (tessera.stato == "ATTIVATA") ) {
+					tessera.stato="DISATTIVATA";
+					tessera.save( (err, tessera) => {
+						if (err) console.error(err);
+						else console.log(tessera.numero_tessera + " disattivata");
+					});
+				}
+			}
+		}
+	});
+});
+\end{lstlisting}
+
+%
+\section{Possibili miglioramenti}
+%
+
+Ci sono alcuni possibili miglioramenti che sono stati tralasciati per questioni di tempo:
+
+\begin{itemize}
+	\item Sistema di login sul sito web per l'amministratore: con questo sistema si può eliminare il router dedicato alla rete LAN dato che solo l'amministratore può fare il login. 
+	\item Orario di lavoro: è possibile far sì che l'Arduino sia attivo soltanto durante la fascia oraria 9-18 in cui c'è qualcuno in sede. Questo serve per evitare che qualcuno riesca ad aprire la porta in qualsiasi modo (e.g. telecomando o tessera rubata) al di fuori della fascia oraria.
+	\item Sensore di rilevamento: l'Arduino è stato programmato per chiudere la porta dopo un certo intervallo di tempo. È possibile aggiungere un sensore per il rilevamento delle persone per fare in modo che la porta venga chiusa solo quando non ci sono più persone nella vicinanza.
+\end{itemize}
+
+%
+\section{Conclusioni}
+%
+...
 \appendix
 \chapter{Una prima Appendice (?)}
 ...
@@ -1338,7 +1392,7 @@ R. Alalouff, Access control leads growth in physical security market but video s
 \url{https://www.ifsecglobal.com/access-control/access-control-leads-growth-physical-security-market-video-surveillance-still-dominates/}
 %
 \bibitem{smart_objects}
-A. Tumino, Internet of Things: gli oggetti intelligenti prima di ogni "cosa", 24 Gennaio, 2018.
+A. Tumino, Internet of Things: gli oggetti intelligenti prima di ogni \textquotedblleft{} cosa \textquotedblright{}, 24 Gennaio, 2018.
 \url{https://blog.osservatori.net/it_it/internet-of-things-oggetti-intelligenti-prima-di-ogni-cosa}
 %
 \bibitem{IoT}
@@ -1369,6 +1423,10 @@ M. Haverbeke, ELOQUENT JAVASCRIPT: A modern Introduction to Programming, terza e
 M. Trombino, You might not need jquery: A 2018 performance
 case study. Maggio 2018. 
 \url{https://medium.com/@trombino.marco/you-might-not-need-jquery-a-2018-performance-case-study-aa6531d0b0c3}
+%
+\bibitem{mongodb_32bit_limitations}
+MongoDB Blog, 32-bit limitations, 8 Luglio, 2009.
+\url{https://www.mongodb.com/blog/post/32-bit-limitations}
 \end{thebibliography}
 %
 \end{document}
