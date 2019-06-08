@@ -24,7 +24,8 @@ come posso rendere il codice più bello?
 
 - inserisco alcune figure a sx/dx del testo per migliorare il layout?
 
-- merge degli ultimi 2 capitoli: si potrebbe chiamare "Analisi e Conclusioni"..
+- merge degli ultimi 2 capitoli: 
+si potrebbe chiamare "Analisi e Conclusioni"..
 Queste sarebbero le sottosezioni:
 \section{Problemi affrontati}
 \section{Possibili miglioramenti}
@@ -33,9 +34,9 @@ Queste sarebbero le sottosezioni:
 
 DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
 
-- fixare tutte le accentate 
+- fixare la posizione delle immagini/tabelle con il package{float} 
 
-- cambiare le " " che sono brutte 
+- fixare tutte le accentate 
 
 - fixare le immagini troppo grandi 
 
@@ -50,6 +51,8 @@ introduzione dell'ente, rapporto con i colleghi, modalità di svolgimento delle 
 
 - attività, tempi, strumenti utilizzati, problemi
 
-- se ho tempo fare le sequence diagram per le sequenze degli eventi 
+- se ho tempo fare le sequence diagram per le sequenze degli eventi
+
+- fixare eventuali spazi strani 
 
 - https://www.unimi.it/sites/default/files/2019-03/Schema%20di%20stesura%20del%20riassunto%20dell%E2%80%99attivit%C3%A0%20svolta%20informatica%20triennali.pdf
