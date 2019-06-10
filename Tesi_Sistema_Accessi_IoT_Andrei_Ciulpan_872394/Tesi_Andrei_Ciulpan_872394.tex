@@ -30,7 +30,7 @@
 \usepackage[italian]{babel}
 \usepackage{tesi}
 \usepackage{afterpage}
-\usepackage{caption}
+\usepackage[font=small,labelfont=bf]{caption}
 \usepackage{subcaption}
 \usepackage{tabularx}
 \usepackage{enumerate}
@@ -47,6 +47,7 @@
 
 \usepackage{xcolor}
 \usepackage{listings}
+
 
 \renewcommand{\lstlistingname}{Listato} % Listing -> Listato
 
@@ -96,7 +97,8 @@
 	identifierstyle=\color{black},
 	commentstyle=\color{mygreen}\ttfamily,
 	stringstyle=\color{mymauve}\ttfamily,
-	sensitive=true
+	sensitive=true,
+	captionpos=b
 }
 
 \lstdefinelanguage{JavaScript}{
@@ -106,7 +108,8 @@
 	comment=[l]{//},
 	morecomment=[s]{/*}{*/},
 	morestring=[b]',
-	morestring=[b]"
+	morestring=[b]",
+	captionpos=b
 }
 
 \newcommand\blankpage{%
@@ -261,7 +264,8 @@ Nelle figure \ref{fig:usecase} e \ref{fig:flowchart} si possono trovare rispetti
 		HTTPClient,
 		SoftwareSerial,
 		JSON
-	}
+	},
+	captionpos=b
 }
 
 In questo capitolo vengono dettagliati i dispositivi hardware utilizzati all'interno del sistema embedded. Uno schema completo del circuito elettrico si trova nella Figura \ref{fig:schematics}.
@@ -625,6 +629,7 @@ void lcdHomeMode(void) {
 \end{figure}
 
 I tastierini sono dei dispositivi di input ampiamente utilizzati per dare la possibilità alle persone di interagire con un sistema (e.g$.$ inserire una password, controllare un robot ecc.). Normalmente i tasti sono disposti in un formato a matrice (in questo caso 4x4, ovvero 16 pulsanti) e permettono ad un microcontrollore di capire facilmente quale tasto è stato premuto in base alle linee che si attivano: nella Figura \ref{fig:keypad_both} si può facilmente vedere che premendo il pulsante \textquotedblleft{} 2 \textquotedblright{} vengono attivate le linee \textquotedblleft{} R0 \textquotedblright{} e \textquotedblleft{} C1 \textquotedblright{} e il microcontrollore, grazie a come è stato configurato, è in grado di dire che quel pulsante specifico è stato premuto. Un esempio di configurazione in Arduino del tastierino si può trovare nel Listato \ref{lst:keypad}. 
+
 \begin{lstlisting}[caption={Configurazione dei pin del tastierino. In questo caso non viene utilizzata l'ultima colonna con le lettere.}, label={lst:keypad}]
 const byte keypadRows = 4;   // quattro righe
 const byte keypadCols = 3;  // tre colonne
@@ -638,6 +643,7 @@ const char keypadConfig[keypadRows][keypadCols] =
 {'*','0','#'}
 };
 \end{lstlisting}
+
 Le funzioni per utilizzare il tastierino sono implementate nella libreria Keypad di Arduino (\url{https://playground.arduino.cc/Code/Keypad/}). Nella Figura \ref{fig:keypad_uno} si può vedere un esempio di collegamento tra il tastierino e l'Arduino UNO.
 
 
@@ -734,7 +740,9 @@ void setup() {
 	Serial.println("connected");
 }
 \end{lstlisting}
+
 Dopo aver effettuato la connessione, l'ESP-01 si mette in ascolto sulla porta seriale per dati in arrivo dall'Arduino per poi eseguire varie funzioni in base alla richiesta (Listato \ref{lst:esp01_listen}).
+
 \begin{lstlisting}[caption={L'ESP-01 si mette in ascolto sulla porta seriale collegata all'Arduino. Esso chiama la funzione corretta in base al formato della stringa ricevuta.}, label={lst:esp01_listen}]
 void loop() {
 	if ( WiFi.status() == WL_CONNECTED ) {
@@ -750,6 +758,7 @@ void loop() {
 	}
 }
 \end{lstlisting}
+
 \begin{table}[h!]
 	\begin{center}
 		\begin{tabular}{l|l} 
@@ -766,7 +775,8 @@ L'Arduino è programmato per mandare 2 tipi di richieste:
 
 \begin{itemize}
 	\item \textquotedblleft{} check \textquotedblright{} per quando deve inoltrare all'ESP-01 il codice del tag per la verifica (Listato \ref{lst:uno_checkCardSerial})
-\begin{lstlisting}[caption={L'Arduino manda all'ESP-01 il seriale della tessera in formato JSON e aspetta la risposta con lo status code. Se statusCode = 200 allora mette la variabile allowed a \textquotedblleft{} true \textquotedblright{} (questo pezzo non è presentato per motivi di lunghezza). La funzione printBodyToESP si può vedere nel Listato \ref{lst:uno_printBodyToESP} }, label={lst:uno_checkCardSerial}]
+	
+\begin{lstlisting}[caption={L'Arduino manda all'ESP-01 il seriale della tessera in formato JSON e aspetta la risposta con lo status code. Se statusCode = 200 allora mette la variabile allowed a \textquotedblleft{} true \textquotedblright{} (questo pezzo non è presentato per motivi di lunghezza). La funzione printBodyToESP si può vedere nel Listato \ref{lst:uno_printBodyToESP} }, label={lst:uno_checkCardSerial}, xleftmargin=\dimexpr-\leftmargini]
 boolean checkCardSerial(String serial) {
 	boolean allowed = false;
 	String bodyJSON = "check{\"seriale\":\"" + serial + "\"}";
@@ -774,8 +784,10 @@ boolean checkCardSerial(String serial) {
 	...
 }
 \end{lstlisting}
+
 	\item \textquotedblleft{} log \textquotedblright{} per quando deve inoltrare all'ESP-01 un log (Listato \ref{lst:uno_sendLog})
-\begin{lstlisting}[caption={L'Arduino manda all'ESP-01 il log in formato JSON e aspetta la risposta con lo status code. Se statusCode = 200 allora scrive un messagio di successo, altrimenti stampa un messaggio d'errore. La funzione printBodyToESP si può vedere nel Listato \ref{lst:uno_printBodyToESP}.}, label={lst:uno_sendLog}]
+	
+\begin{lstlisting}[caption={L'Arduino manda all'ESP-01 il log in formato JSON e aspetta la risposta con lo status code. Se statusCode = 200 allora scrive un messagio di successo, altrimenti stampa un messaggio d'errore. La funzione printBodyToESP si può vedere nel Listato \ref{lst:uno_printBodyToESP}.}, label={lst:uno_sendLog}, xleftmargin=\dimexpr-\leftmargini]
 void sendLog(String tipo) {
 	String date = getCurrentFormattedDate();
 	String bodyJSON = "log{\"data\":\"";
@@ -786,12 +798,14 @@ void sendLog(String tipo) {
 	else Serial.println("Error code = " + String(statusCode));
 }
 \end{lstlisting}
+
 \end{itemize}
 
 In base alla richiesta vengono attivate 2 funzioni diverse:
 \begin{itemize}
 	\item una per mandare la verifica del tag al server tramite una chiamata HTTP (Listato \ref{lst:esp_checkTessera}).
-\begin{lstlisting}[caption={L'ESP-01 manda una richiesta POST all'endpoint specificato. Il corpo della richiesta è in formato JSON e include il seriale e il tipo della tessera che si vuole verificare.}, label={lst:esp_checkTessera}]
+	
+\begin{lstlisting}[caption={L'ESP-01 manda una richiesta POST all'endpoint specificato. Il corpo della richiesta è in formato JSON e include il seriale e il tipo della tessera che si vuole verificare.}, label={lst:esp_checkTessera}, xleftmargin=\dimexpr-\leftmargini]
 void checkTessera(String tesseraJSON) {
 	HTTPClient http;
 	http.begin("http://192.168.1.71:3000/api/tessere/check");
@@ -802,8 +816,10 @@ void checkTessera(String tesseraJSON) {
 	http.end();
 }
 \end{lstlisting}
-	\item una per mandare il log al server tramite una chiamata HTTP(Listato \ref{lst:esp_sendLog}).
-\begin{lstlisting}[caption={L'ESP-01 manda una richiesta POST all'endpoint specificato. Il corpo della richiesta è in formato JSON e rappresenta il log.}, label={lst:esp_sendLog}]
+
+	\item una per mandare il log al server tramite una chiamata HTTP (Listato \ref{lst:esp_sendLog}).
+	
+\begin{lstlisting}[caption={L'ESP-01 manda una richiesta POST all'endpoint specificato. Il corpo della richiesta è in formato JSON e rappresenta il log.}, label={lst:esp_sendLog}, xleftmargin=\dimexpr-\leftmargini]
 void sendLog(String logJSON) {
 	HTTPClient http;
 	http.begin("http://192.168.1.71:3000/api/logs/add");
@@ -814,20 +830,22 @@ void sendLog(String logJSON) {
 	http.end();
 }
 \end{lstlisting}
+
 \end{itemize}
 
 \subsection{Comunicazione tra l'Arduino UNO e l'ESP-01 }\label{sec:softwareserial}
 
 L'Arduino UNO è programmato per comunicare con l'ESP-01 tramite SoftwareSerial (https://www.arduino.cc/en/Reference/SoftwareSerial), una libreria che replica, per via software, le funzionalità della comunicazione seriale hardware (sui pin 0 e 1) anche su altri pin digitali. Un esempio di codice per il setup della comunicazione seriale tra l'ESP-01 e l'Arduino UNO tramite SoftwareSerial si trova nel Listato \ref{lst:uno_ss_setup}
 
-\begin{lstlisting}[caption={Inizializzazione della comunicazione seriale tra Arduino UNO e ESP-01.}, label={lst:uno_ss_setup}]
+\begin{lstlisting}[caption={Inizializzazione della comunicazione seriale tra Arduino UNO e ESP-01}, label={lst:uno_ss_setup}]
 SoftwareSerial ESP(16, 17);
 
 void arduinoEspSerialSetup() {
 	ESP.begin(9600);
 }
 \end{lstlisting}
-Un esempio di utilizzo di SoftwareSerial si può trovare nel Listato (\ref{lst:uno_printBodyToESP}).
+
+\noindent Un esempio di utilizzo di SoftwareSerial si può trovare nel Listato (\ref{lst:uno_printBodyToESP}).
 
 \begin{lstlisting}[caption={La funzione printBodyToESP. Essa manda all'ESP-01 (tramite l'oggetto SoftwareSerial) la stringa ricevuta tra gli argomenti e poi aspetta per la risposta. Dopo aver ricevuto la risposta restituisce statusCode.}, label={lst:uno_printBodyToESP}]
 int printBodyToESP(String bodyJSON) {
@@ -854,7 +872,7 @@ else return false;
 Come si è visto precedentemente, l'Arduino inoltra all'ESP-01 delle stringhe che sono quasi in formato JSON: prima dell'oggetto JSON c'è un'altra stringa usata per identificare la funzione voluta (e.g$.$ \textquotedblleft{} check\{object\} \textquotedblright{} e \textquotedblleft{} log\{object\} \textquotedblright{}). L'ESP-01 poi filtra questi dettagli non più necessari e chiama la funzione richiesta.
  Viene presentata la sequenza completa degli eventi per la verifica del tag:
 
-\begin{enumerate}
+\begin{enumerate}[(I)]
 	\item L'utente avvicina il tag al lettore RFID;
 	\item L'Arduino legge il seriale del tag e chiama \textquotedblleft{} checkCardSerial(serial) \textquotedblright{} (Listato \ref{lst:uno_checkCardSerial}). Questa funzione manda una stringa in formato \textquotedblleft{} quasi-JSON \textquotedblright{} all'ESP-01;
 	\item L'ESP-01 riceve questa stringa. Esso filtra l'informazione non più necessaria e chiama \textquotedblleft{} checkTessera(tessera) \textquotedblright{} (Listato \ref{lst:esp01_listen});
@@ -983,14 +1001,17 @@ Node.js è un framework open-source che esegue codice JavaScript al di fuori da 
 L'applicazione utilizza vari moduli di Node.js:
 
 \begin{itemize}
-	\item Path (\url{https://nodejs.org/docs/latest/api/path.html}) fornisce alcune utilità nel lavorare con i file e con i percorsi delle directory. L'applicazione usa il modulo per definire una directory statica assoluta per i file dell'applicazione senza dover quindi utilizzare l'intero indirizzo della directory \textquotedblleft{} public \textquotedblright{}: 
-\begin{lstlisting}
+	\item Path (\url{https://nodejs.org/docs/latest/api/path.html}) fornisce alcune utilità nel lavorare con i file e con i percorsi delle directory. L'applicazione usa il modulo per definire una directory statica assoluta per i file dell'applicazione senza dover quindi utilizzare l'intero indirizzo della directory \textquotedblleft{} public \textquotedblright{} (Listato \ref{lst:path});
+
+\begin{lstlisting}[caption={Uso del modulo \emph{path}.}, label={lst:path}, xleftmargin=\dimexpr-\leftmargini]
 app.use(express.static(path.join(__dirname, 'public')));
 \end{lstlisting}
+
 	\item Express (\url{https://expressjs.com/}) è un framework robusto e flessibile che fornisce un insieme di funzioni che facilitano e velocizzano lo sviluppo di applicazioni web con Node.js. L'applicazione fa uso di express per:
 	\begin{itemize}
-		\item definire delle middleware per rispondere a richieste HTTP e per gestire gli errori. Esempio di middleware per caricare la pagina \textquotedblleft{} 404.ejs \textquotedblright{} nel caso in cui un utente provi ad accedere ad una pagina non esistente:
-\begin{lstlisting}
+		\item definire delle middleware per rispondere a richieste HTTP e per gestire gli errori. Un esempio di middleware si può trovare nel Listato \ref{lst:middleware}; 
+		
+\begin{lstlisting}[caption={Middleware per caricare la pagina \textquotedblleft{} 404.ejs \textquotedblright{} nel caso in cui un utente provi ad accedere ad una pagina non esistente}, label={lst:middleware}, xleftmargin=\dimexpr-\leftmargini]
 // Catch 404 and forward to error handler
 
 app.use(function(req, res, next) {
@@ -1009,35 +1030,44 @@ app.use(function(err, req, res, next) {
 	}
 });
 \end{lstlisting}
-		\item definire una tabella di routing (lista di endpoint) che viene usata per eseguire diverse azioni in base all'URL e al tipo di richiesta HTTP. Un esempio di utilizzo è: 	
-\begin{lstlisting}
+
+		\item definire una tabella di routing (lista di endpoint accessibili) che viene usata per eseguire diverse azioni in base all'URL e al tipo di richiesta HTTP (esempio nel Listato \ref{lst:routing});
+	
+\begin{lstlisting}[caption={Implementazione di un endpoint. Quando viene fatta una richiesta GET all'endpoint \emph{\textquotedblleft{} / \textquotedblright{}} allora, come risposta, l'applicazione invia all'utente un file chiamato \textquotedblleft{} index.ejs \textquotedblright{} (che rappresenta la homepage) che viene poi caricato dal suo browser}, label={lst:routing}, xleftmargin=\dimexpr-\leftmarginii-\leftmargini]
 app.get('/', (req, res) => res.render('index'));
 \end{lstlisting}
-		Quando viene fatta una richiesta GET all'endpoint \emph{\textquotedblleft{} / \textquotedblright{}} allora, come risposta, l'applicazione invia all'utente un file chiamato \textquotedblleft{} index.ejs \textquotedblright{} (che rappresenta la homepage) che viene poi caricato dal suo browser;
+
 		\item caricare pagine HTML in maniera dinamica passando degli argomenti ai template (e.g. usando un linguaggio di templating chiamato EJS);
 		\item si possono creare in maniera semplice e veloce delle API RESTful (si veda la sezione \ref{sec:api});
-		\item interfacciarsi con vari database (e.g. MongoDB, MySQL ecc.)
-		\item creare un server che ascolta su una porta preimpostata (fornisce un'astrazione del modulo \emph{http} di Node.js):
-\begin{lstlisting}
+		\item interfacciarsi con vari database (e.g. MongoDB, MySQL ecc.);
+		\item creare un server che ascolta su una porta preimpostata. Per far ciò, express fornisce un'astrazione del modulo \emph{http} di Node.js (esempio nel Listato \ref{lst:server}).
+
+\begin{lstlisting}[caption={Creazione di un server con il modulo \emph{express}}, label={lst:server}, xleftmargin=\dimexpr-\leftmarginii-\leftmargini]
 var server = app.listen(port, () => {
 	console.log("Listening on port " + server.address().port);
 });
 \end{lstlisting}   
+
 	\end{itemize}
-	\item Body-Parser (\url{https://www.npmjs.com/package/body-parser}) ispeziona i contenuti delle richieste HTTP. Utile per poter leggere i dati in formato JSON (e non solo). 
-\begin{lstlisting}
+
+	\item Body-Parser (\url{https://www.npmjs.com/package/body-parser}) ispeziona i contenuti delle richieste HTTP. Utile per poter leggere i dati in formato JSON (e non solo). Esempio nel Listato \ref{lst:bodyparser};
+	
+\begin{lstlisting}[caption={Uso del modulo body-parser. Vengono definiti dei middleware che analizzano i contenuti delle richieste HTTP.}, label={lst:bodyparser}, xleftmargin=\dimexpr-\leftmargini]
 // for parsing
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded( { extended: true } )); 
 app.use(bodyParser.text()); 
 \end{lstlisting}
-	\item EJS (\url{https://ejs.co/}) è un linguaggio di templating che permette di avere dati provenienti dal server direttamente all'interno di documenti HTML. Il codice nel lato server è molto semplice: 
-\begin{lstlisting}
+
+	\item EJS (\url{https://ejs.co/}) è un linguaggio di templating che permette di avere dati provenienti dal server direttamente all'interno di documenti HTML. Il codice nel lato server si può vedere nel Listato \ref{lst:ejs_server}, mentre un esempio di utilizzo di EJS nel lato client si può vedere nel Listato \ref{lst:ejs_client};
+	
+\begin{lstlisting}[caption={Impostazione del \textquotedblleft{} view engine \textquotedblright{}}, label={lst:ejs_server}, xleftmargin=\dimexpr-\leftmargini]
 app.set('view engine', 'ejs');
 \end{lstlisting}
-Esempio di utilizzo nel lato client (il codice JavaScript all'interno della pagina HTML è racchiuso tra \textquotedblleft{} $<$\% \%$>$ \textquotedblright{} e l'oggetto \textquotedblleft{} tessere \textquotedblright{} è stato passato dal server in formato JSON):
 
-\begin{lstlisting}[language=HTML, morekeywords={if, else}]
+
+
+\begin{lstlisting}[language=HTML, morekeywords={if, else}, caption={Uso di \emph{EJS} nel lato client. Il codice JavaScript all'interno della pagina HTML è racchiuso tra \textquotedblleft{} $<$\% \%$>$ \textquotedblright{} e l'oggetto \textquotedblleft{} tessere \textquotedblright{} è stato passato dal server in formato JSON}, label={lst:ejs_client}, xleftmargin=\dimexpr-\leftmargini]
 <% for(var i=0; i<tessere.length; i++) { %>
 	<tr class="w3-black tessere-table-mobile">
 		<td><%= tessere[i].numero_tessera %></td>
@@ -1056,7 +1086,9 @@ Esempio di utilizzo nel lato client (il codice JavaScript all'interno della pagi
 	</tr>
 <% } %>
 \end{lstlisting}
-	\item Mongoose (\url{https://mongoosejs.com/}) è una libreria di \emph{Object Data Modeling} (ODM) che fornisce un ambiente per la modelizzazione dei dati di MongoDB permettendo la definizione degli oggetti sotto uno schema fortemente tipizzato (si veda la sezione \ref{sec:db} \textquotedblleft{} Database \textquotedblright{})	
+
+	\item Mongoose (\url{https://mongoosejs.com/}) è una libreria di \emph{Object Data Modeling} (ODM) che fornisce un ambiente per la modelizzazione dei dati di MongoDB permettendo la definizione degli oggetti sotto uno schema fortemente tipizzato (si veda la sezione \ref{sec:db} \textquotedblleft{} Database \textquotedblright{}).	
+	
 \end{itemize}
 
 \subsubsection*{MVC}
@@ -1071,8 +1103,9 @@ Per garantire l'indipendenza tra i dati e l'interfaccia, si può modularizzare i
 Il sito web è stato creato sulla base di MVC (Model-View-Controller), un pattern architetturale (Figura \ref{fig:mvc}) che separa un'applicazione in tre principali componenti logici: il modello, la vista e il controller. Ognuno di questi componenti è progettato per gestire diversi aspetti specifici dello sviluppo di un'applicazione:
 
 \begin{itemize}
-	\item Il modello corrisponde alla struttura e alla logica dei dati dell'applicazione. Esempio che descrive il modello dei log:
-\begin{lstlisting}
+	\item Il modello corrisponde alla struttura e alla logica dei dati dell'applicazione (esempio nel Listato \ref{lst:model});
+	
+\begin{lstlisting}[caption={Creazione del modello dei log con \emph{mongoose}}, label={lst:model}, xleftmargin=\dimexpr-\leftmargini]
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -1097,8 +1130,10 @@ LogSchema.index( { '$**': 'text'}); // full-table search index
 // export function to create "Log" model class
 module.exports = mongoose.model("Log", LogSchema);
 \end{lstlisting}
-	\item La vista corrisponde alla logica dell'\emph{User Interface} (UI) dell'applicazione. Rappresenta il modo in cui vengono presentati i dati all'utente. Come esempio viene esposta una parte del codice HTML della vista creata per presentare le tessere all'utente:
-\begin{lstlisting}[language=HTML, morekeywords={if, else}]
+
+	\item La vista corrisponde alla logica dell'\emph{User Interface} (UI) dell'applicazione. Rappresenta il modo in cui vengono presentati i dati all'utente (esempio nel Listato \ref{lst:view}); 
+	
+\begin{lstlisting}[language=HTML, morekeywords={if, else}, caption={Parte del codice HTML della vista creata per presentare le tessere all'utente}, label={lst:view}, xleftmargin=\dimexpr-\leftmargini]
 <table class="w3-table w3-left w3-border w3-centered">
 	<thead>
 		<tr class="w3-white tessere-table-mobile w3-large">
@@ -1117,8 +1152,10 @@ module.exports = mongoose.model("Log", LogSchema);
 	</tbody>
 </table>
 \end{lstlisting}
-	\item Il controller accetta l'input dell'utente (e.g. visitare il sito web, cliccare su un pulsante, inviare un modulo ecc.) e lo trasforma in comandi per il modello o per la vista. Esempio di una parte del codice del controller creato per gestire i comandi relativi ai soci:
-\begin{lstlisting}
+
+	\item Il controller accetta l'input dell'utente (e.g. visitare il sito web, cliccare su un pulsante, inviare un modulo ecc.) e lo trasforma in comandi per il modello o per la vista (esempio nel Listato \ref{lst:controller}).
+	
+\begin{lstlisting}[caption={Parte del codice del controller creato per gestire i comandi relativi ai soci.  Questa funzione, quando viene chiamata, cerca nel database i soci in base al termine inviato tra i parametri e poi carica una pagina con i risultati.}, label={lst:controller}, xleftmargin=\dimexpr-\leftmargini]
 exports.fullTableSearch = (req, res) => {
 	let searchTerm = req.params.term;
 	Socio.
@@ -1131,7 +1168,7 @@ exports.fullTableSearch = (req, res) => {
 	});
 }
 \end{lstlisting}
-	 Questa funzione, quando viene chiamata, cerca nel database i soci in base al termine inviato tra i parametri e poi carica una pagina con i risultati.
+	 
 \end{itemize}
 
 
@@ -1143,17 +1180,20 @@ MongoDB si integra facilmente con Node.js grazie a dei driver creati dagli svilu
 	\item la logica dei dati è diversa rispetto a quella che viene insegnata nei corsi tradizionali di basi di dati perciò potrebbe essere difficile abituarsi (ma, come si vedrà, anche non necessario);
 	\item non c'è la possibilità di validare i dati in maniera semplice ma bisogna scrivere del codice che potrebbe essere soggetto a errori;
 	\item le query con i driver nativi di MongoDB non sono tanto leggibili e possono diventare molto complesse perchè usano un insieme di operatori (e.g. quello di uguaglianza \textquotedblleft{} \$eq \textquotedblright{}). Esempio:
+	
 \begin{lstlisting}
 Account.find({ nome: { $eq: 'Andrea' } });
 \end{lstlisting}
+
 	\item la manutenzione è resa più complicata per la mancanza di una struttura fissa dei dati.
 \end{itemize}
 
 È possibile però avere più astrazione (ad un basso costo di performance) utilizzando Mongoose, una libreria basata sui driver di MongoDB ideata per la modellazione degli oggetti di MongoDB e progettata per funzionare in un ambiente asincrono (come Node.js). Mongoose rende più semplice e immediato l'utilizzo di MongoDB per alcuni motivi:
 \begin{itemize}
 	\item facilità di apprendimento;
-	\item query più semplificate e leggibili grazie al \textquotedblleft{} method chaining \textquotedblright{} di JavaScript (soprattutto quando diventano complesse). Ad esempio:
-\begin{lstlisting}
+	\item query più semplificate e leggibili grazie al \textquotedblleft{} method chaining \textquotedblright{} di JavaScript (soprattutto quando diventano complesse). Esempio nel Listato \ref{lst:method_chaining};
+	
+\begin{lstlisting}[caption={Esempio di query con \emph{mongoose}. Questa funzione cerca nel database dei soci per l'identificatore passato tra i parametri e poi carica la pagina per aggiornare il socio trovato}, label={lst:method_chaining}, xleftmargin=\dimexpr-\leftmargini]
 exports.updateSocio = (req, res) => {
 	Socio.
 	findOne( { _id: req.params.id } ).
@@ -1165,9 +1205,11 @@ exports.updateSocio = (req, res) => {
 	});
 };
 \end{lstlisting}
+
 	\item fornisce un modo per dare una struttura ai dati grazie alla creazione degli schemi; ogni schema può essere compilato in un modello, ovvero una classe con cui vengono costruiti i documenti con i comportamenti (metodi) e le proprietà (attributi) dello schema dato;
 	\item permette di validare i dati all'interno degli schemi (e.g. attributo: \{ type: String, lowercase: true \});
 	\item libreria progettata per un ambiente asincrono: è possibile definire delle middleware (pre, post) da chiamare prima o dopo una certa operazione (e.g. di salvataggio). Ad esempio:
+	
 \begin{lstlisting}
 var schema = new Schema(..);
 schema.pre('save', function(next) {
@@ -1175,56 +1217,13 @@ schema.pre('save', function(next) {
 	next(); // chiama il prossimo middleware
 });
 \end{lstlisting}
+
 \end{itemize}
 Come esempio, viene presentata la sequenza degli eventi per aggiungere un log (dopo un accesso con la tessera) all'interno del database e poi visualizzarlo sul sito:
 \begin{enumerate}[(I)]
-	\item L'ESP-01 manda una richiesta di aggiunta del log all'endpoint \emph{/api/logs/add} del server:
+	\item L'ESP-01 manda una richiesta di aggiunta del log all'endpoint \emph{/api/logs/add} del server (Listato \ref{lst:esp_sendLog});
 	
-\lstset{
-	language=C++,
-	basicstyle=\ttfamily\footnotesize\color{darkgray},
-	keywordstyle=\color{cyan}\ttfamily,
-	stringstyle=\color{mymauve}\ttfamily,
-	commentstyle=\color{mygreen}\ttfamily,
-	morecomment=[l][\color{magenta}]{\#},
-	tabsize=2,
-	numbers=left,                  
-	numbersep=5pt,                   
-	numberstyle=\tiny\color{mygray},
-	breaklines=true,
-	backgroundcolor=\color{white},
-	showstringspaces=false,
-	frame=single,
-	extendedchars=true,
-	morekeywords=
-	{
-		boolean,
-		RCSwitch,
-		Servo,
-		Serial,
-		LiquidCrystal\_PCF8574,
-		Wire,
-		byte,
-		WiFi,
-		String,
-		HTTPClient,
-		SoftwareSerial,
-		JSON
-	}
-}
-
-\begin{lstlisting}
-void sendLog(String logJSON) {
-	HTTPClient http;
-	http.begin("http://192.168.1.71:3000/api/logs/add");
-	http.addHeader("Content-Type", "text/plain");
-	int statusCode = http.POST(logJSON); // HTTP POST request
-	delay(10);
-	Serial.print(String(statusCode)); // invia all'Arduino
-	http.end();
-}
-\end{lstlisting}
-	\item L'applicazione, dopo aver ricevuto una richiesta POST all'endpoint specificato precedentemente, chiama una funzione per gestire la richiesta:
+	\item L'applicazione, dopo aver ricevuto una richiesta POST all'endpoint specificato precedentemente, chiama una funzione per gestire la richiesta (Listato \ref{lst:add_log_endpoint});
 	
 \lstset{
 	language=Node,
@@ -1242,11 +1241,13 @@ void sendLog(String logJSON) {
 	captionpos=b
 }
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Endpoint per aggiungere i log}, label={lst:add_log_endpoint}, xleftmargin=\dimexpr-\leftmargini]
 app.post('/api/logs/add', logs.addLog);
 \end{lstlisting}
-	\item La funzione gestisce la richiesta e salva il log nel database:
-\begin{lstlisting}
+
+	\item La funzione gestisce la richiesta e salva il log nel database (Listato \ref{lst:saveLog});
+	
+\begin{lstlisting}[caption={Questa funzione aggiunge il log all'interno del database. Il corpo della richiesta POST contiene il log in formato JSON}, label={lst:saveLog}, xleftmargin=\dimexpr-\leftmargini]
 exports.addLog = (req, res) => {
 	var body = JSON.parse(req.body);
 	... // alcune righe di codice per validare i dati
@@ -1274,11 +1275,13 @@ exports.addLog = (req, res) => {
 				});
 			} else return res.status(404).send("Not Found");
 		});
-	} else { ... } // log senza tessera
+	} else { ... } // codice per il caso senza tessera
 }
 \end{lstlisting}
-\item Il log è visualizzabile sul sito accedendo all'endpoint \emph{/api/logs/view} (il risultato si può vedere nella Figura \ref{fig:logbook})$.$ Esempio del codice eseguito dopo una richiesta GET all'endpoint specificato:
-\begin{lstlisting}
+
+\item Il log è visualizzabile sul sito accedendo all'endpoint \emph{/api/logs/view} (la pagina caricata si può vedere nella Figura \ref{fig:logbook})$.$ Il codice eseguito dopo una richiesta GET all'endpoint specificato si può trovare nel Listato \ref{lst:viewLogs}.
+
+\begin{lstlisting}[caption={Questa funzione viene eseguita quando un browser accede (richiesta GET) all'endpoint \emph{/api/logs/view}}, label={lst:viewLogs}, xleftmargin=\dimexpr-\leftmargini]
 exports.viewAllLogs = (req, res) => {
 	Log.find( (err, logs) => {
 		if (err) {
@@ -1289,6 +1292,7 @@ exports.viewAllLogs = (req, res) => {
 	});
 }
 \end{lstlisting}
+
 \end{enumerate}
 
 \begin{figure}
@@ -1388,14 +1392,17 @@ I file HTML generati nel progetto hanno l'estensione EJS perchè vengono usati a
 %
 \subsubsection*{CSS}
 %
-I documenti HTML sono stilizzati con il linguaggio di stile più diffuso al mondo chiamato \emph{Cascading Style Sheets} (CSS): esso descrive, attraverso delle regole, i modi in cui gli elementi di un documento devono essere presentati e animati nell'interfaccia grafica. Le regole possono essere scritte direttamente nel file HTML, ma ciò crea solo confusione ed è generalmente buona norma avere i file CSS separati e poi importati nel documento, così come segue:
-\begin{lstlisting}[language=HTML]
+I documenti HTML sono stilizzati con il linguaggio di stile più diffuso al mondo chiamato \emph{Cascading Style Sheets} (CSS): esso descrive, attraverso delle regole, i modi in cui gli elementi di un documento devono essere presentati e animati nell'interfaccia grafica. Le regole possono essere scritte direttamente nel file HTML, ma ciò crea solo confusione ed è generalmente buona norma avere i file CSS separati e poi importati nel documento (come nel Listato \ref{lst:import_css})
+
+\begin{lstlisting}[language=HTML, caption={Importazione dei file di stile nel documento HTML}, label={lst:import_css}]
 <link rel="stylesheet" href="/css/w3.css">
 <link rel="stylesheet" href="/css/custom.css">
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 \end{lstlisting}
-Normalmente gli sviluppatori non scrivono le proprie regole (è un lavoro molto lungo e per fare una cosa bella serve tanta esperienza in web design) ma trovano dei template (esistono sia gratis che a pagamento) da utilizzare. In questo caso è stato utilizzato un template (\url{https://www.w3schools.com/w3css/tryw3css_templates_dark_portfolio.htm}) di W3.CSS (\url{https://www.w3schools.com/w3css/default.asp}) scelto dal tutor aziendale. W3.CSS è un framework moderno, semplice, veloce e gratis che supporta un design mobile-first che aiuta lo sviluppatore a creare siti web moderni e responsivi. Il vantaggio di un sito responsivo è il fatto che è stato progettato per rispondere automaticamente a tutti i tipi di dispositivi utilizzati per visualizzarlo (e.g. desktop, mobile, tablet). Questo approccio viene implementato sfruttando le caratteristiche delle \emph{media queries}:
-\begin{lstlisting}[morekeywords={ @media, max-width, px, width, height, !important}]
+
+Normalmente gli sviluppatori non scrivono le proprie regole (è un lavoro molto lungo e per fare una cosa bella serve tanta esperienza in web design) ma trovano dei template (esistono sia gratis che a pagamento) da utilizzare. In questo caso è stato utilizzato un template (\url{https://www.w3schools.com/w3css/tryw3css_templates_dark_portfolio.htm}) di W3.CSS scelto dal tutor aziendale. W3.CSS è un framework moderno, semplice, veloce e gratis che supporta un design mobile-first che aiuta lo sviluppatore a creare siti web moderni e responsivi. Il vantaggio di un sito responsivo è il fatto che è stato progettato per rispondere automaticamente a tutti i tipi di dispositivi utilizzati per visualizzarlo (e.g. desktop, mobile, tablet). Questo approccio viene implementato sfruttando le caratteristiche delle \emph{media queries} (Listato \ref{lst:media_query}).
+
+\begin{lstlisting}[morekeywords={ @media, max-width, px, width, height, !important}, caption={Esempio di \emph{media query}}, label={lst:media_query}]
 @media (max-width:768px)
 {
 	.red-circle
@@ -1415,21 +1422,25 @@ Inoltre è stato utilizzato \emph{Font Awesome}, un toolkit di icone distribuito
 %
 \subsubsection*{JavaScript}
 %
-JavaScript è un linguaggio di programmazione introdotto nel 1995 con lo scopo di aggiungere programmi all'interno di siti web sul browser Netscape Navigator. Il linguaggio è stato adottato da quasi tutti gli altri browser esistenti (è stato anche standardizzato sotto il nome di ECMAScript) e ha reso possibile avere applicazioni web moderne con cui un utente può interagire direttamente senza dover ricaricare la pagina\cite{eloquent_javascript}. È un linguaggio molto evoluto e studiato nel tempo e ora si definisce come un linguaggio di scripting client-side (ma non solo, come si è visto con Node.js) eseguito dai browser. Il codice JavaScript può essere scritto all'interno di qualsiasi documento, ma è buona norma avere i file con estensione .js separati e poi inclusi alla fine del documento (per far sì che tutti gli elementi vengano caricati dal browser), così come segue: 
-\begin{lstlisting}[language=HTML]
+JavaScript è un linguaggio di programmazione introdotto nel 1995 con lo scopo di aggiungere programmi all'interno di siti web sul browser Netscape Navigator. Il linguaggio è stato adottato da quasi tutti gli altri browser esistenti (è stato anche standardizzato sotto il nome di ECMAScript) e ha reso possibile avere applicazioni web moderne con cui un utente può interagire direttamente senza dover ricaricare la pagina\cite{eloquent_javascript}. È un linguaggio molto evoluto e studiato nel tempo e ora si definisce come un linguaggio di scripting client-side (ma non solo, come si è visto con Node.js) eseguito dai browser. Il codice JavaScript può essere scritto all'interno di qualsiasi documento, ma è buona norma avere i file con estensione .js separati e poi inclusi alla fine del documento (per far sì che tutti gli elementi vengano caricati dal browser), come nel Listato \ref{lst:import_javascript}.
+
+\begin{lstlisting}[language=HTML, caption={Importazione dei file .js nel documento HTML}, label={lst:import_javascript}]
 <script type="text/javascript" src=/js/jquery-3.3.1.min.js></script>
 <script type="text/javascript" src=/js/forms.js></script>
 <script type="text/javascript" src=/js/buttons.js></script>
 <script type="text/javascript" src=/js/dettagliSoci.js></script>
 \end{lstlisting}
-JavaScript è un linguaggio che utilizza un singolo thread (organizza l'esecuzione in un'unica pila chiamata \emph{call stack}) e segue il paradigma della programmazione a eventi, perciò è possibile costruire un comportamento non bloccante. Il motore JavaScript crea una coda di eventi (che possono essere operazioni di I/O, richieste di rete, chiamate di WebWorker, funzioni inserite in timer ecc.) che, al verificarsi di un evento, possono modificare l'ordine di esecuzione sequenziale del codice. Si prenda come esempio una funzione che scrive \textquotedblleft{} Hello World \textquotedblright{} ogni 3 secondi: 
-\begin{lstlisting}[language=JavaScript, morekeywords={ alert }]
+
+JavaScript è un linguaggio che utilizza un singolo thread (organizza l'esecuzione in un'unica pila chiamata \emph{call stack}) e segue il paradigma della programmazione a eventi, perciò è possibile costruire un comportamento non bloccante. Il motore JavaScript crea una coda di eventi (che possono essere operazioni di I/O, richieste di rete, chiamate di WebWorker, funzioni inserite in timer ecc.) che, al verificarsi di un evento, possono modificare l'ordine di esecuzione sequenziale del codice. Si prenda come esempio la funzione nel Listato \ref{lst:hello_world}.
+
+\begin{lstlisting}[language=JavaScript, morekeywords={ alert }, caption={Funzione che scrive \textquotedblleft{} Hello World \textquotedblright{} ogni 3 secondi (in questo caso l'evento è rappresentato dal timer)},label={lst:hello_world}]
 function myFunction() {
 	setInterval(function() { 
 		alert("Hello World"); 
 	}, 3000);
 }
 \end{lstlisting}
+
 JavaScript interagisce col browser attraverso il \emph{Document Object Model} (DOM) della pagina HTML. Il DOM è stato standardizzato dalla W3C e viene creato dal browser dopo che una pagina è stata caricata. Esso segue un modello gerarchico di oggetti (Figura \ref{fig:dom}) che possono essere manipolati dagli script dando la possibilità di aggiornare dinamicamente il contenuto, la struttura e lo stile dei documenti. Grazie al DOM è possibile accedere agli elementi (e loro proprietà, metodi ed eventi) delle pagine HTML.
 
 \begin{figure}
@@ -1447,9 +1458,9 @@ Un elemento molto importante di JavaScript di cui ne vale la pena parlare è la 
 	\item utilizzo minore della larghezza di banda sia dal lato del client che dal lato del server
 	\item validazione istantanea dei form
 \end{itemize}
-Tutto ciò è possibile grazie all'utilizzo di un oggetto chiamato XMLHttpRequest che può comunicare con il server per mandare e ricevere dati in vari formati quali JSON, XML, HTML e file di testo in maniera asincrona. Un esempio che descrive l'utilizzo di AJAX dopo che l'utente preme il pulsante per cancellare un socio dal database:
+Tutto ciò è possibile grazie all'utilizzo di un oggetto chiamato XMLHttpRequest che può comunicare con il server per mandare e ricevere dati in vari formati quali JSON, XML, HTML e file di testo in maniera asincrona. Un esempio che descrive l'utilizzo di AJAX si può vedere nel Listato \ref{lst:delete_socio}.
 
-\begin{lstlisting}[language=JavaScript, morekeywords={ confirm, $, alert }]
+\begin{lstlisting}[language=JavaScript, morekeywords={ confirm, $, alert }, caption={Esempio di utilizzo della tecnica AJAX. La funzione, dopo aver premuto il pulsante per rimuovere un socio, manda una richiesta (nel background) del tipo  \textquotedblleft{} DELETE \textquotedblright{} all'endpoint \emph{/api/soci/delete/} con l'ID del socio che si desidera cancellare}, label={lst:delete_socio}]
 const rimuoviSocioButton = $(".w3-btn.w3-round.rimuoviSocioButton");
 
 rimuoviSocioButton.on('click', function(e) {
@@ -1499,8 +1510,9 @@ Siccome non è stato sviluppato un sistema di login per il sito web (per questio
 %
 
 L'ingresso nello spazio di Yatta è regolato da un tesseramento. Ogni anno, a fine Gennaio, tutte le tessere che non sono state rinnovate vengono disattivate: questo significa che devono essere disattivate automaticamente anche nel database.
-Per fare questo lavoro è stato creato uno scheduler dal lato del server:
-\begin{lstlisting}
+Per fare questo lavoro è stato creato uno scheduler dal lato del server (Listato \ref{lst:scheduler}).
+
+\begin{lstlisting}[caption={Implementazione di uno scheduler che disattiva automaticamente le tessere non rinnovate. Questa funzione viene eseguita una volta all'anno e disattiva tutte le tessere ancora attivate e non iscritte all'anno corrente.}, label={lst:scheduler}]
 var Tessera = require('../models/tessera.model.js');
 var schedule = require('node-schedule');
 

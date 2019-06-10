@@ -1,8 +1,3 @@
-- il testo degli \url esce fuori dalla linewidth
-(provato comando \sloppy ma rovina la spaziatura delle altre frasi)
-
-ATRENT: baco noto e mai risolto, prova a metterli in footnote
-
 - tabella pinout per ogni dispositivo?
 
 ATRENT: solo se vedi che ti serve "riempimento" ;)
@@ -12,11 +7,7 @@ ATRENT: solo se vedi che ti serve "riempimento" ;)
 questo significa che non posso avere colori nel \lstset
 come posso rendere il codice più bello?
 
-- pagina 28 non viene riempita oltre alla tabella
-
-- pagina 38 non viene riempita con l'altra immagine che sta sotto (in teoria lo spazio c'è)
-
-- rendere tabella delle API più bella?
+- come rendere tabella delle API più bella? 
 
 - prova turnitin just in case (io non posso farlo, penso)
 
@@ -25,31 +16,32 @@ come posso rendere il codice più bello?
 - inserisco alcune figure a sx/dx del testo per migliorare il layout?
 
 - merge degli ultimi 2 capitoli: 
-si potrebbe chiamare "Analisi e Conclusioni"..
-Queste sarebbero le sottosezioni:
+adesso si chiama "Analisi e Conclusioni"..
+Queste sono le sottosezioni:
 \section{Problemi affrontati}
 \section{Possibili miglioramenti}
 \section{Conclusioni} (o deve essere perforza un capitolo a parte?)
+Va bene così ?
+
+- levo tutti i link (e.g. dei datasheet)
 
 
 DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
 
-- fixare la posizione delle immagini/tabelle con il package{float} 
+- fixare la posizione delle immagini/tabelle con il package float
 
 - fixare tutte le accentate 
 
 - fixare le immagini troppo grandi 
 
-- commentare il codice (serve ?)
-
-- mettere il codice in appendice?
+- mettere il codice in appendice? o meglio lasciarlo così
 
 - da mettere nell'introduzione: 
 introduzione dell'ente, rapporto con i colleghi, modalità di svolgimento delle attività, come sono stato aiutato, ecc
 
 - attività preliminari, studio delle tecnologie utilizzate ecc 
 
-- attività, tempi, strumenti utilizzati, problemi
+- attività, tempi, strumenti utilizzati
 
 - se ho tempo fare le sequence diagram per le sequenze degli eventi
 
