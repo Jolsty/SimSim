@@ -35,6 +35,7 @@
 \usepackage{tabularx}
 \usepackage{enumerate}
 \usepackage{float}
+\usepackage{wrapfig}
 
 \renewcommand{\UrlFont}{\footnotesize}
 
@@ -47,7 +48,6 @@
 
 \usepackage{xcolor}
 \usepackage{listings}
-
 
 \renewcommand{\lstlistingname}{Listato} % Listing -> Listato
 
@@ -150,8 +150,7 @@
 \vskip 0.8cm
 {\hfill \footnotesize {\sl Ringrazio i miei tutor e colleghi per avermi dato la possibilità di crescere e concludere la mia esperienza universitaria.}}
 \vskip 0.8cm
-{\hfill \footnotesize {\sl Un ringraziamento speciale a Elena per essere riuscita a farmi sorridere e a tirarmi su il morale in ogni giorno con la sua presenza nella mia vita.  Un altro ringraziamento a lei per la revisione della tesi.}}
-       
+      
 
 \afterpreface
 
@@ -207,22 +206,22 @@ L'attività principale del tirocinio è la realizzazione di un sistema di contro
 \end{enumerate}
 I dispositivi scelti per soddisfare i requisiti sono stati un Arduino UNO (per la parte hardware) e un Raspberry Pi 3B+ su cui ospitare il server. 
 
-Nella figura \ref{fig:simsim} si può vedere una foto con il prototipo finito.
-Nelle figure \ref{fig:usecase} e \ref{fig:flowchart} si possono trovare rispettivamente un diagramma dei casi d'uso e un diagramma di flusso del sistema.
+Nella Figura \ref{fig:simsim} si può vedere una foto con il prototipo finito.
+Nelle Figure \ref{fig:usecase} e \ref{fig:flowchart} si possono trovare rispettivamente un diagramma dei casi d'uso e un diagramma di flusso del sistema.
 
-\begin{figure}
+\begin{figure}[H]
 	\includegraphics[width=1\linewidth]{./img/simsim.jpeg}
-	\caption{SimSim}
+	\caption{Prototipo di SimSim}
 	\label{fig:simsim}
 \end{figure}
 
-\begin{figure}
-	\center{\includegraphics[width=0.6\linewidth]{./img/usecase.png}}
+\begin{figure}[H]
+	\center{\includegraphics[width=0.65\linewidth]{./img/usecase.png}}
 	\caption{Casi d'uso del sistema}
 	\label{fig:usecase}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 	\center{\includegraphics[width=0.9\linewidth]{./img/flowchart.png}}
 	\caption{Diagramma di flusso del sistema}
 	\label{fig:flowchart}
@@ -283,7 +282,7 @@ In questo capitolo vengono dettagliati i dispositivi hardware utilizzati all'int
 
 
 \begin{figure}
-	\center{\includegraphics[width=0.4\linewidth]{./img/raspi.jpg}}
+	\center{\includegraphics[width=0.35\linewidth]{./img/raspi.jpg}}
 	\caption{Scheda Raspberry Pi}
 	\label{fig:raspi}
 \end{figure}
@@ -317,10 +316,10 @@ La scheda utilizzata nel progetto, Arduino UNO (Figura \ref{fig:uno}), è assolu
 	\item Input Voltage (recommended): 7-12V
 \end{itemize}
 
-L'Arduino UNO è quindi un dispositivo ideale per il progetto; l'unica cosa che manca è la possibilità di accedere alla connessione WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip WiFi chiamato ESP8266 (si veda la sezione \ref{sec:esp8266} \textquotedblleft{} ESP8266 \textquotedblright{}).
+L'Arduino UNO è quindi un dispositivo ideale per il progetto; l'unica cosa che manca è la possibilità di accedere al WiFi, indispensabile per l'IoT, ma questo problema è stato risolto grazie ad un chip chiamato ESP8266 (si veda la sezione \ref{sec:esp8266} \textquotedblleft{} ESP8266 \textquotedblright{}).
 
-\begin{figure}
-	\center{\includegraphics[width=0.4\linewidth]{./img/uno.jpg}}
+\begin{figure}[H]
+	\center{\includegraphics[width=0.35\linewidth]{./img/uno.jpg}}
 	\caption{Scheda Arduino UNO}
 	\label{fig:uno}
 \end{figure}
@@ -329,7 +328,7 @@ L'Arduino UNO è quindi un dispositivo ideale per il progetto; l'unica cosa che 
 \subsection{Arduino Programming Language}
 %
 
-La scheda Arduino UNO (e qualsiasi altra board compatibile con Arduino) può essere facilmente programmata utilizzando, ma non solo, l'Arduino IDE (Arduino Integrated Development Software), un software sviluppato da Arduino.cc e funzionante sulle 3 piattaforme dominanti (Windows, Linux e MacOS). Il linguaggio di programmazione si chiama \textquotedblleft{} Arduino Programming Language \textquotedblright{}\cite{sistemi_embedded_atrent} ed è un derivato di Wiring (una piattaforma di sviluppo open-source composta da un linguaggio di programmazione, un IDE ed un circuito stampato basato su un microcontrollore). La sintassi è molto simile a quella del linguaggio C/C++; infatti il linguaggio Arduino è un insieme di funzioni e librerie C/C++ che possono essere chiamate dal codice. Forse la cosa diversa e che si nota di più rispetto ad altri linguaggi di programmazione è la diversa strutturazione dello sketch (sinonimo di programma): per poter funzionare vengono sempre definite due funzioni iniziali, setup() e loop(); la prima viene eseguita soltanto una volta all'avvio del programma e serve per dichiarare variabili, modalità dei pin (e.g input o output) ecc., mentre nella seconda viene messo il programma vero e proprio che viene eseguito ripetutamente... all'infinito.
+La scheda Arduino UNO (e qualsiasi altra board compatibile con Arduino) può essere facilmente programmata utilizzando, ma non solo, l'\emph{Arduino IDE} (Arduino Integrated Development Software), un software sviluppato da Arduino.cc e funzionante sulle 3 piattaforme dominanti (Windows, Linux e MacOS). Il linguaggio di programmazione si chiama \textquotedblleft{} Arduino Programming Language \textquotedblright{}\cite{sistemi_embedded_atrent} ed è un derivato di Wiring, una piattaforma di sviluppo open-source composta da un linguaggio di programmazione, un IDE ed un circuito stampato basato su un microcontrollore. La sintassi è molto simile a quella del linguaggio C/C++; infatti il linguaggio Arduino è un insieme di funzioni e librerie C/C++ che possono essere chiamate dal codice. Forse la cosa diversa e che si nota di più rispetto ad altri linguaggi di programmazione è la diversa strutturazione dello sketch (sinonimo di programma): per poter funzionare vengono sempre definite due funzioni iniziali, setup() e loop(); la prima viene eseguita soltanto una volta all'avvio del programma e serve per dichiarare variabili, modalità dei pin (e.g input o output) ecc., mentre nella seconda viene messo il programma vero e proprio che viene eseguito ripetutamente... all'infinito.
 
 
 %
@@ -338,10 +337,10 @@ La scheda Arduino UNO (e qualsiasi altra board compatibile con Arduino) può ess
 
 I requisiti del progetto richiedono il salvataggio del log dopo ogni accesso avvenuto con successo, e per fare ciò è necessario essere in grado di tenere traccia del tempo. Il Raspberry Pi, diversamente dai PC a cui siamo abituati, può tenere traccia del tempo solo se ha accesso alla connessione Internet per accedere ad un server NTP (Network Time Protocol); nel progetto in questione, il Raspberry Pi, nonostante sia connesso alla rete LAN, è stato privato della connessione Internet per questioni di sicurezza (nessun utente esterno alla rete può accedere al server in locale perciò elimina gran parte degli attacchi possibili). Ciò significa che per poter avere il cosiddetto timestamp nei log bisogna trovare un modo di tenere traccia della data e dell'ora. Fortunatamente esistono dei piccoli chip chiamati RTC che fanno questo lavoro. 
 
-Nella Figura \ref{fig:tinyRTC} si può vedere il dispositivo utilizzato nel progetto, chiamato TinyRTC, un modulo basato sul clock chip DS1307 (\url{https://datasheets.maximintegrated.com/en/ds/DS1307.pdf}) e supporta il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} \textquotedblleft{} I$^2$C \textquotedblright{}) per cui è facilmente utilizzabile dall'Arduino UNO.
+Nella Figura \ref{fig:tinyRTC} si può vedere il dispositivo utilizzato nel progetto, chiamato TinyRTC, un modulo basato sul clock chip DS1307 (\url{https://datasheets.maximintegrated.com/en/ds/DS1307.pdf}) che supporta il protocollo I$^2$C (si veda la sezione \ref{sec:i2c} \textquotedblleft{} I$^2$C \textquotedblright{}) per cui è facilmente utilizzabile dall'Arduino UNO.
 L'orologio può essere programmato con la data e l'ora corrente direttamente con il programma dell'Arduino e, grazie alla batteria al litio (CR1225), continua a tenere traccia del tempo anche senza alimentazione esterna. Il dispositivo è in grado di fornire, con abbastanza precisione, data e ora in termini di secondi, minuti, ora, giorno, mese e anno. Grazie alla popolarità di Arduino ci sono tante librerie per che permettono il facile utilizzo del dispositivo; nel progetto è stata usata una libreria chiamata RTClib che si può trovare nel seguente repository: \url{https://github.com/adafruit/RTClib}. Nella Figura \ref{fig:tinyRTC_uno} si può vedere il collegamento con l'UNO.
 
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\begin{minipage}{0.5\textwidth}
 		\centering
@@ -351,7 +350,7 @@ L'orologio può essere programmato con la data e l'ora corrente direttamente con
 	\end{minipage}%
 	\begin{minipage}{0.5\textwidth}
 		\centering
-		\includegraphics[width=0.5\linewidth]{./img/tinyRTC_uno.png}
+		\includegraphics[width=0.55\linewidth]{./img/tinyRTC_uno.png}
 		\captionof{figure}{Tiny RTC e Arduino UNO}
 		\label{fig:tinyRTC_uno}
 	\end{minipage}
@@ -365,6 +364,13 @@ Ci sono due principali tipi di tecnologie per i telecomandi: a raggi infrarossi 
 La tecnologia a raggi infrarossi è quella più utilizzata ed è usata da tanti dispositivi elettronici (un esempio molto comune è il telecomando della TV). In questo caso trasmettitore e ricevitore devono essere messi faccia-a-faccia e non troppo distanti tra di loro, perciò non è il caso di usare questa tecnologia nel progetto (non si potrebbe, ad esempio, aprire la porta stando dietro ad un muro).
 
 La tecnologia scelta è quindi quella a radio-frequenza, in cui trasmettitore e ricevitore possono comunicare anche se sono messi in camere diverse. Il dispositivo scelto (MX-05V/XD-RF-5V, Figura \ref{fig:rx_tx_module}) è un modulo composto da trasmettitore e ricevitore in radio-frequenza a 433 MHz (\url{https://sites.google.com/site/summerfuelrobots/arduino-sensor-tutorials/rf-wireless-transmitter-receiver-module-433mhz-for-arduino}). Il trasmettitore è stato utilizzato soltanto per programmare i telecomandi dell'azienda con i codici voluti grazie alla loro funzione di clonazione (codice nel Listato \ref{lst:trasm}).
+
+\begin{figure}[H]
+	\center{\includegraphics[width=0.25\linewidth]{./img/receiver_transmitter_module.jpg}}
+	\caption{Modulo transceiver MX-05V/XD-RF-5V}
+	\label{fig:rx_tx_module}
+\end{figure}
+
 
 \begin{lstlisting}[caption={L'Arduino utilizza il trasmettitore per trasmettere i codici clonati dai telecomandi.}, label={lst:trasm}]
 #include <RCSwitch.h>
@@ -393,6 +399,11 @@ void loop() {
 
 Il ricevitore, invece, è sempre collegato all'Arduino (Figura \ref{fig:rf_uno}) e riesce a ricevere i segnali mandati dai telecomandi anche da qualche decine di metri di distanza. Se il codice che viene mandato dal telecomando è corretto allora l'Arduino lo risconosce e apre la porta, altrimenti fa finta di niente. 
 
+\begin{figure}[H]
+	\center{\includegraphics[width=0.6\linewidth]{./img/rf_uno.png}}
+	\caption{Ricevitore RF con telecomando e Arduino UNO}
+	\label{fig:rf_uno}
+\end{figure}
 
 Il ricevitore, per aumentare il range, è stato accoppiato con un'antenna lunga 17,3 cm. Il motivo di questa scelta è che la lunghezza dell'antenna deve essere 1/4 di quella della lunghezza d'onda. Bisogna quindi calcolare la lunghezza d'onda $\lambda$:
 %
@@ -403,25 +414,15 @@ dove \textit{v} è la velocità della luce e \textit{f} è la frequenza (433 MHz
 \[\frac{\lambda}{4} = \frac{0,692}{4} = 0,173m = 17,3 cm \]
 %
 
-\begin{figure}
-	\center{\includegraphics[width=0.3\linewidth]{./img/receiver_transmitter_module.jpg}}
-	\caption{Modulo transceiver MX-05V/XD-RF-5V}
-	\label{fig:rx_tx_module}
-\end{figure}
-
-
-\begin{figure}
-	\center{\includegraphics[width=0.5\linewidth]{./img/rf_uno.png}}
-	\caption{RF Receiver + Telecomando e Arduino UNO}
-	\label{fig:rf_uno}
-\end{figure}
-
-\pagebreak
-
 %
 \section{Servomotore}\label{sec:servomotore}
 %
 
+\begin{figure}[H]
+	\center{\includegraphics[width=0.15\linewidth]{./img/servo.png}}
+	\caption{Servomotore}
+	\label{fig:servo}
+\end{figure}
 Esistono tanti tipi diversi di motori Arduino-compatibili, ognuno con i propri punti forti e deboli, perciò bisogna valutare bene quale scegliere in base alle necessità del progetto. In questo caso il lavoro del motore è semplice: deve girare la serratura di una porta da una parte e dall'altra, quindi senza particolare precisione, velocità o potenza. Siccome non c'è nemmeno il bisogno di avere una rotazione completa (bastano 180$^{\circ}$), è immediato pensare al servomotore che è anche facilmente controllabile da un Arduino grazie ai suoi pin PWM e alla libreria Servo (\url{https://www.arduino.cc/en/reference/servo}).
 
 Il servomotore (Figura \ref{fig:servo}) è un dispositivo elettromeccanico a basso consumo energetico ed è costituito da un motore DC, un gruppo di ingranaggi, un circuito di controllo (un ponte-H integrato) e un contenitore di plastica che lo racchiude.
@@ -429,37 +430,27 @@ La particolarità del servomotore è che può ruotare con una precisione di alcu
 
 \marginpar{\textbf{TO DO TO DO} se vuoi aggiungere, descrivi il funzionamento interno (potenziometro)} 
 
-\begin{figure}
-	\center{\includegraphics[width=0.15\linewidth]{./img/servo.png}}
-	\caption{Servomotore}
-	\label{fig:servo}
-\end{figure}
-
 %
 \subsection{PWM}
 %
 
-\emph{Pulse Width Modulation} (PWM) è una tecnica che consiste in una serie di impulsi di larghezza variabile che determinano la posizione del servo. È quindi un modo di ricavare un risultato analogico a partire da un segnale digitale. Un segnale PWM ha una forma d'onda quadra, con periodo fisso, ma spesso non simmetrica: la durata della semi-onda alta può variare (si veda la Figura \ref{fig:pwm}). La durata \textit{T[ON]} del segnale alto viene misurata in percentuale e si chiama duty cycle: ad esempio un duty cycle del 25\% significa che \textit{T[ON]} dura per 1/4 della durata del periodo fisso \textit{T}. Questo tipo di segnale non è un vero e proprio segnale analogico, però può essere interpretato tale: quello che succede è che la tensione viene applicata e levata nel giro di frazioni di secondo perciò quello che si chiama tensione efficace è in realtà minore della tensione reale applicata. Per calcolare la tensione efficace \textit{Veff} basta sapere la tensione applicata \textit{Vcc} e il duty cycle \textit{DC} (che si trova facendo il rapporto tra \textit{T[ON]} e \textit{T}):
+\emph{Pulse Width Modulation} (PWM) è una tecnica che consiste in una serie di impulsi di larghezza variabile che determinano la posizione del servo. È quindi un modo di ricavare un risultato analogico a partire da un segnale digitale. 
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+	\begin{center}
+		\includegraphics[width=0.9\linewidth]{./img/pwm.png}
+		\captionof{figure}{Segnali PWM e comando analogWrite(int value) per generarli con l'Arduino. La \textit{Veff} è rappresentata dalla linea orizzontale che copre il segnale digitale}
+		\label{fig:pwm}
+	\end{center}
+\end{wrapfigure}
+
+
+Un segnale PWM ha una forma d'onda quadra, con periodo fisso, ma spesso non simmetrica: la durata della semi-onda alta può variare (si veda la Figura \ref{fig:pwm}). La durata \textit{T[ON]} del segnale alto viene misurata in percentuale e si chiama duty cycle: ad esempio un duty cycle del 25\% significa che \textit{T[ON]} dura per 1/4 della durata del periodo fisso \textit{T}. Questo tipo di segnale non è un vero e proprio segnale analogico, però può essere interpretato tale: quello che succede è che la tensione viene applicata e levata nel giro di frazioni di secondo perciò quello che si chiama tensione efficace è in realtà minore della tensione reale applicata. Per calcolare la tensione efficace \textit{Veff} basta sapere la tensione applicata \textit{Vcc} e il duty cycle \textit{DC} (che si trova facendo il rapporto tra \textit{T[ON]} e \textit{T}):
 
 %
 \[Veff = Vcc \cdot DC\]
 %
-Nel grafico della Figura \ref{fig:pwm} la \textit{Veff} è rappresentata dalla linea orizzontale che copre il segnale digitale.
-
-\begin{figure}
-	\center{\includegraphics[width=0.4\linewidth]{./img/pwm.png}}
-	\caption{Segnali PWM e comando analogWrite(int value) per generarli con l'Arduino}
-	\label{fig:pwm}
-\end{figure}
-
 Generalmente, nel caso dei servomotori, si ha un periodo totale \textit{T} = 20 ms, perciò ogni 20 ms il servo riceve un nuovo impulso. La posizione del motore dipende quindi dalla durata del tempo \textit{T[ON]} che questo impulso rimane ad un livello logico HIGH. Nel grafico della Figura \ref{fig:servo_pwm} si nota che la durata dell'impulso alto è un valore compreso tra 1ms (Duty Cycle = 5\%) e 2ms (Duty Cycle = 10\%). Fissata la posizione centrale del servo a 90$^{\circ}$, allora abbiamo che: 
-
-
-\begin{figure}
-	\center{\includegraphics[width=0.9\linewidth]{./img/servo_pwm.png}}
-	\caption{Segnali PWM nel servomotore}
-	\label{fig:servo_pwm}
-\end{figure}
 
 
 \begin{itemize}
@@ -468,10 +459,23 @@ Generalmente, nel caso dei servomotori, si ha un periodo totale \textit{T} = 20 
 	\item se la durata del livello logico HIGH dell'impulso sta nell'intervallo [1.5ms, 2ms] allora il servo ruota verso destra a partire dalla posizione centrale (la sua posizione varia tra 90$^{\circ}$ e 180$^{\circ}$)
 \end{itemize}
 
+\begin{figure}[H]
+	\center{\includegraphics[width=0.9\linewidth]{./img/servo_pwm.png}}
+	\caption{Segnali PWM nel servomotore}
+	\label{fig:servo_pwm}
+\end{figure}
 
 Controllare un servomotore con l'Arduino è in realtà semplice perché esiste una libreria (\url{https://www.arduino.cc/en/reference/servo}) che ne facilita il lavoro: basta pensare in gradi. Nella Figura \ref{fig:servo_uno} viene fatto vedere un esempio di collegamento tra il servo e l'Arduino e un esempio di codice per controllarlo si trova nel Listato \ref{lst:servo}.
 
-\begin{lstlisting}[caption={Esempio di codice per controllare il servomotore: inanzittutto il servo viene collegato al pin 9 dell'Arduino e viene fatto ruotare di 180 gradi da una parte; dopo 5 secondi viene fatto ruotare di 180 gradi dalla parte opposta. }, label={lst:servo}]
+\begin{figure}[H]
+	\center{\includegraphics[width=0.3\linewidth]{./img/servo_uno.png}}
+	\caption{Servomotore e Arduino UNO}
+	\label{fig:servo_uno}
+\end{figure}
+
+\pagebreak
+
+\begin{lstlisting}[caption={Esempio di codice per controllare il servomotore: innanzittutto il servo viene collegato al pin 9 dell'Arduino e viene fatto ruotare di 180 gradi da una parte (aprendo la porta); dopo 5 secondi viene fatto ruotare di 180 gradi dalla parte opposta}, label={lst:servo}]
 #include <Servo.h>
 
 Servo myservo;
@@ -481,7 +485,7 @@ void setup() {
 	myservo.attach(9);
 }
 
-void loop() {
+void open() {
 	for (pos = 0; pos <= 180; pos += 1) {  
 		myservo.write(pos);				 
 		delay(15);                      
@@ -493,13 +497,6 @@ void loop() {
 	}
 }
 \end{lstlisting}
-
-
-\begin{figure}
-	\center{\includegraphics[width=0.3\linewidth]{./img/servo_uno.png}}
-	\caption{Servomotore e Arduino UNO}
-	\label{fig:servo_uno}
-\end{figure}
 
 %
 \section{RFID Reader}
@@ -515,13 +512,22 @@ void loop() {
 La tecnologia RFID si diversifica anche nella frequenza utilizzata e trova utilizzo in tanti campi diversi quali gestione accessi, tracciabilità degli animali, gestione dei biglietti elettronici, ecc$.$ (per le basse e medie frequenze), ma anche in Telepass, identificazione di auto in movimento, tracciabilità degli oggetti in movimento ecc. (per le frequenze alte e altissime).
 
 \begin{figure}
-	\center{\includegraphics[width=0.35\linewidth]{./img/mfrc522.jpg}}
+	\center{\includegraphics[width=0.23\linewidth]{./img/mfrc522.jpg}}
 	\caption{Lettore RFID MFRC522}
 	\label{fig:mfrc522}
 \end{figure}
 
-Il lettore RFID utilizzato nel progetto è il MFRC522 illustrato nella Figura \ref{fig:mfrc522} (\url{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}). Esso opera su una frequenza di 13.56 MHz ed è in grado di comunicare con tag che si conformano allo standard ISO/IEC 14443 A/MIFARE. Implementa vari protocolli di comunicazione (SPI, Serial UART, I$^2$C) ma è stata sviluppata solo una libreria di Arduino (\url{https://github.com/miguelbalboa/rfid}) basata sul protocollo SPI (si veda la sezione \ref{sec:spi} \textquotedblleft{} SPI \textquotedblright{}).
+Il lettore RFID utilizzato nel progetto è il MFRC522 illustrato nella Figura \ref{fig:mfrc522} (\url{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}). Esso opera su una frequenza di 13.56 MHz ed è in grado di comunicare con i tag che si conformano allo standard ISO/IEC 14443 A/MIFARE. Implementa vari protocolli di comunicazione (SPI, Serial UART, I$^2$C) ma è stata sviluppata solo una libreria di Arduino (\url{https://github.com/miguelbalboa/rfid}) basata sul protocollo SPI (si veda la sezione \ref{sec:spi} \textquotedblleft{} SPI \textquotedblright{}).
+
 Nella Figura \ref{fig:rfid_uno} si trova il circuito per collegare il lettore RFID con l'UNO e un esempio di codice di Arduino per leggere i tag si trova nel Listato \ref{lst:rfid}
+
+\begin{figure}[H]
+	\center{\includegraphics[width=0.65\linewidth]{./img/rfid_uno.png}}
+	\caption{RFID con dei tag e Arduino UNO}
+	\label{fig:rfid_uno}
+\end{figure}
+
+\pagebreak
 
 \begin{lstlisting}[caption={Procedura per leggere i tag. I tag vengono letti un byte alla volta e poi vengono concatenati in una stringa.}, label={lst:rfid}]
 boolean rfidCardRead(void) {
@@ -537,28 +543,19 @@ boolean rfidCardRead(void) {
 }
 \end{lstlisting} 
 
-\begin{figure}
-	\center{\includegraphics[width=0.65\linewidth]{./img/rfid_uno.png}}
-	\caption{RFID + Tag e Arduino UNO}
-	\label{fig:rfid_uno}
-\end{figure}
-
-
 %
 \section{Display LCD 16x2}
 %
-
-I moduli LCD trovano ampio utilizzo nei sistemi embedded grazie al basso costo, disponibilità e utilità. Il display utilizzato si chiama \textquotedblleft{} 16x2 LCD \textquotedblright{} (Figura \ref{fig:16x2}) proprio perchè possiede uno schermo su cui si possono scrivere 2 linee di 16 caratteri ciascuna. Questi dispositivi sono abbastanza complessi (ci sono 1280 pixel da indirizzare) e per poterli utilizzare in maniera semplice ed efficiente è necessario avere un'interfaccia. Infatti i display LCD spesso vengono accoppiati con un controller che rende la vita facile al programmatore. Il controller più utilizzato (infatti è considerato uno standard \textit{de facto}) si chiama HD44780 (\url{https://www.sparkfun.com/datasheets/LCD/HD44780.pdf}), costruito dalla Hitachi, ed è in grado di controllare display LCD capaci di visualizzare solo caratteri. L'HD44780 supporta il trasferimento parallelo a 8 bit (possiede 8 bit di dati) e il suo compito principale è di ricevere i comandi e i dati in arrivo dall'MCU per poi processarli
-e mandarli all'LCD.
-
-\begin{figure}
-	\center{\includegraphics[width=0.4\linewidth]{./img/16x2.jpg}}
+\begin{figure}[H]
+	\center{\includegraphics[width=0.35\linewidth]{./img/16x2.jpg}}
 	\caption{Display LCD 16x2}
 	\label{fig:16x2}
 \end{figure}
 
-Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab:lcd_pinout}, è il numero di pin necessari da collegare (e la pazienza per farlo) all'Arduino per poter farlo funzionare correttamente. Questo significa che, siccome l'Arduino ha un numero limitato di pin (13 digitali e 6 analogici), essi potrebbero non bastare per un progetto di dimensioni più grandi. Fortunatamente c'è una soluzione: I$^2$C (si veda la sezione \ref{sec:i2c} \textquotedblleft{} I$^2$C \textquotedblright{}). Esiste un chip che rende possibile la riduzione del numero di pin utilizzati a 2 (SDA e SCL) cambiando l'interfaccia parallela del controller in una seriale. Questo chip si chiama PCF8574 I/O Expander ed è definito come un backpack (è letteralmente uno zaino che si salda sopra l'LCD) e permette appunto all'LCD e all'Arduino di comunicare utilizzando il protocollo I$^2$C. In Arduino si può utilizzare una libreria già esistente chiamata LiquidCrystal\_PCF8574 (\url{https://platformio.org/lib/show/1165/LiquidCrystal_PCF8574/installation}) che sfrutta la libreria Wire (\url{https://www.arduino.cc/en/Reference/Wire}) per implementare alcune funzioni utili al programmatore. Esempio di codice nel Listato \ref{lst:lcd}:
+I moduli LCD trovano ampio utilizzo nei sistemi embedded grazie al basso costo, disponibilità e utilità. Il display utilizzato si chiama \textquotedblleft{} 16x2 LCD \textquotedblright{} (Figura \ref{fig:16x2}) proprio perchè possiede uno schermo su cui si possono scrivere 2 linee di 16 caratteri ciascuna. Questi dispositivi sono abbastanza complessi (ci sono 1280 pixel da indirizzare) e per poterli utilizzare in maniera semplice ed efficiente è necessario avere un'interfaccia. Infatti i display LCD spesso vengono accoppiati con un controller che rende la vita facile al programmatore. Il controller più utilizzato (infatti è considerato uno standard \textit{de facto}) si chiama HD44780 (\url{https://www.sparkfun.com/datasheets/LCD/HD44780.pdf}), costruito dalla Hitachi, ed è in grado di controllare display LCD capaci di visualizzare solo caratteri. L'HD44780 supporta il trasferimento parallelo a 8 bit (possiede 8 bit di dati) e il suo compito principale è di ricevere i comandi e i dati in arrivo dall'MCU per poi processarli
+e mandarli all'LCD.
 
+Il problema principale dell'LCD 16x2, come si può vedere nella Tabella \ref{tab:lcd_pinout}, è il numero di pin necessari da collegare (e la pazienza per farlo) all'Arduino per poter farlo funzionare correttamente. Questo significa che, siccome l'Arduino ha un numero limitato di pin (13 digitali e 6 analogici), essi potrebbero non bastare per un progetto di dimensioni più grandi. Fortunatamente c'è una soluzione: I$^2$C (si veda la sezione \ref{sec:i2c} \textquotedblleft{} I$^2$C \textquotedblright{}). Esiste un chip che rende possibile la riduzione del numero di pin utilizzati a due, SDA e SCL, cambiando l'interfaccia parallela del controller in una seriale. Questo chip si chiama PCF8574 I/O Expander ed è definito come un backpack (è letteralmente uno zaino che si salda sopra l'LCD) e permette appunto all'LCD e all'Arduino di comunicare utilizzando il protocollo I$^2$C. In Arduino si può utilizzare una libreria già esistente chiamata LiquidCrystal\_PCF8574 (\url{https://platformio.org/lib/show/1165/LiquidCrystal_PCF8574/installation}) che sfrutta la libreria Wire (\url{https://www.arduino.cc/en/Reference/Wire}) per implementare alcune funzioni utili al programmatore. Esempio di codice nel Listato \ref{lst:lcd}:
 \begin{lstlisting}[caption={L'Arduino inizializza la comunicazione con l'LCD tramite il protocollo I$^2$C e chiama la funzione lcdHomeMode() che semplicemente spegne la retroilluminazione e pulisce il testo.}, label={lst:lcd}]
 LiquidCrystal_PCF8574 lcd(lcdAddr); // lcdAddr = 0x27
 
@@ -578,8 +575,7 @@ void lcdHomeMode(void) {
 
 \end{lstlisting}
 
-
-\begin{table}[h!]
+\begin{table}[H]
 	\begin{center}
 		\begin{tabular}{l|l} 
 			\textbf{Pin} & \textbf{Funzione del pin} \\
@@ -610,17 +606,17 @@ void lcdHomeMode(void) {
 \section{Keypad}
 %
 
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}{.5\textwidth}
 		\centering
-		\includegraphics[width=0.8\linewidth]{./img/keypad.jpg}
+		\includegraphics[width=0.6\linewidth]{./img/keypad.jpg}
 		\caption{Tastierino 4x4}
 		\label{fig:keypad}
 	\end{subfigure}%
 	\begin{subfigure}{.5\textwidth}
 		\centering
-		\includegraphics[width=0.78\linewidth]{./img/keypad_matrix.png}
+		\includegraphics[width=0.58\linewidth]{./img/keypad_matrix.png}
 		\caption{Rappresentazione a matrice dei pulsanti}
 		\label{fig:keypad_matrix}
 	\end{subfigure}
@@ -629,7 +625,6 @@ void lcdHomeMode(void) {
 \end{figure}
 
 I tastierini sono dei dispositivi di input ampiamente utilizzati per dare la possibilità alle persone di interagire con un sistema (e.g$.$ inserire una password, controllare un robot ecc.). Normalmente i tasti sono disposti in un formato a matrice (in questo caso 4x4, ovvero 16 pulsanti) e permettono ad un microcontrollore di capire facilmente quale tasto è stato premuto in base alle linee che si attivano: nella Figura \ref{fig:keypad_both} si può facilmente vedere che premendo il pulsante \textquotedblleft{} 2 \textquotedblright{} vengono attivate le linee \textquotedblleft{} R0 \textquotedblright{} e \textquotedblleft{} C1 \textquotedblright{} e il microcontrollore, grazie a come è stato configurato, è in grado di dire che quel pulsante specifico è stato premuto. Un esempio di configurazione in Arduino del tastierino si può trovare nel Listato \ref{lst:keypad}. 
-
 \begin{lstlisting}[caption={Configurazione dei pin del tastierino. In questo caso non viene utilizzata l'ultima colonna con le lettere.}, label={lst:keypad}]
 const byte keypadRows = 4;   // quattro righe
 const byte keypadCols = 3;  // tre colonne
@@ -647,7 +642,7 @@ const char keypadConfig[keypadRows][keypadCols] =
 Le funzioni per utilizzare il tastierino sono implementate nella libreria Keypad di Arduino (\url{https://playground.arduino.cc/Code/Keypad/}). Nella Figura \ref{fig:keypad_uno} si può vedere un esempio di collegamento tra il tastierino e l'Arduino UNO.
 
 
-\begin{figure}
+\begin{figure}[H]
 	\center{\includegraphics[width=0.5\linewidth]{./img/keypad_uno.png}}
 	\caption{Keypad e Arduino UNO}
 	\label{fig:keypad_uno}
@@ -658,29 +653,28 @@ Le funzioni per utilizzare il tastierino sono implementate nella libreria Keypad
 \section{ESP8266}\label{sec:esp8266}
 %
 
-L'Arduino UNO, a differenza di altre board più recenti, non ha il WiFi incorporato perciò bisogna accoppiarlo con uno shield che gli permette di avere quella funzionalità necessaria per un progetto IoT. Per questo progetto è stata scelta l'ESP8266, una famiglia di microchip WiFi a basso costo prodotta da Espressif Systems. Il dispositivo usato in realtà si chiama ESP-01 (Figura \ref{fig:esp01}), è basato sul modulo ESP8266 ed è prodotto da terze parti (Ai-Thinker). Questo piccolo modulo permette a microcontrollori di connettersi alla rete WiFi per fare semplici chiamate HTTP.
-Tra le varie caratteristiche vengono elencate le più interessanti:
-
-\begin{figure}
-	\center{\includegraphics[width=0.2\linewidth]{./img/esp01.jpg}}
+\begin{figure}[H]
+	\center{\includegraphics[width=0.17\linewidth]{./img/esp01.jpg}}
 	\caption{L'ESP-01 di Ai-Thinker}
 	\label{fig:esp01}
 \end{figure}
 
+L'Arduino UNO, a differenza di altre board più recenti, non ha il WiFi incorporato perciò bisogna accoppiarlo con uno shield che gli permette di avere quella funzionalità necessaria per un progetto IoT. Per questo progetto è stata scelta l'ESP8266, una famiglia di microchip WiFi a basso costo prodotta da Espressif Systems. Il dispositivo usato in realtà si chiama ESP-01 (Figura \ref{fig:esp01}), è basato sul modulo ESP8266 ed è prodotto da terze parti (Ai-Thinker). Questo piccolo modulo permette a microcontrollori di connettersi alla rete WiFi per fare semplici chiamate HTTP.
+Tra le varie caratteristiche vengono elencate le più interessanti:
 
 \begin{itemize}
-	\item basso costo e molto compatto
-	\item antenna incorporata nel PCB
-	\item 512 KB flash memory su cui caricare il programma
-	\item 80 KB user data RAM
-	\item può essere usato sia come Station che come Access Point (AP)
-	\item implementa la funzione Deep Sleep per evitare il consumo eccessivo durante l'inattività
-	\item può essere programmato attraverso l'IDE di Arduino
-	\item implementa il protocollo IEEE 802.11 b/g/n
+	\item basso costo e molto compatto;
+	\item antenna incorporata nel PCB;
+	\item 512 KB flash memory su cui caricare il programma;
+	\item 80 KB user data RAM;
+	\item può essere usato sia come Station (il caso in questione) che come Access Point;
+	\item implementa la funzione Deep Sleep per evitare il consumo eccessivo durante l'inattività;
+	\item può essere programmato attraverso l'IDE di Arduino;
+	\item implementa il protocollo IEEE 802.11 b/g/n (ovvero WiFi).
 \end{itemize}
 Il pinout e le funzioni dei pin si trovano rispettivamente nella Figura \ref{fig:esp_pinout_img} e nella Tabella \ref{tab:esp01_pinout}. 
 
-L'ESP-01 va alimentato a una tensione di 3.3V ma secondo il datasheet (\url{http://www.microchip.ua/wireless/esp01.pdf}) potrebbe richiedere anche fino a 170mA di corrente perciò non si può alimentare direttamente dal piedino 3V3 dell'Arduino perchè non eroga abbastanza corrente (max 50 mA secondo \url{https://store.arduino.cc/arduino-uno-rev3}). Per questo motivo è stato usato il pin 5V dell'Arduino collegato ad un regolatore di tensione (LM1117, \url{http://www.ti.com/lit/ds/symlink/lm1117.pdf}). 
+L'ESP-01 va alimentato a una tensione di 3.3V ma secondo il datasheet (\url{http://www.microchip.ua/wireless/esp01.pdf}) potrebbe richiedere anche fino a 170mA di corrente perciò non si può alimentare direttamente dal pin 3V3 dell'Arduino perchè non eroga abbastanza corrente (max 50 mA secondo \url{https://store.arduino.cc/arduino-uno-rev3}). Per questo motivo è stato usato il pin 5V dell'Arduino collegato ad un regolatore di tensione chiamato LM1117 (datasheet: \url{http://www.ti.com/lit/ds/symlink/lm1117.pdf}). 
 Il circuito si può trovare nella Figura \ref{fig:esp_uno}.
 
 \vspace{\baselineskip}
@@ -711,16 +705,27 @@ Il circuito si può trovare nella Figura \ref{fig:esp_uno}.
 \end{minipage}
 \vspace{\baselineskip}
 
-\begin{figure}
-	\center{\includegraphics[width=0.7\linewidth]{./img/esp_uno.png}}
+\begin{figure}[H]
+	\center{\includegraphics[width=0.75\linewidth]{./img/esp_uno.png}}
 	\caption{ESP-01 e Arduino UNO}
 	\label{fig:esp_uno}
 \end{figure}
 
+Il dispositivo viene pre-programmato con il firmware AT  (\url{https://www.electrodragon.com/w/ESP8266\_AT-Command\_firmware}) ma è possibile programmarlo anche con il codice proprio (vedere la Tabella \ref{tab:esp01_modes} per le modalità di funzionamento) utilizzando l'IDE di Arduino (Listato \ref{lst:esp01_setup}).
 
-Il dispositivo viene pre-programmato con il firmware AT  (\url{https://www.electrodragon.com/w/ESP8266\_AT-Command\_firmware}) ma è possibile programmarlo anche con il codice proprio (vedere la Tabella \ref{tab:esp01_modes} per le modalità di funzionamento) utilizzando l'IDE di Arduino. Un esempio si può trovare nel Listato \ref{lst:esp01_setup}:
-
-\begin{lstlisting}[caption={Riprogrammazione dell'ESP-01 con codice proprio. All'accensione, il dispositivo non fa altro che connettersi alla rete WiFi locale. Per poter fare ciò, è stata utilizzata una libreria molto bene documentata (\url{https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/readme.html})}, label={lst:esp01_setup}]
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{l|l} 
+			\textbf{GPIO-0} & \textbf{Modalità} \\
+			\hline
+			GND & Flash mode (modalità programmazione) \\
+			VCC & Normal mode (il chip esegue il codice caricato) \\
+		\end{tabular}
+		\caption{Modalità di funzionamento dell'ESP-01}
+		\label{tab:esp01_modes}
+	\end{center}
+\end{table}
+\begin{lstlisting}[caption={Riprogrammazione dell'ESP-01 con il codice proprio. All'accensione, il dispositivo non fa altro che connettersi alla rete WiFi locale. Per poter fare ciò, è stata utilizzata una libreria molto bene documentata (\url{https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/readme.html})}, label={lst:esp01_setup}]
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include "wifi_secrets.h"
@@ -740,8 +745,9 @@ void setup() {
 	Serial.println("connected");
 }
 \end{lstlisting}
-
 Dopo aver effettuato la connessione, l'ESP-01 si mette in ascolto sulla porta seriale per dati in arrivo dall'Arduino per poi eseguire varie funzioni in base alla richiesta (Listato \ref{lst:esp01_listen}).
+
+\pagebreak 
 
 \begin{lstlisting}[caption={L'ESP-01 si mette in ascolto sulla porta seriale collegata all'Arduino. Esso chiama la funzione corretta in base al formato della stringa ricevuta.}, label={lst:esp01_listen}]
 void loop() {
@@ -758,34 +764,29 @@ void loop() {
 	}
 }
 \end{lstlisting}
-
-\begin{table}[h!]
-	\begin{center}
-		\begin{tabular}{l|l} 
-			\textbf{GPIO-0} & \textbf{Modalità} \\
-			\hline
-			GND & Flash mode (modalità programmazione) \\
-			VCC & Normal mode (il chip esegue il codice caricato) \\
-		\end{tabular}
-		\caption{Modalità di funzionamento dell'ESP-01}
-		\label{tab:esp01_modes}
-	\end{center}
-\end{table}
 L'Arduino è programmato per mandare 2 tipi di richieste:
 
 \begin{itemize}
 	\item \textquotedblleft{} check \textquotedblright{} per quando deve inoltrare all'ESP-01 il codice del tag per la verifica (Listato \ref{lst:uno_checkCardSerial})
+	\item \textquotedblleft{} log \textquotedblright{} per quando deve inoltrare all'ESP-01 un log (Listato \ref{lst:uno_sendLog})
 	
-\begin{lstlisting}[caption={L'Arduino manda all'ESP-01 il seriale della tessera in formato JSON e aspetta la risposta con lo status code. Se statusCode = 200 allora mette la variabile allowed a \textquotedblleft{} true \textquotedblright{} (questo pezzo non è presentato per motivi di lunghezza). La funzione printBodyToESP si può vedere nel Listato \ref{lst:uno_printBodyToESP} }, label={lst:uno_checkCardSerial}, xleftmargin=\dimexpr-\leftmargini]
+\begin{lstlisting}[caption={L'Arduino manda all'ESP-01 il seriale della tessera in formato JSON e aspetta la risposta con lo status code. Se statusCode = 200 allora mette la variabile allowed a \textquotedblleft{} true \textquotedblright{}. La funzione printBodyToESP si può vedere nel Listato \ref{lst:uno_printBodyToESP} }, label={lst:uno_checkCardSerial}, xleftmargin=\dimexpr-\leftmargini]
 boolean checkCardSerial(String serial) {
-	boolean allowed = false;
-	String bodyJSON = "check{\"seriale\":\"" + serial + "\"}";
-	int statusCode = printBodyToESP(bodyJSON);
-	...
+boolean allowed = false;
+String bodyJSON = "check{\"seriale\":\"" + serial + "\"}";
+int statusCode = printBodyToESP(bodyJSON);
+switch (statusCode) {
+	case 200:
+		sendLogTessera(serial);
+		allowed = true;
+		break;
+	... // altri casi
+	}
+return allowed;
 }
 \end{lstlisting}
 
-	\item \textquotedblleft{} log \textquotedblright{} per quando deve inoltrare all'ESP-01 un log (Listato \ref{lst:uno_sendLog})
+\pagebreak
 	
 \begin{lstlisting}[caption={L'Arduino manda all'ESP-01 il log in formato JSON e aspetta la risposta con lo status code. Se statusCode = 200 allora scrive un messagio di successo, altrimenti stampa un messaggio d'errore. La funzione printBodyToESP si può vedere nel Listato \ref{lst:uno_printBodyToESP}.}, label={lst:uno_sendLog}, xleftmargin=\dimexpr-\leftmargini]
 void sendLog(String tipo) {
@@ -793,17 +794,15 @@ void sendLog(String tipo) {
 	String bodyJSON = "log{\"data\":\"";
 	bodyJSON.concat(date);
 	bodyJSON.concat("Z\",\"tipo\":\"" + tipo + "\"}\0");
-	int statusCode = printBodyToESP(bodyJSON);
-	if (statusCode == 200) Serial.println("Log sent");
-	else Serial.println("Error code = " + String(statusCode));
+	printBodyToESP(bodyJSON);
 }
 \end{lstlisting}
 
 \end{itemize}
-
 In base alla richiesta vengono attivate 2 funzioni diverse:
 \begin{itemize}
-	\item una per mandare la verifica del tag al server tramite una chiamata HTTP (Listato \ref{lst:esp_checkTessera}).
+	\item una per mandare la verifica del tag al server tramite una chiamata HTTP (Listato \ref{lst:esp_checkTessera});
+	\item una per mandare il log al server tramite una chiamata HTTP (Listato \ref{lst:esp_sendLog}).
 	
 \begin{lstlisting}[caption={L'ESP-01 manda una richiesta POST all'endpoint specificato. Il corpo della richiesta è in formato JSON e include il seriale e il tipo della tessera che si vuole verificare.}, label={lst:esp_checkTessera}, xleftmargin=\dimexpr-\leftmargini]
 void checkTessera(String tesseraJSON) {
@@ -811,21 +810,16 @@ void checkTessera(String tesseraJSON) {
 	http.begin("http://192.168.1.71:3000/api/tessere/check");
 	http.addHeader("Content-Type", "text/plain");
 	int statusCode = http.POST(tesseraJSON);
-	delay(10);
-	Serial.print(String(statusCode)); // send code to Arduino;
+	Serial.print(String(statusCode)); // invia all'Arduino;
 	http.end();
 }
 \end{lstlisting}
-
-	\item una per mandare il log al server tramite una chiamata HTTP (Listato \ref{lst:esp_sendLog}).
-	
 \begin{lstlisting}[caption={L'ESP-01 manda una richiesta POST all'endpoint specificato. Il corpo della richiesta è in formato JSON e rappresenta il log.}, label={lst:esp_sendLog}, xleftmargin=\dimexpr-\leftmargini]
 void sendLog(String logJSON) {
 	HTTPClient http;
 	http.begin("http://192.168.1.71:3000/api/logs/add");
 	http.addHeader("Content-Type", "text/plain");
 	int statusCode = http.POST(logJSON);
-	delay(10);
 	Serial.print(String(statusCode)); // send code to Arduino;
 	http.end();
 }
@@ -836,7 +830,6 @@ void sendLog(String logJSON) {
 \subsection{Comunicazione tra l'Arduino UNO e l'ESP-01 }\label{sec:softwareserial}
 
 L'Arduino UNO è programmato per comunicare con l'ESP-01 tramite SoftwareSerial (https://www.arduino.cc/en/Reference/SoftwareSerial), una libreria che replica, per via software, le funzionalità della comunicazione seriale hardware (sui pin 0 e 1) anche su altri pin digitali. Un esempio di codice per il setup della comunicazione seriale tra l'ESP-01 e l'Arduino UNO tramite SoftwareSerial si trova nel Listato \ref{lst:uno_ss_setup}
-
 \begin{lstlisting}[caption={Inizializzazione della comunicazione seriale tra Arduino UNO e ESP-01}, label={lst:uno_ss_setup}]
 SoftwareSerial ESP(16, 17);
 
@@ -846,7 +839,6 @@ void arduinoEspSerialSetup() {
 \end{lstlisting}
 
 \noindent Un esempio di utilizzo di SoftwareSerial si può trovare nel Listato (\ref{lst:uno_printBodyToESP}).
-
 \begin{lstlisting}[caption={La funzione printBodyToESP. Essa manda all'ESP-01 (tramite l'oggetto SoftwareSerial) la stringa ricevuta tra gli argomenti e poi aspetta per la risposta. Dopo aver ricevuto la risposta restituisce statusCode.}, label={lst:uno_printBodyToESP}]
 int printBodyToESP(String bodyJSON) {
 int statusCode;
@@ -888,7 +880,7 @@ Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un in
 \subsection{I$^2$C}\label{sec:i2c}
 %
 
-\begin{figure}
+\begin{figure}[H]
 	\center{\includegraphics[width=0.6\linewidth]{./img/i2c_bus.png}}
 	\caption{I$^2$C Bus}
 	\label{fig:i2c_bus}
@@ -907,7 +899,7 @@ I$^2$C è un protocollo a due vie perchè utilizza due linee bidirezionali:
 	\item \emph{Serial Clock} (SCL) utilizzato dal master per la sincronizzazione.
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[H]
 	\center{\includegraphics[width=1\linewidth]{./img/i2c_data_bus.png}}
 	\caption{Esempio di messaggio inviato sulla linea SDA nel protocollo I$^2$C }
 	\label{fig:i2c_data_bus}
@@ -971,14 +963,13 @@ Anche se sembrano molto simili, ci sono alcune differenze importanti tra i due p
 	captionpos=b
 }
 
-In questo capitolo vengono descritte le tecnologie e le scelte progettuali che hanno portato allo sviluppo dell'interfaccia grafica richiesta dai requisiti per la gestione del database dell'azienda (si veda la sezione \ref{sec:req} \textquotedblleft{} Requisiti del progetto \textquotedblright{}). Nella Figura \ref{fig:esempio_libro_soci} si può vedere un esempio della grafica creata per la gestione del libro soci.
-
-\begin{figure}
-	\center{\includegraphics[width=0.77\linewidth]{./img/esempio_libro_soci.png}}
+\begin{figure}[H]
+	\center{\includegraphics[width=0.82\linewidth]{./img/esempio_libro_soci.png}}
 	\caption{Screenshot fatto durante la fase di test del sito web}
 	\label{fig:esempio_libro_soci}
 \end{figure}
 
+In questo capitolo vengono descritte le tecnologie e le scelte progettuali che hanno portato allo sviluppo dell'interfaccia grafica richiesta dai requisiti per la gestione del database dell'azienda (si veda la sezione \ref{sec:req} \textquotedblleft{} Requisiti del progetto \textquotedblright{}). Nella Figura \ref{fig:esempio_libro_soci} si può vedere un esempio della grafica creata per la gestione del libro soci.
 
 %
 \section{Back-End}
@@ -997,12 +988,10 @@ Node.js è un framework open-source che esegue codice JavaScript al di fuori da 
 	\item NPM (Node Package Manager): è il più grande ecosistema di librerie open source al mondo. Infatti Node.js ha un enorme quantità disponibile di librerie scritte da altri sviluppatori e possono essere installati facilmente utilizzando NPM;
 	\item utilizza lo stesso linguaggio di programmazione degli sviluppatori front-end, perciò è ancora più semplice diventare un full-stack developer grazie al fatto di non dover perforza conoscere linguaggi come Ruby o PHP.
 \end{itemize}
-
 L'applicazione utilizza vari moduli di Node.js:
 
 \begin{itemize}
 	\item Path (\url{https://nodejs.org/docs/latest/api/path.html}) fornisce alcune utilità nel lavorare con i file e con i percorsi delle directory. L'applicazione usa il modulo per definire una directory statica assoluta per i file dell'applicazione senza dover quindi utilizzare l'intero indirizzo della directory \textquotedblleft{} public \textquotedblright{} (Listato \ref{lst:path});
-
 \begin{lstlisting}[caption={Uso del modulo \emph{path}.}, label={lst:path}, xleftmargin=\dimexpr-\leftmargini]
 app.use(express.static(path.join(__dirname, 'public')));
 \end{lstlisting}
@@ -1010,8 +999,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 	\item Express (\url{https://expressjs.com/}) è un framework robusto e flessibile che fornisce un insieme di funzioni che facilitano e velocizzano lo sviluppo di applicazioni web con Node.js. L'applicazione fa uso di express per:
 	\begin{itemize}
 		\item definire delle middleware per rispondere a richieste HTTP e per gestire gli errori. Un esempio di middleware si può trovare nel Listato \ref{lst:middleware}; 
-		
-\begin{lstlisting}[caption={Middleware per caricare la pagina \textquotedblleft{} 404.ejs \textquotedblright{} nel caso in cui un utente provi ad accedere ad una pagina non esistente}, label={lst:middleware}, xleftmargin=\dimexpr-\leftmargini]
+\begin{lstlisting}[caption={Middleware per caricare la pagina \textquotedblleft{} 404.ejs \textquotedblright{} nel caso in cui un utente provi ad accedere ad una pagina non esistente}, label={lst:middleware}, xleftmargin=\dimexpr-\leftmarginii-\leftmargini]
 // Catch 404 and forward to error handler
 
 app.use(function(req, res, next) {
@@ -1032,7 +1020,6 @@ app.use(function(err, req, res, next) {
 \end{lstlisting}
 
 		\item definire una tabella di routing (lista di endpoint accessibili) che viene usata per eseguire diverse azioni in base all'URL e al tipo di richiesta HTTP (esempio nel Listato \ref{lst:routing});
-	
 \begin{lstlisting}[caption={Implementazione di un endpoint. Quando viene fatta una richiesta GET all'endpoint \emph{\textquotedblleft{} / \textquotedblright{}} allora, come risposta, l'applicazione invia all'utente un file chiamato \textquotedblleft{} index.ejs \textquotedblright{} (che rappresenta la homepage) che viene poi caricato dal suo browser}, label={lst:routing}, xleftmargin=\dimexpr-\leftmarginii-\leftmargini]
 app.get('/', (req, res) => res.render('index'));
 \end{lstlisting}
@@ -1041,7 +1028,6 @@ app.get('/', (req, res) => res.render('index'));
 		\item si possono creare in maniera semplice e veloce delle API RESTful (si veda la sezione \ref{sec:api});
 		\item interfacciarsi con vari database (e.g. MongoDB, MySQL ecc.);
 		\item creare un server che ascolta su una porta preimpostata. Per far ciò, express fornisce un'astrazione del modulo \emph{http} di Node.js (esempio nel Listato \ref{lst:server}).
-
 \begin{lstlisting}[caption={Creazione di un server con il modulo \emph{express}}, label={lst:server}, xleftmargin=\dimexpr-\leftmarginii-\leftmargini]
 var server = app.listen(port, () => {
 	console.log("Listening on port " + server.address().port);
@@ -1051,7 +1037,6 @@ var server = app.listen(port, () => {
 	\end{itemize}
 
 	\item Body-Parser (\url{https://www.npmjs.com/package/body-parser}) ispeziona i contenuti delle richieste HTTP. Utile per poter leggere i dati in formato JSON (e non solo). Esempio nel Listato \ref{lst:bodyparser};
-	
 \begin{lstlisting}[caption={Uso del modulo body-parser. Vengono definiti dei middleware che analizzano i contenuti delle richieste HTTP.}, label={lst:bodyparser}, xleftmargin=\dimexpr-\leftmargini]
 // for parsing
 app.use(bodyParser.json()); 
@@ -1060,28 +1045,19 @@ app.use(bodyParser.text());
 \end{lstlisting}
 
 	\item EJS (\url{https://ejs.co/}) è un linguaggio di templating che permette di avere dati provenienti dal server direttamente all'interno di documenti HTML. Il codice nel lato server si può vedere nel Listato \ref{lst:ejs_server}, mentre un esempio di utilizzo di EJS nel lato client si può vedere nel Listato \ref{lst:ejs_client};
-	
 \begin{lstlisting}[caption={Impostazione del \textquotedblleft{} view engine \textquotedblright{}}, label={lst:ejs_server}, xleftmargin=\dimexpr-\leftmargini]
 app.set('view engine', 'ejs');
 \end{lstlisting}
-
-
-
-\begin{lstlisting}[language=HTML, morekeywords={if, else}, caption={Uso di \emph{EJS} nel lato client. Il codice JavaScript all'interno della pagina HTML è racchiuso tra \textquotedblleft{} $<$\% \%$>$ \textquotedblright{} e l'oggetto \textquotedblleft{} tessere \textquotedblright{} è stato passato dal server in formato JSON}, label={lst:ejs_client}, xleftmargin=\dimexpr-\leftmargini]
+\begin{lstlisting}[language=HTML, morekeywords={if, else}, caption={Uso di \emph{EJS} nel lato client. Il codice JavaScript all'interno della pagina HTML è racchiuso tra \textquotedblleft{} $<$\% \%$>$ \textquotedblright{} e l'oggetto \textquotedblleft{} tessere \textquotedblright{} è stato passato dal server in formato JSON. Gli oggetti passati dal server sono racchiusi tra \textquotedblleft{} $<$\%= \%$>$ \textquotedblright{} }, label={lst:ejs_client}, xleftmargin=\dimexpr-\leftmargini]
 <% for(var i=0; i<tessere.length; i++) { %>
 	<tr class="w3-black tessere-table-mobile">
 		<td><%= tessere[i].numero_tessera %></td>
 		<td><%= tessere[i].seriale %></td>
-		<td><%= dateFormat(tessere[i].rilasciato.toLocaleString("it-IT", { "year": "numeric", "month": "2-digit", "day": "2-digit" })) %></td>
-		<td><%= dateFormat(tessere[i].ultimo_rinnovo.toLocaleString("it-IT", { "year": "numeric", "month": "2-digit", "day": "2-digit" })) %></td>
+		...
 		<% if ( tessere[i].stato === "ATTIVATA" ) { %>
-			<td>
-				<div class="green-circle" style="margin: auto;"></div>
-			</td>
+			<td><div class="green-circle"></div></td>
 		<% } else { %>
-			<td>
-				<div class="red-circle" style="margin: auto;"></div>
-			</td>
+			<td><div class="red-circle"></div></td>
 		<% } %>
 	</tr>
 <% } %>
@@ -1093,8 +1069,8 @@ app.set('view engine', 'ejs');
 
 \subsubsection*{MVC}
 
-\begin{figure}
-	\center{\includegraphics[width=0.4\linewidth]{./img/mvc.png}}
+\begin{figure}[H]
+	\center{\includegraphics[width=0.35\linewidth]{./img/mvc.png}}
 	\caption{Esempio delle interazioni tra i componenti del pattern MVC}
 	\label{fig:mvc}
 \end{figure}
@@ -1104,6 +1080,8 @@ Il sito web è stato creato sulla base di MVC (Model-View-Controller), un patter
 
 \begin{itemize}
 	\item Il modello corrisponde alla struttura e alla logica dei dati dell'applicazione (esempio nel Listato \ref{lst:model});
+	\item La vista corrisponde alla logica dell'\emph{User Interface} (UI) dell'applicazione. Rappresenta il modo in cui vengono presentati i dati all'utente (esempio nel Listato \ref{lst:view}); 
+	\item Il controller accetta l'input dell'utente (e.g. visitare il sito web, cliccare su un pulsante, inviare un modulo ecc.) e lo trasforma in comandi per il modello o per la vista (esempio nel Listato \ref{lst:controller}).
 	
 \begin{lstlisting}[caption={Creazione del modello dei log con \emph{mongoose}}, label={lst:model}, xleftmargin=\dimexpr-\leftmargini]
 var mongoose = require('mongoose');
@@ -1111,35 +1089,29 @@ var Schema = mongoose.Schema;
 
 var LogSchema = new Schema (
 {
-	tipo: { type: String, enum: ["telecomando", "tessera", "keypad"], required: true, lowercase: true, trim: true },
-	seriale: { type: String, default: "N/A", uppercase: true, trim: true },
-	nome: { type: String, default: "N/A", lowercase: true, trim: true },
-	cognome:  { type: String, default: "N/A", lowercase: true, trim: true },
-	numero_tessera: { type: String, default: ""},
-	data: { type: Date, required: true }
+tipo: { type: String, enum: ["telecomando", "tessera", "keypad"], required: true, lowercase: true, trim: true },
+seriale: { type: String, default: "N/A", uppercase: true, trim: true },
+nome: { type: String, default: "N/A", lowercase: true, trim: true },
+cognome:  { type: String, default: "N/A", lowercase: true, trim: true },
+numero_tessera: { type: String, default: ""},
+data: { type: Date, required: true }
 });
 
 LogSchema.index( { '$**': 'text'}); // full-table search index
 
-/* 
- *	Tutte le stringhe vengono incluse nell'indice.
+/*	Tutte le stringhe vengono incluse nell'indice.
  *	Permette cercare l'intero database in questo modo: 
- *	Log.find( { $text: { $search: searchTerm }}) 
- */
+ */	Log.find( { $text: { $search: searchTerm }}) 
 
-// export function to create "Log" model class
 module.exports = mongoose.model("Log", LogSchema);
 \end{lstlisting}
-
-	\item La vista corrisponde alla logica dell'\emph{User Interface} (UI) dell'applicazione. Rappresenta il modo in cui vengono presentati i dati all'utente (esempio nel Listato \ref{lst:view}); 
-	
 \begin{lstlisting}[language=HTML, morekeywords={if, else}, caption={Parte del codice HTML della vista creata per presentare le tessere all'utente}, label={lst:view}, xleftmargin=\dimexpr-\leftmargini]
 <table class="w3-table w3-left w3-border w3-centered">
 	<thead>
 		<tr class="w3-white tessere-table-mobile w3-large">
 			<th>Numero tessera</th>
 			<th>Seriale</th>
-			...
+			... <!-- altre colonne -->
 		</tr>
 	</thead>
 	<tbody>
@@ -1152,9 +1124,6 @@ module.exports = mongoose.model("Log", LogSchema);
 	</tbody>
 </table>
 \end{lstlisting}
-
-	\item Il controller accetta l'input dell'utente (e.g. visitare il sito web, cliccare su un pulsante, inviare un modulo ecc.) e lo trasforma in comandi per il modello o per la vista (esempio nel Listato \ref{lst:controller}).
-	
 \begin{lstlisting}[caption={Parte del codice del controller creato per gestire i comandi relativi ai soci.  Questa funzione, quando viene chiamata, cerca nel database i soci in base al termine inviato tra i parametri e poi carica una pagina con i risultati.}, label={lst:controller}, xleftmargin=\dimexpr-\leftmargini]
 exports.fullTableSearch = (req, res) => {
 	let searchTerm = req.params.term;
@@ -1171,7 +1140,6 @@ exports.fullTableSearch = (req, res) => {
 	 
 \end{itemize}
 
-
 \subsection{Database}\label{sec:db}
 %
 Il {Database Management System} (DBMS) scelto per l'applicazione si chiama MongoDB (\url{https://www.mongodb.com/}). MongoDB è un DBMS open-source e non relazionale (è classificato come un database di tipo NoSQL) ed è orientato ai documenti: al posto delle tipiche tabelle dei database relazionali vengono utilizzati dei documenti in formato JSON, facilitando quindi l'integrazione dei dati con quasi tutte le applicazioni web (infatti JSON è il formato di dati più utilizzato per lo scambio dei dati in rete).
@@ -1180,7 +1148,6 @@ MongoDB si integra facilmente con Node.js grazie a dei driver creati dagli svilu
 	\item la logica dei dati è diversa rispetto a quella che viene insegnata nei corsi tradizionali di basi di dati perciò potrebbe essere difficile abituarsi (ma, come si vedrà, anche non necessario);
 	\item non c'è la possibilità di validare i dati in maniera semplice ma bisogna scrivere del codice che potrebbe essere soggetto a errori;
 	\item le query con i driver nativi di MongoDB non sono tanto leggibili e possono diventare molto complesse perchè usano un insieme di operatori (e.g. quello di uguaglianza \textquotedblleft{} \$eq \textquotedblright{}). Esempio:
-	
 \begin{lstlisting}
 Account.find({ nome: { $eq: 'Andrea' } });
 \end{lstlisting}
@@ -1192,7 +1159,6 @@ Account.find({ nome: { $eq: 'Andrea' } });
 \begin{itemize}
 	\item facilità di apprendimento;
 	\item query più semplificate e leggibili grazie al \textquotedblleft{} method chaining \textquotedblright{} di JavaScript (soprattutto quando diventano complesse). Esempio nel Listato \ref{lst:method_chaining};
-	
 \begin{lstlisting}[caption={Esempio di query con \emph{mongoose}. Questa funzione cerca nel database dei soci per l'identificatore passato tra i parametri e poi carica la pagina per aggiornare il socio trovato}, label={lst:method_chaining}, xleftmargin=\dimexpr-\leftmargini]
 exports.updateSocio = (req, res) => {
 	Socio.
@@ -1208,23 +1174,13 @@ exports.updateSocio = (req, res) => {
 
 	\item fornisce un modo per dare una struttura ai dati grazie alla creazione degli schemi; ogni schema può essere compilato in un modello, ovvero una classe con cui vengono costruiti i documenti con i comportamenti (metodi) e le proprietà (attributi) dello schema dato;
 	\item permette di validare i dati all'interno degli schemi (e.g. attributo: \{ type: String, lowercase: true \});
-	\item libreria progettata per un ambiente asincrono: è possibile definire delle middleware (pre, post) da chiamare prima o dopo una certa operazione (e.g. di salvataggio). Ad esempio:
-	
-\begin{lstlisting}
-var schema = new Schema(..);
-schema.pre('save', function(next) {
-	// do stuff
-	next(); // chiama il prossimo middleware
-});
-\end{lstlisting}
-
+	\item libreria progettata per un ambiente asincrono: è possibile definire delle middleware (pre, post) da chiamare prima o dopo una certa operazione (e.g. di salvataggio). 
 \end{itemize}
-Come esempio, viene presentata la sequenza degli eventi per aggiungere un log (dopo un accesso con la tessera) all'interno del database e poi visualizzarlo sul sito:
+Come esempio dimostrativo per accedere al database, viene presentata la sequenza degli eventi per aggiungere un log (dopo un accesso con la tessera) all'interno del database e poi visualizzarlo sul sito:
 \begin{enumerate}[(I)]
 	\item L'ESP-01 manda una richiesta di aggiunta del log all'endpoint \emph{/api/logs/add} del server (Listato \ref{lst:esp_sendLog});
 	
 	\item L'applicazione, dopo aver ricevuto una richiesta POST all'endpoint specificato precedentemente, chiama una funzione per gestire la richiesta (Listato \ref{lst:add_log_endpoint});
-	
 \lstset{
 	language=Node,
 	backgroundcolor=\color{white},
@@ -1240,13 +1196,11 @@ Come esempio, viene presentata la sequenza degli eventi per aggiungere un log (d
 	showtabs=false,
 	captionpos=b
 }
-
 \begin{lstlisting}[caption={Endpoint per aggiungere i log}, label={lst:add_log_endpoint}, xleftmargin=\dimexpr-\leftmargini]
 app.post('/api/logs/add', logs.addLog);
 \end{lstlisting}
 
 	\item La funzione gestisce la richiesta e salva il log nel database (Listato \ref{lst:saveLog});
-	
 \begin{lstlisting}[caption={Questa funzione aggiunge il log all'interno del database. Il corpo della richiesta POST contiene il log in formato JSON}, label={lst:saveLog}, xleftmargin=\dimexpr-\leftmargini]
 exports.addLog = (req, res) => {
 	var body = JSON.parse(req.body);
@@ -1281,6 +1235,11 @@ exports.addLog = (req, res) => {
 
 \item Il log è visualizzabile sul sito accedendo all'endpoint \emph{/api/logs/view} (la pagina caricata si può vedere nella Figura \ref{fig:logbook})$.$ Il codice eseguito dopo una richiesta GET all'endpoint specificato si può trovare nel Listato \ref{lst:viewLogs}.
 
+\begin{figure}[H]
+	\center{\includegraphics[width=0.9\linewidth]{./img/logbook.png}}
+	\caption{Il logbook dell'azienda}
+	\label{fig:logbook}
+\end{figure}
 \begin{lstlisting}[caption={Questa funzione viene eseguita quando un browser accede (richiesta GET) all'endpoint \emph{/api/logs/view}}, label={lst:viewLogs}, xleftmargin=\dimexpr-\leftmargini]
 exports.viewAllLogs = (req, res) => {
 	Log.find( (err, logs) => {
@@ -1295,19 +1254,8 @@ exports.viewAllLogs = (req, res) => {
 
 \end{enumerate}
 
-\begin{figure}
-	\center{\includegraphics[width=0.8\linewidth]{./img/logbook.png}}
-	\caption{Il logbook dell'azienda}
-	\label{fig:logbook}
-\end{figure}
+Il ragionamento per aggiungere i soci e le tessere al database è simile, solo che si può fare direttamente dal sito: il browser manda i form compilati tramite una richiesta POST al server. Per ogni tipo di richiesta diversa, verrà chiamata una funzione specifica per gestirla.
 
-Il ragionamento per aggiungere i soci e le tessere al database è simile, solo che si può fare direttamente dal sito: il browser manda i form compilati (esempio nella Figura \ref{fig:add_tessera_form}) tramite una richiesta POST al server. Per ogni tipo di richiesta diversa, verrà chiamata una funzione specifica per gestirla.
- 
-\begin{figure}
-	\center{\includegraphics[width=0.8\linewidth]{./img/add_tessera_form.png}}
-	\caption{Form da compilare per aggiungere una tessera nel database}
-	\label{fig:add_tessera_form}
-\end{figure}
 
 \subsection{RESTful API}\label{sec:api}
 %
@@ -1318,9 +1266,19 @@ Tipicamente le API RESTful sfruttano le chiamate HTTP per dare la possibilità a
 Un elenco delle API dell'applicazione si può trovare nella Tabella \ref{tab:api}.
 Le API sono state testate con Postman (\url{https://www.getpostman.com/}), un software progettato per lo sviluppo e il testing delle API web. Postman dà la possibilità allo sviluppatore di creare diversi tipi di richieste HTTP da inviare ad un URL. Un esempio di utilizzo di Postman si può trovare nella Figura \ref{fig:postman_test}.
 
+\begin{figure}[H]
+	\center{\includegraphics[width=0.9\linewidth]{./img/postman_test.png}}
+	\caption{Esempio di testing con Postman dell'endpoint relativo all'aggiunta dei log}
+	\label{fig:postman_test}
+\end{figure}
+
+\pagebreak
+
+\vspace*{35px} 
 \begin{table}[H]
 	\scriptsize
 	\centering
+	\def\tabularxcolumn#1{m{#1}}
 	\renewcommand\arraystretch{1.8}
 	\renewcommand\tabcolsep{3.0pt}
 	\begin{tabularx}{\textwidth}{|L|L|L|L|}
@@ -1364,13 +1322,7 @@ Le API sono state testate con Postman (\url{https://www.getpostman.com/}), un so
 	\captionsetup{font={footnotesize}}
 	\caption{Specificazione delle API dell'applicazione}
 	\label{tab:api}
-\end{table}    
-
-\begin{figure}
-	\center{\includegraphics[width=1\linewidth]{./img/postman_test.png}}
-	\caption{Esempio di testing con Postman dell'endpoint relativo all'aggiunta dei log}
-	\label{fig:postman_test}
-\end{figure}
+\end{table}
 
 %
 \section{Front-End}
@@ -1382,7 +1334,7 @@ In ingegneria del software, il termine front-end rappresenta l'interfaccia dell'
 \subsection{Tecnologie utilizzate}
 %
 
-Per creare il front-end vengono utilizzati linguaggi come HTML (per la struttura e contenuto), CSS (per lo stile) e client-side JavaScript per aggiungere dinamicità al sito (pulsanti, chiamate AJAX ecc.).
+Per creare il front-end sono stati utilizzati i tipici linguaggi come HTML (per la struttura e contenuto), CSS (per lo stile) e client-side JavaScript per aggiungere dinamicità al sito (pulsanti, chiamate AJAX ecc.).
 
 %
 \subsubsection*{HTML5}
@@ -1393,7 +1345,6 @@ I file HTML generati nel progetto hanno l'estensione EJS perchè vengono usati a
 \subsubsection*{CSS}
 %
 I documenti HTML sono stilizzati con il linguaggio di stile più diffuso al mondo chiamato \emph{Cascading Style Sheets} (CSS): esso descrive, attraverso delle regole, i modi in cui gli elementi di un documento devono essere presentati e animati nell'interfaccia grafica. Le regole possono essere scritte direttamente nel file HTML, ma ciò crea solo confusione ed è generalmente buona norma avere i file CSS separati e poi importati nel documento (come nel Listato \ref{lst:import_css})
-
 \begin{lstlisting}[language=HTML, caption={Importazione dei file di stile nel documento HTML}, label={lst:import_css}]
 <link rel="stylesheet" href="/css/w3.css">
 <link rel="stylesheet" href="/css/custom.css">
@@ -1401,7 +1352,6 @@ I documenti HTML sono stilizzati con il linguaggio di stile più diffuso al mond
 \end{lstlisting}
 
 Normalmente gli sviluppatori non scrivono le proprie regole (è un lavoro molto lungo e per fare una cosa bella serve tanta esperienza in web design) ma trovano dei template (esistono sia gratis che a pagamento) da utilizzare. In questo caso è stato utilizzato un template (\url{https://www.w3schools.com/w3css/tryw3css_templates_dark_portfolio.htm}) di W3.CSS scelto dal tutor aziendale. W3.CSS è un framework moderno, semplice, veloce e gratis che supporta un design mobile-first che aiuta lo sviluppatore a creare siti web moderni e responsivi. Il vantaggio di un sito responsivo è il fatto che è stato progettato per rispondere automaticamente a tutti i tipi di dispositivi utilizzati per visualizzarlo (e.g. desktop, mobile, tablet). Questo approccio viene implementato sfruttando le caratteristiche delle \emph{media queries} (Listato \ref{lst:media_query}).
-
 \begin{lstlisting}[morekeywords={ @media, max-width, px, width, height, !important}, caption={Esempio di \emph{media query}}, label={lst:media_query}]
 @media (max-width:768px)
 {
@@ -1423,7 +1373,6 @@ Inoltre è stato utilizzato \emph{Font Awesome}, un toolkit di icone distribuito
 \subsubsection*{JavaScript}
 %
 JavaScript è un linguaggio di programmazione introdotto nel 1995 con lo scopo di aggiungere programmi all'interno di siti web sul browser Netscape Navigator. Il linguaggio è stato adottato da quasi tutti gli altri browser esistenti (è stato anche standardizzato sotto il nome di ECMAScript) e ha reso possibile avere applicazioni web moderne con cui un utente può interagire direttamente senza dover ricaricare la pagina\cite{eloquent_javascript}. È un linguaggio molto evoluto e studiato nel tempo e ora si definisce come un linguaggio di scripting client-side (ma non solo, come si è visto con Node.js) eseguito dai browser. Il codice JavaScript può essere scritto all'interno di qualsiasi documento, ma è buona norma avere i file con estensione .js separati e poi inclusi alla fine del documento (per far sì che tutti gli elementi vengano caricati dal browser), come nel Listato \ref{lst:import_javascript}.
-
 \begin{lstlisting}[language=HTML, caption={Importazione dei file .js nel documento HTML}, label={lst:import_javascript}]
 <script type="text/javascript" src=/js/jquery-3.3.1.min.js></script>
 <script type="text/javascript" src=/js/forms.js></script>
@@ -1432,8 +1381,7 @@ JavaScript è un linguaggio di programmazione introdotto nel 1995 con lo scopo d
 \end{lstlisting}
 
 JavaScript è un linguaggio che utilizza un singolo thread (organizza l'esecuzione in un'unica pila chiamata \emph{call stack}) e segue il paradigma della programmazione a eventi, perciò è possibile costruire un comportamento non bloccante. Il motore JavaScript crea una coda di eventi (che possono essere operazioni di I/O, richieste di rete, chiamate di WebWorker, funzioni inserite in timer ecc.) che, al verificarsi di un evento, possono modificare l'ordine di esecuzione sequenziale del codice. Si prenda come esempio la funzione nel Listato \ref{lst:hello_world}.
-
-\begin{lstlisting}[language=JavaScript, morekeywords={ alert }, caption={Funzione che scrive \textquotedblleft{} Hello World \textquotedblright{} ogni 3 secondi (in questo caso l'evento è rappresentato dal timer)},label={lst:hello_world}]
+\begin{lstlisting}[language=JavaScript, morekeywords={ alert }, caption={Programmazione a eventi: funzione che scrive \textquotedblleft{} Hello World \textquotedblright{} ogni 3 secondi (in questo caso l'evento è rappresentato dal timer)},label={lst:hello_world}]
 function myFunction() {
 	setInterval(function() { 
 		alert("Hello World"); 
@@ -1441,17 +1389,19 @@ function myFunction() {
 }
 \end{lstlisting}
 
-JavaScript interagisce col browser attraverso il \emph{Document Object Model} (DOM) della pagina HTML. Il DOM è stato standardizzato dalla W3C e viene creato dal browser dopo che una pagina è stata caricata. Esso segue un modello gerarchico di oggetti (Figura \ref{fig:dom}) che possono essere manipolati dagli script dando la possibilità di aggiornare dinamicamente il contenuto, la struttura e lo stile dei documenti. Grazie al DOM è possibile accedere agli elementi (e loro proprietà, metodi ed eventi) delle pagine HTML.
+JavaScript interagisce con il browser attraverso il \emph{Document Object Model} (DOM) della pagina HTML. Il DOM è stato standardizzato dalla W3C e viene creato dal browser dopo che una pagina è stata caricata. Esso segue un modello gerarchico di oggetti (Figura \ref{fig:dom}) che possono essere manipolati dagli script dando la possibilità di aggiornare dinamicamente il contenuto, la struttura e lo stile dei documenti. Grazie al DOM è possibile accedere agli elementi (e loro proprietà, metodi ed eventi) delle pagine HTML.
 
-\begin{figure}
+Nel progetto è stato utilizzato \emph{jQuery} (\url{https://jquery.com/}), una libreria molto diffusa (ormai di meno rispetto a qualche anno fa dato che ora ci sono altre scelte più moderne come React.js, Vue.js e Angular.js) di JavaScript proposta a ridurre e semplificare il codice per lo sviluppo del front-end. Esistono tanti test di benchmark per quanto riguarda la prestazione di jQuery rispetto al \textquotedblleft{} vanilla JavaScript \textquotedblright{}. Secondo Marco Trombino, uno sviluppatore di front-end che ha testato una funzione che inserisce 10,000 elementi nuovi con una classe all'interno di un altro elemento, è stato rilevato che jQuery è molto meno performante rispetto al JavaScript normale: \textit{\textquotedblleft{} As we could have expected Vanilla performed the task in 18,99 ms, whereas jQuery did it in 195,89 ms. Ten times faster. \textquotedblright{}}\cite{jquery}. Nonostante ciò, la scelta di usare jQuery è stata fatta poichè il progetto non è di grosse dimensioni e il costo da pagare per la prestazione non è notevole; in cambio il codice scritto è più corto e semplificato. 
+
+Un elemento molto importante di JavaScript di cui ne vale la pena parlare è la tecnica \emph{Asynchronous JavaScript and XML} (AJAX). AJAX è una tecnica molto utilizzata in ambito web che consente l'aggiornamento dinamico di una pagina web senza dover ricaricarla: lo scambio dei dati tra client e server (e.g. invio di un form) avviene nel background.
+\begin{figure}[H]
 	\center{\includegraphics[width=0.6\linewidth]{./img/dom.png}}
 	\caption{Esempio di gerarchia del DOM in un documento HTML. Immagine sotto licenza CC BY-SA 3.0. Autore: Birger Eriksson. Link: \url{https://commons.wikimedia.org/wiki/File:DOM-model.svg}}
 	\label{fig:dom}
 \end{figure}
 
-Nel progetto è stato utilizzato jQuery (\url{https://jquery.com/}), una libreria molto diffusa (ormai di meno rispetto a qualche anno fa dato che ora ci sono altre scelte più moderne come React.js, Vue.js e Angular.js) di JavaScript proposta a ridurre e semplificare il codice per lo sviluppo del front-end. Esistono tanti test di benchmark per quanto riguarda la prestazione di jQuery rispetto al \textquotedblleft{} vanilla JavaScript \textquotedblright{}. Secondo Marco Trombino, uno sviluppatore di front-end che ha testato una funzione che inserisce 10,000 elementi nuovi con una classe all'interno di un altro elemento, è stato rilevato che jQuery è molto meno performante rispetto al JavaScript normale: \textit{\textquotedblleft{} As we could have expected Vanilla performed the task in 18,99 ms, whereas jQuery did it in 195,89 ms. Ten times faster. \textquotedblright{}}\cite{jquery}. Nonostante ciò, la scelta di usare jQuery è stata fatta poichè il progetto non è di grosse dimensioni e il costo da pagare per la prestazione non è notevole; in cambio il codice scritto è più corto e semplificato. 
-
-Un elemento molto importante di JavaScript di cui ne vale la pena parlare è la tecnica \emph{Asynchronous JavaScript and XML} (AJAX). AJAX è una tecnica molto utilizzata in ambito web che consente l'aggiornamento dinamico di una pagina web senza dover ricaricarla: lo scambio dei dati tra client e server (e.g. invio di un form) avviene nel background. Alcuni vantaggi dovuti al fatto di non dover ricaricare la pagina sono: 
+\noindent Alcuni vantaggi dovuti al fatto di non dover ricaricare la pagina sono: 
+ 
 \begin{itemize}
 	\item velocità ed efficienza: il traffico sul server viene ridotto grazie al fatto di dover scambiare solo i dati necessari anzichè l'intera pagina
 	\item sito più responsivo: è possibile aggiornare solo una parte della pagina
@@ -1459,7 +1409,7 @@ Un elemento molto importante di JavaScript di cui ne vale la pena parlare è la 
 	\item validazione istantanea dei form
 \end{itemize}
 Tutto ciò è possibile grazie all'utilizzo di un oggetto chiamato XMLHttpRequest che può comunicare con il server per mandare e ricevere dati in vari formati quali JSON, XML, HTML e file di testo in maniera asincrona. Un esempio che descrive l'utilizzo di AJAX si può vedere nel Listato \ref{lst:delete_socio}.
-
+\pagebreak
 \begin{lstlisting}[language=JavaScript, morekeywords={ confirm, $, alert }, caption={Esempio di utilizzo della tecnica AJAX. La funzione, dopo aver premuto il pulsante per rimuovere un socio, manda una richiesta (nel background) del tipo  \textquotedblleft{} DELETE \textquotedblright{} all'endpoint \emph{/api/soci/delete/} con l'ID del socio che si desidera cancellare}, label={lst:delete_socio}]
 const rimuoviSocioButton = $(".w3-btn.w3-round.rimuoviSocioButton");
 
@@ -1478,7 +1428,6 @@ rimuoviSocioButton.on('click', function(e) {
 	xHttp.send();
 });
 \end{lstlisting}
-
 
 %
 % 
@@ -1511,7 +1460,6 @@ Siccome non è stato sviluppato un sistema di login per il sito web (per questio
 
 L'ingresso nello spazio di Yatta è regolato da un tesseramento. Ogni anno, a fine Gennaio, tutte le tessere che non sono state rinnovate vengono disattivate: questo significa che devono essere disattivate automaticamente anche nel database.
 Per fare questo lavoro è stato creato uno scheduler dal lato del server (Listato \ref{lst:scheduler}).
-
 \begin{lstlisting}[caption={Implementazione di uno scheduler che disattiva automaticamente le tessere non rinnovate. Questa funzione viene eseguita una volta all'anno e disattiva tutte le tessere ancora attivate e non iscritte all'anno corrente.}, label={lst:scheduler}]
 var Tessera = require('../models/tessera.model.js');
 var schedule = require('node-schedule');
