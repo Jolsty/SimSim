@@ -1,3 +1,5 @@
+DOMANDE:
+
 - tabella pinout per ogni dispositivo?
 
 ATRENT: solo se vedi che ti serve "riempimento" ;)
@@ -18,6 +20,8 @@ Va bene così ?
 
 - cos'altro posso aggiungere?
 
+- mettere i listati in appendice? o meglio lasciare così ?
+
 
 DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
 
@@ -26,8 +30,6 @@ DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
 - fixare tutte le accentate 
 
 - fixare le immagini troppo grandi 
-
-- mettere i listati in appendice? o meglio lasciare così ?
 
 - se ho tempo fare le sequence diagram per le sequenze degli eventi (https://tex.stackexchange.com/questions/207240/drawing-simple-sequence-diagram)
 
