@@ -186,7 +186,13 @@ SimSim è nato all'interno di \emph{Yatta}, il primo makerspace in centro a Mila
 
 Durante la fase di sviluppo, l'idea del progetto è evoluta fino a diventare un sistema più completo, munito di un database per l'azienda e un sito web per gestirlo. Ho lavorato principalmente in autonomia ma sono stato aiutato anche dal tutor aziendale con alcune scelte progettuali come ad esempio la scelta di alcune componentistiche hardware, creazione degli schemi del database, scelta del template dell'interfaccia web, eccetera. Inoltre mi sono stati forniti tutti i materiali necessari alla creazione del prototipo, compresa la stampante 3D per lo sviluppo della scatola e la porta che si possono vedere nella Figura \ref{fig:simsim} (un ringraziamento alla mia collega Cecilia per la creazione del modello 3D).
 
-La sequenza temporale delle attività svolte si può vedere nella Figura \textbf{TODO}.
+La sequenza temporale delle attività svolte si può vedere nella Figura \ref{fig:timeline}.
+
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{./img/timeline.png}
+	\caption{Sequenza temporale delle attività svolte. Creato con il tool \url{https://time.graphics/it/editor}}
+	\label{fig:timeline}
+\end{figure}
   
 %
 \section{Requisiti del progetto}\label{sec:req}
@@ -483,8 +489,6 @@ Controllare un servomotore con l'Arduino è in realtà semplice perché esiste u
 	\label{fig:servo_uno}
 \end{figure}
 
-\pagebreak
-
 \begin{lstlisting}[caption={Esempio di codice per controllare il servomotore: innanzittutto il servo viene collegato al pin 9 dell'Arduino e viene fatto ruotare di 180 gradi da una parte (aprendo la porta); dopo 5 secondi viene fatto ruotare di 180 gradi dalla parte opposta}, label={lst:servo}]
 #include <Servo.h>
 
@@ -529,15 +533,13 @@ La tecnologia RFID si diversifica anche nella frequenza utilizzata e trova utili
 
 Il lettore RFID utilizzato nel progetto è il MFRC522 illustrato nella Figura \ref{fig:mfrc522} (\url{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}). Esso opera su una frequenza di 13.56 MHz ed è in grado di comunicare con i tag che si conformano allo standard ISO/IEC 14443 A/MIFARE. Implementa vari protocolli di comunicazione (SPI, Serial UART, I$^2$C) ma è stata sviluppata solo una libreria di Arduino (\url{https://github.com/miguelbalboa/rfid}) basata sul protocollo SPI (si veda la sezione \ref{sec:spi} \textquotedblleft{} SPI \textquotedblright{}).
 
-Nella Figura \ref{fig:rfid_uno} si trova il circuito per collegare il lettore RFID con l'UNO e un esempio di codice di Arduino per leggere i tag si trova nel Listato \ref{lst:rfid}
+Nella Figura \ref{fig:rfid_uno} si trova il circuito per collegare il lettore RFID con l'UNO e un esempio di codice di Arduino per leggere i tag si trova nel Listato \ref{lst:rfid}.
 
 \begin{figure}[H]
-	\center{\includegraphics[width=0.65\linewidth]{./img/rfid_uno.png}}
+	\center{\includegraphics[width=0.7\linewidth]{./img/rfid_uno.png}}
 	\caption{RFID con dei tag e Arduino UNO}
 	\label{fig:rfid_uno}
 \end{figure}
-
-\pagebreak
 
 \begin{lstlisting}[caption={Procedura per leggere i tag. I tag vengono letti un byte alla volta e poi vengono concatenati in una stringa.}, label={lst:rfid}]
 boolean rfidCardRead(void) {

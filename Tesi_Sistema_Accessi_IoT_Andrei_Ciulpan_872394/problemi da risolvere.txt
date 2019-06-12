@@ -29,7 +29,7 @@ DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
 
 - mettere i listati in appendice? o meglio lasciare così ?
 
-- se ho tempo fare le sequence diagram per le sequenze degli eventi
+- se ho tempo fare le sequence diagram per le sequenze degli eventi (https://tex.stackexchange.com/questions/207240/drawing-simple-sequence-diagram)
 
 - fixare eventuali spazi strani 
 
