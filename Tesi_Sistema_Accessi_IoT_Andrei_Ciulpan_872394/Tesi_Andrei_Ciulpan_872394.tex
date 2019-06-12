@@ -149,10 +149,13 @@
 {\hfill \footnotesize {\sl Ringrazio i miei amici e compagni di università per aver reso l'esperienza più bella e soprattutto più facile.}}
 \vskip 0.8cm
 {\hfill \footnotesize {\sl Ringrazio i miei tutor e colleghi per avermi dato la possibilità di crescere e concludere la mia esperienza universitaria.}}
-\vskip 0.8cm
-      
+\vskip 0.8cm 
 
 \afterpreface
+
+%\listoffigures % Da mettere?
+
+%\listoftables % Da mettere?
 
 %			CAPITOLO 1: Intro
 \chapter{Introduzione}\label{cap:introduzione}
@@ -164,18 +167,27 @@ Il controllo accessi\cite{controllo_accessi} è un tema molto sviluppato nel cam
 
 La tesi si propone di trattare un sistema ibrido in cui il mondo fisico e il mondo informatico lavorano insieme: attraverso sensori ed attuatori è possibile avere la comunicazione tra i due mondi. 
 
-Si tratta di un sistema \emph{Internet of Things} (IoT), ovvero un sistema in cui la connessione Internet viene estesa anche al mondo degli oggetti fisici (smart objects\cite{smart_objects}) di uso comune. Gli oggetti si rendono riconoscibili e \textquotedblleft{} acquisiscono intelligenza \textquotedblright{} grazie al fatto di possedere una o più delle seguenti funzionalità: identificazione, localizzazione, diagnosi di stato, interazione con l'ambiente circostante, elaborazione dati e ovviamente connessione.
+Si tratta di un sistema \emph{Internet of Things} (IoT), ovvero un sistema in cui la connessione Internet viene estesa anche al mondo degli oggetti fisici (\emph{smart objects}\cite{smart_objects}) di uso comune. Gli oggetti si rendono riconoscibili e \textquotedblleft{} acquisiscono intelligenza \textquotedblright{} grazie al fatto di possedere una o più delle seguenti funzionalità: identificazione, localizzazione, diagnosi di stato, interazione con l'ambiente circostante, elaborazione dati e ovviamente connessione.
 Gli oggetti intelligenti di un sistema IoT sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado di agire sui dati raccolti dall'ambiente e, ancora più importante, mandare questi dati in rete dove possono poi essere analizzati\cite{IoT}. Un semplice esempio di un sistema IoT si può trovare nella Figura \ref{fig:iot_diagram}.
 
-Le seguente sezione di questo capitolo introdurrà il progetto stesso (denominato SimSim) che poi verrà dettagliato nei prossimi capitoli.
-
-\begin{figure}
+\begin{figure}[H]
 	\includegraphics[width=\linewidth]{./img/iot_diagram.png}
 	\caption{Esempio di sistema IoT}
 	\label{fig:iot_diagram}
 \end{figure}
 
+Le seguenti sezioni di questo capitolo introdurranno il progetto stesso (denominato \emph{SimSim}) che poi verrà dettagliato nei prossimi capitoli.
 
+%
+\section{Nascita ed evoluzione del progetto all'interno dell'azienda}
+%
+
+SimSim è nato all'interno di \emph{Yatta}, il primo makerspace in centro a Milano. Yatta è uno spazio attrezzato con tecnologie e macchinari digitali destinato alla prototipazione e gestito da professionisti del settore 3D, programmazione, elettronica e grafica, in una visione ampliata del concetto di argitiano orientato verso la Manifattura e Industria 4.0. Gli studenti tirocinanti a Yatta sono inseriti nel laboratorio e partecipano allo sviluppo di progetti di physical computing che prevedono automazioni gestite tramite microcontrollori. Inizialmente SimSim aveva un unico scopo: creare un sistema di accessi con la possibilità di salvare i log (su un cloud remoto o su una SD card) per poi leggerli. Quando ho iniziato a lavorare come tirocinante, esisteva già una versione iniziale del progetto (senza database e sito web) incompleta e, secondo me, abbastanza incasinata, perciò ho deciso di iniziare il tutto da capo. 
+
+Durante la fase di sviluppo, l'idea del progetto è evoluta fino a diventare un sistema più completo, munito di un database per l'azienda e un sito web per gestirlo. Ho lavorato principalmente in autonomia ma sono stato aiutato anche dal tutor aziendale con alcune scelte progettuali come ad esempio la scelta di alcune componentistiche hardware, creazione degli schemi del database, scelta del template dell'interfaccia web, eccetera. Inoltre mi sono stati forniti tutti i materiali necessari alla creazione del prototipo, compresa la stampante 3D per lo sviluppo della scatola e la porta che si possono vedere nella Figura \ref{fig:simsim} (un ringraziamento alla mia collega Cecilia per la creazione del modello 3D).
+
+La sequenza temporale delle attività svolte si può vedere nella Figura \textbf{TODO}.
+  
 %
 \section{Requisiti del progetto}\label{sec:req}
 %
@@ -425,10 +437,9 @@ dove \textit{v} è la velocità della luce e \textit{f} è la frequenza (433 MHz
 \end{figure}
 Esistono tanti tipi diversi di motori Arduino-compatibili, ognuno con i propri punti forti e deboli, perciò bisogna valutare bene quale scegliere in base alle necessità del progetto. In questo caso il lavoro del motore è semplice: deve girare la serratura di una porta da una parte e dall'altra, quindi senza particolare precisione, velocità o potenza. Siccome non c'è nemmeno il bisogno di avere una rotazione completa (bastano 180$^{\circ}$), è immediato pensare al servomotore che è anche facilmente controllabile da un Arduino grazie ai suoi pin PWM e alla libreria Servo (\url{https://www.arduino.cc/en/reference/servo}).
 
-Il servomotore (Figura \ref{fig:servo}) è un dispositivo elettromeccanico a basso consumo energetico ed è costituito da un motore DC, un gruppo di ingranaggi, un circuito di controllo (un ponte-H integrato) e un contenitore di plastica che lo racchiude.
-La particolarità del servomotore è che può ruotare con una precisione di alcuni gradi (normalmente da 0$^{\circ}$ a 180$^{\circ}$) in base alla larghezza dell'impulso che riceve. Questa è una tecnica che si chiama PWM.
+Il servomotore (Figura \ref{fig:servo}) è un dispositivo elettromeccanico a basso consumo energetico ed è costituito da un motore DC, un gruppo di ingranaggi (per ridurre le rotazioni al minuto e aumentare il momento torcente), un circuito di controllo (un ponte-H integrato), un potenziometro interno e un contenitore di plastica che lo racchiude. La particolarità del servomotore è che può ruotare con una precisione di alcuni gradi (normalmente da 0$^{\circ}$ a 180$^{\circ}$) in base alla larghezza dell'impulso che riceve. Questa è una tecnica che si chiama PWM.
 
-\marginpar{\textbf{TO DO TO DO} se vuoi aggiungere, descrivi il funzionamento interno (potenziometro)} 
+Il motore è collegato al potenziometro attraverso gli ingranaggi: quando il motore ruota, la resistenza del potenziometro cambia e quindi il circuito di controllo può misurare esattamente in quale direzione punta l'albero del motore. Quando l'albero del motore è arrivato alla posizione desiderata, esso si ferma perchè il circuito di controllo toglie l'alimentazione. Questo succede perchè vengono comparati due segnali: quello in ingresso e quello del potenziometro (che dipende dalla posizione dell'albero del motore). La differenza tra i due segnali produce un segnale chiamato \emph{segnale d'errore} che viene usato come input (dopo essere stato amplificato) al motore per farlo girare. Questo errore può essere sia positivo che negativo facendolo quindi girare sia da una direzione che dall'altra. Siccome il motore continua a girare, il segnale del potenziometro cambia, fino a essere uguale a quello in ingresso: quando si arriva a questo punto il segnale d'errore è pari a zero e ciò significa che non c'è più alimentazione e il motore si ferma. Come si può notare, il servomotore funziona sulla base della retroazione.
 
 %
 \subsection{PWM}
@@ -443,7 +454,6 @@ La particolarità del servomotore è che può ruotare con una precisione di alcu
 		\label{fig:pwm}
 	\end{center}
 \end{wrapfigure}
-
 
 Un segnale PWM ha una forma d'onda quadra, con periodo fisso, ma spesso non simmetrica: la durata della semi-onda alta può variare (si veda la Figura \ref{fig:pwm}). La durata \textit{T[ON]} del segnale alto viene misurata in percentuale e si chiama duty cycle: ad esempio un duty cycle del 25\% significa che \textit{T[ON]} dura per 1/4 della durata del periodo fisso \textit{T}. Questo tipo di segnale non è un vero e proprio segnale analogico, però può essere interpretato tale: quello che succede è che la tensione viene applicata e levata nel giro di frazioni di secondo perciò quello che si chiama tensione efficace è in realtà minore della tensione reale applicata. Per calcolare la tensione efficace \textit{Veff} basta sapere la tensione applicata \textit{Vcc} e il duty cycle \textit{DC} (che si trova facendo il rapporto tra \textit{T[ON]} e \textit{T}):
 
@@ -901,7 +911,7 @@ I$^2$C è un protocollo a due vie perchè utilizza due linee bidirezionali:
 
 \begin{figure}[H]
 	\center{\includegraphics[width=1\linewidth]{./img/i2c_data_bus.png}}
-	\caption{Esempio di messaggio inviato sulla linea SDA nel protocollo I$^2$C }
+	\caption{Esempio di messaggio inviato sulla linea SDA con il protocollo I$^2$C }
 	\label{fig:i2c_data_bus}
 \end{figure}
 
@@ -1508,10 +1518,8 @@ Ci sono alcuni possibili miglioramenti che sono stati tralasciati per questioni 
 %
 \section{Conclusioni}
 %
-...
-\appendix
-\chapter{Una prima Appendice (?)}
-...
+
+\textbf{TODO}
 
 
 %			BIBLIOGRAFIA

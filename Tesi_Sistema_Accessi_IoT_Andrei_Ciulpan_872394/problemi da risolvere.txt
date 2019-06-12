@@ -2,18 +2,9 @@
 
 ATRENT: solo se vedi che ti serve "riempimento" ;)
 
-- problema del package color (provato anche xcolor).. compila con tanti errori per colpa delle figure 
-(ho cercato ovunque online, non trovo una soluzione)
-questo significa che non posso avere colori nel \lstset
-come posso rendere il codice più bello?
-
-- come rendere tabella delle API più bella? 
-
 - prova turnitin just in case (io non posso farlo, penso)
 
 - indice figure, indice tabelle, indice dei link (??)
-
-- inserisco alcune figure a sx/dx del testo per migliorare il layout?
 
 - merge degli ultimi 2 capitoli: 
 adesso si chiama "Analisi e Conclusioni"..
@@ -23,7 +14,9 @@ Queste sono le sottosezioni:
 \section{Conclusioni} (o deve essere perforza un capitolo a parte?)
 Va bene così ?
 
-- levo tutti i link (e.g. dei datasheet)
+- levo tutti i link (e.g. dei datasheet) ?
+
+- cos'altro posso aggiungere?
 
 
 DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
@@ -34,14 +27,7 @@ DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
 
 - fixare le immagini troppo grandi 
 
-- mettere il codice in appendice? o meglio lasciarlo così
-
-- da mettere nell'introduzione: 
-introduzione dell'ente, rapporto con i colleghi, modalità di svolgimento delle attività, come sono stato aiutato, ecc
-
-- attività preliminari, studio delle tecnologie utilizzate ecc 
-
-- attività, tempi, strumenti utilizzati
+- mettere i listati in appendice? o meglio lasciare così ?
 
 - se ho tempo fare le sequence diagram per le sequenze degli eventi
 
