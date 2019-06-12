@@ -33,6 +33,8 @@ DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
 
 - se ho tempo fare le sequence diagram per le sequenze degli eventi (https://tex.stackexchange.com/questions/207240/drawing-simple-sequence-diagram)
 
-- fixare eventuali spazi strani 
+- fixare eventuali spazi strani
+
+- revisione 
 
 - https://www.unimi.it/sites/default/files/2019-03/Schema%20di%20stesura%20del%20riassunto%20dell%E2%80%99attivit%C3%A0%20svolta%20informatica%20triennali.pdf
