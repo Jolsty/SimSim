@@ -16,3 +16,6 @@ texcount*
 *.tex~txs0
 *.toc
 *~
+
+# Allow
+!OUTPUT_TESI_13_GIUGNO_2019.pdf
