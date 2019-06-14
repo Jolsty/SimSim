@@ -6,30 +6,14 @@ ATRENT: solo se vedi che ti serve "riempimento" ;)
 
 - prova turnitin per il test anti-plagiarismo, giusto per sicurezza (io non posso farlo, penso)
 
-- indice figure, indice tabelle, indice dei link (??)
-
-ATRENT: forse non c'è bisogno
-
-- merge degli ultimi 2 capitoli: 
-adesso si chiama "Analisi e Conclusioni"..
-Queste sono le sottosezioni:
-\section{Problemi affrontati}
-\section{Possibili miglioramenti}
-\section{Conclusioni} (o deve essere perforza un capitolo a parte?)
-Va bene così ?
-
-ATRENT: ottimo
-
-- levo tutti i link (e.g. dei datasheet) ?
-
-ATRENT: no, perché?
-
-
 - cos'altro posso aggiungere?
 
 - mettere i listati in appendice? o meglio lasciare così ?
 
 ATRENT: se non diventa enorme ok
+
+
+
 
 DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
 
@@ -50,5 +34,7 @@ ATRENT: ottimo!
 - fixare eventuali spazi strani
 
 - revisione 
+
+- mettere la bibliografia in ordine 
 
 - https://www.unimi.it/sites/default/files/2019-03/Schema%20di%20stesura%20del%20riassunto%20dell%E2%80%99attivit%C3%A0%20svolta%20informatica%20triennali.pdf
