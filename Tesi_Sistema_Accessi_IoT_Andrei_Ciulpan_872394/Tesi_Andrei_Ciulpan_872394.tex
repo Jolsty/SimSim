@@ -9,7 +9,7 @@
 %                                                                         %
 %			AUTORE: Andrei Ciulpan                                        %
 %                                                                         %
-%			Ultima revisione: 11.06.2019                                  %
+%			Ultima revisione: 15.06.2019                                  %
 %                                                                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -36,6 +36,9 @@
 \usepackage{enumerate}
 \usepackage{float}
 \usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{listings}
 
 \renewcommand{\UrlFont}{\footnotesize}
 
@@ -44,10 +47,6 @@
 \addto{\captionsitalian}{%
 	\renewcommand{\bibname}{Sitografia}
 }
-
-
-\usepackage{xcolor}
-\usepackage{listings}
 
 \renewcommand{\lstlistingname}{Listato} % Listing -> Listato
 
@@ -189,11 +188,11 @@ La sequenza temporale delle attività svolte si può vedere nella Figura \ref{fi
 
 \pagebreak
 
-\vspace*{50px}
+\vspace*{80px}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\linewidth]{./img/simsim_3d.jpeg}
+	\includegraphics[width=0.9\linewidth]{./img/simsim_3d.jpeg}
 	\caption{Modello 3D della scatola contenente il prototipo. Un ringraziamento alla mia collega Cecilia per la sua creazione}
 	\label{fig:simsim_3d}
 \end{figure}
@@ -770,6 +769,13 @@ void setup() {
 \end{lstlisting}
 Dopo aver effettuato la connessione, l'ESP-01 si mette in ascolto sulla porta seriale per dati in arrivo dall'Arduino per poi eseguire varie funzioni in base alla richiesta (Listato \ref{lst:esp01_listen}).
 
+\noindent L'Arduino è programmato per mandare 2 tipi di richieste:
+
+\begin{itemize}
+	\item \textquotedblleft{} check \textquotedblright{} per quando deve inoltrare all'ESP-01 il codice del tag per la verifica (Listato \ref{lst:uno_checkCardSerial})
+	\item \textquotedblleft{} log \textquotedblright{} per quando deve inoltrare all'ESP-01 un log (Listato \ref{lst:uno_sendLog})
+\end{itemize}
+
 \pagebreak 
 
 \begin{lstlisting}[caption={L'ESP-01 si mette in ascolto sulla porta seriale collegata all'Arduino. Esso chiama la funzione corretta in base al formato della stringa ricevuta.}, label={lst:esp01_listen}]
@@ -787,14 +793,8 @@ void loop() {
 	}
 }
 \end{lstlisting}
-L'Arduino è programmato per mandare 2 tipi di richieste:
-
-\begin{itemize}
-	\item \textquotedblleft{} check \textquotedblright{} per quando deve inoltrare all'ESP-01 il codice del tag per la verifica (Listato \ref{lst:uno_checkCardSerial})
-	\item \textquotedblleft{} log \textquotedblright{} per quando deve inoltrare all'ESP-01 un log (Listato \ref{lst:uno_sendLog})
-	
-\begin{lstlisting}[caption={L'Arduino manda all'ESP-01 il seriale della tessera in formato JSON e aspetta la risposta con lo status code. Se statusCode = 200 allora mette la variabile allowed a \textquotedblleft{} true \textquotedblright{}. La funzione printBodyToESP si può vedere nel Listato \ref{lst:uno_printBodyToESP} }, label={lst:uno_checkCardSerial}, xleftmargin=\dimexpr-\leftmargini]
-boolean checkCardSerial(String serial) {
+\begin{lstlisting}[caption={L'Arduino manda all'ESP-01 il seriale della tessera in formato JSON e aspetta la risposta con lo status code. Se statusCode = 200 allora mette la variabile allowed a \textquotedblleft{} true \textquotedblright{}. La funzione printBodyToESP si può vedere nel Listato \ref{lst:uno_printBodyToESP} }, label={lst:uno_checkCardSerial}]
+boolean checkCard(String serial) {
 	boolean allowed = false;
 	String bodyJSON = "check{\"seriale\":\"" + serial + "\"}";
 	int statusCode = printBodyToESP(bodyJSON);
@@ -807,11 +807,8 @@ boolean checkCardSerial(String serial) {
 		}
 	return allowed;
 }
-\end{lstlisting}
-
-\pagebreak
-	
-\begin{lstlisting}[caption={L'Arduino manda all'ESP-01 il log in formato JSON e aspetta la risposta con lo status code. La funzione printBodyToESP si può vedere nel Listato \ref{lst:uno_printBodyToESP}.}, label={lst:uno_sendLog}, xleftmargin=\dimexpr-\leftmargini]
+\end{lstlisting}	
+\begin{lstlisting}[caption={L'Arduino manda all'ESP-01 il log in formato JSON e aspetta la risposta con lo status code. La funzione printBodyToESP si può vedere nel Listato \ref{lst:uno_printBodyToESP}.}, label={lst:uno_sendLog}]
 void sendLog(String tipo) {
 	String date = getCurrentFormattedDate();
 	String bodyJSON = "log{\"data\":\"";
@@ -821,8 +818,7 @@ void sendLog(String tipo) {
 }
 \end{lstlisting}
 
-\end{itemize}
-In base alla richiesta vengono attivate 2 funzioni diverse:
+\noindent In base alla richiesta vengono attivate 2 funzioni diverse:
 \begin{itemize}
 	\item una per mandare la verifica del tag al server tramite una chiamata HTTP (Listato \ref{lst:esp_checkTessera});
 	\item una per mandare il log al server tramite una chiamata HTTP (Listato \ref{lst:esp_sendLog}).
@@ -889,12 +885,38 @@ Come si è visto precedentemente, l'Arduino inoltra all'ESP-01 delle stringhe ch
 
 \begin{enumerate}[(I)]
 	\item L'utente avvicina il tag al lettore RFID;
-	\item L'Arduino legge il seriale del tag e chiama \textquotedblleft{} checkCardSerial(serial) \textquotedblright{} (Listato \ref{lst:uno_checkCardSerial}). Questa funzione manda una stringa in formato \textquotedblleft{} quasi-JSON \textquotedblright{} all'ESP-01;
+	\item L'Arduino legge il seriale del tag e chiama \textquotedblleft{} checkCard(serial) \textquotedblright{} (Listato \ref{lst:uno_checkCardSerial}). Questa funzione manda una stringa in formato \textquotedblleft{} quasi-JSON \textquotedblright{} all'ESP-01;
 	\item L'ESP-01 riceve questa stringa. Esso filtra l'informazione non più necessaria e chiama \textquotedblleft{} checkTessera(tessera) \textquotedblright{} (Listato \ref{lst:esp01_listen});
 	\item La funzione eseguita manda l'oggetto JSON al server e aspetta una risposta con lo status code. Dopo aver ricevuto la risposta, esso inoltra lo status code all'Arduino tramite la porta seriale (Listato \ref{lst:esp_checkTessera});
 	\item L'Arduino prende una decisione in base allo status code: se 200 allora il tag è accettato e apre la porta, altrimenti viene rifiutato.
 \end{enumerate}
-Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un intermediario tra l'Arduino e il server.
+Segue un diagramma delle sequenze per il caso in cui la tessera è stata trovata nel database.
+
+\vspace*{20px}
+
+\noindent\begin{tikzpicture}
+	\centering
+	\footnotesize
+	\draw [line width=0.5mm](-11.5,0)--(-11.5,-9) (-8,0)--(-8,-9) (-4.5,0)--(-4.5,-9) (-1.,0)--(-1,-9) (2.5, 0)--(2.5,-9);
+	\node at (-11.5,.3) {\normalsize{\textbf{Utente}}};
+	\node at (-8,.3) {\normalsize{\textbf{Arduino}}};
+	\node at (-4.5,.3) {\normalsize{\textbf{ESP}}};
+	\node at (-1,.3) {\normalsize{\textbf{Server}}};
+	\node at (2.5,.3) {\normalsize{\textbf{Database}}};
+	\draw[->, line width=0.5mm] (-11.5,-1) -- node[midway,above] {\emph{checkCard()}} (-8,-1);
+	\draw[->, line width=0.5mm] (-8,-2) -- node[midway,above] {\emph{printBodyToESP()}} (-4.5,-2);
+	\draw[->, line width=0.5mm] (-4.5,-3) -- node[midway,above] {\scriptsize{\emph{POST /api/tessere/check}}} (-1,-3);
+	\draw[->, line width=0.5mm] (-1,-4) -- node[midway,above] {\emph{findAllowedCard()}} (2.5,-4);
+	\draw[dashed, <-, line width=0.5mm] (-1,-5) -- node[midway,above] {\emph{success: found}} (2.5,-5);
+	\draw[dashed, <-, line width=0.5mm] (-4.5,-6) -- node[midway,above] {\emph{statusCode = 200}} (-1,-6);
+	\draw[<-, line width=0.5mm] (-8,-7) -- node[midway,above] {\emph{print(statusCode)}} (-4.5,-7);
+	\draw[<-, line width=0.5mm] (-11.5,-8) -- node[midway,above] {\emph{openDoor()}} (-8,-8);
+\end{tikzpicture}
+
+\vspace*{20px}
+
+\noindent Come si può vedere dalla sequenza degli eventi, l'ESP-01 non è altro che un intermediario tra l'Arduino e il server.
+
 %
 \section{Protocolli di comunicazione tra dispositivi}
 %
@@ -1081,16 +1103,16 @@ app.set('view engine', 'ejs');
 
 \begin{lstlisting}[language=HTML, morekeywords={if, else}, caption={Uso di \emph{EJS} nel lato client. Il codice JavaScript all'interno della pagina HTML è racchiuso tra \textquotedblleft{} $<$\% \%$>$ \textquotedblright{} e l'oggetto \textquotedblleft{} tessere \textquotedblright{} è stato passato dal server in formato JSON. Gli oggetti passati dal server sono racchiusi tra \textquotedblleft{} $<$\%= \%$>$ \textquotedblright{} }, label={lst:ejs_client}]
 <% for(var i=0; i<tessere.length; i++) { %>
-<tr class="w3-black tessere-table-mobile">
-<td><%= tessere[i].numero_tessera %></td>
-<td><%= tessere[i].seriale %></td>
-...
-<% if ( tessere[i].stato === "ATTIVATA" ) { %>
-<td><div class="green-circle"></div></td>
-<% } else { %>
-<td><div class="red-circle"></div></td>
-<% } %>
-</tr>
+	<tr class="w3-black tessere-table-mobile">
+	<td><%= tessere[i].numero_tessera %></td>
+	<td><%= tessere[i].seriale %></td>
+	... <!-- altre colonne -->
+	<% if ( tessere[i].stato === "ATTIVATA" ) { %>
+		<td><div class="green-circle"></div></td>
+	<% } else { %>
+		<td><div class="red-circle"></div></td>
+	<% } %>
+	</tr>
 <% } %>
 \end{lstlisting}
 
@@ -1525,19 +1547,22 @@ var j = schedule.scheduleJob(rule, function(){
 \section{Possibili miglioramenti}
 %
 
-Ci sono alcuni possibili miglioramenti che sono stati tralasciati per questioni di tempo:
+Ci sono alcuni possibili miglioramenti che sono stati tralasciati per questioni di tempo ma che potrebbero comunque essere implementati in future versioni:
 
 \begin{itemize}
-	\item Sistema di login sul sito web per l'amministratore: con questo sistema si può eliminare il router dedicato alla rete LAN dato che solo l'amministratore può fare il login. 
-	\item Orario di lavoro: è possibile far sì che l'Arduino sia attivo soltanto durante la fascia oraria 9-18 in cui c'è qualcuno in sede. Questo serve per evitare che qualcuno riesca ad aprire la porta in qualsiasi modo (e.g. telecomando o tessera rubata) al di fuori della fascia oraria.
-	\item Sensore di rilevamento: l'Arduino è stato programmato per chiudere la porta dopo un certo intervallo di tempo. È possibile aggiungere un sensore per il rilevamento delle persone per fare in modo che la porta venga chiusa solo quando non ci sono più persone nella vicinanza.
+	\item sistema di login sul sito web per l'amministratore: con questo sistema si può eliminare il router dedicato alla rete LAN dato che solo l'amministratore può fare il login; 
+	\item orario di lavoro: è possibile far sì che l'Arduino sia attivo soltanto durante la fascia oraria 9-18 in cui c'è qualcuno in sede. Questo serve per evitare che qualcuno riesca ad aprire la porta in qualsiasi modo (e.g. telecomando o tessera rubata) al di fuori della fascia oraria;
+	\item sensore di rilevamento: l'Arduino è stato programmato per chiudere la porta dopo un certo intervallo di tempo. È possibile aggiungere un sensore per il rilevamento delle persone per fare in modo che la porta venga chiusa solo quando non ci sono più persone nella vicinanza;
+	\item videocamera: è possibile aggiungere una videocamera connessa alla stessa rete locale che trasmette il video direttamente al server. Questo video potrebbe facilmente essere visualizzabile direttamente sul sito;
+	\item sistema di allarme: si potrebbe installare un sistema di allarme per quando la porta viene aperta forzatamente durante la fascia oraria di inattività. Questo sistema di allarme può essere disabilitato manualmente tramite una password nel caso in cui l'amministratore dovesse usare la porta in quell fascia oraria.
 \end{itemize}
 
 %
 \section{Conclusioni}
 %
 
-\textbf{TODO}
+Il frutto di questo progetto è stato il prototipo di un sistema di controllo accessi IoT (con il server in locale) per l'azienda ospitante del tirocinio. Sono stati presentati i dettagli necessari per capire tutti i componenti e i passaggi che hanno portato alla creazione sia del sistema embedded sia del sito web.
+Il prototipo è funzionante e abbastanza completo, ma prima di essere messo in funzione potrebbero essere necessari alcuni ritocchi e miglioramenti (leggere la sezione sopra) per renderlo più moderno secondo gli standard dei sistemi commerciali attualmente in uso. Si può quindi dire con soddisfazione che il progetto ha seguito tanti aspetti inerenti al corso di Informatica (Sistemi Embedded, Ingegneria del Software, Basi di Dati, Tecnologie e Linguaggi per il Web, Sistemi Operativi) ed è stato concluso con successo almeno per quanto riguarda i requisiti iniziali.
 
 
 %			BIBLIOGRAFIA
@@ -1752,9 +1777,10 @@ W3CSS, Dark Portfolio Template.
 \url{https://www.w3schools.com/w3css/tryw3css_templates_dark_portfolio.htm}
 %
 
+%
 \end{thebibliography}
 %
 \end{document}
-
+%
 
  

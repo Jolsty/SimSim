@@ -1,40 +1,12 @@
-DOMANDE:
+TO DO:
 
-- tabella pinout per ogni dispositivo?
-
-ATRENT: solo se vedi che ti serve "riempimento" ;)
 
 - prova turnitin per il test anti-plagiarismo, giusto per sicurezza (io non posso farlo, penso)
 
-- cos'altro posso aggiungere?
-
-- mettere i listati in appendice? o meglio lasciare così ?
-
-ATRENT: se non diventa enorme ok
-
-
-
-
-DA FARE DOPO AVER FINITO DI SCRIVERE LA TESI:
-
-- fixare la posizione delle immagini/tabelle con il package float
-
-ATRENT: ma anche no, se le referenzi tutte correttamente (con \ref{...})
-
-- fixare tutte le accentate 
-
-ATRENT: importante!!!
-
-- fixare le immagini troppo grandi 
-
-- se ho tempo fare le sequence diagram per le sequenze degli eventi (https://tex.stackexchange.com/questions/207240/drawing-simple-sequence-diagram)
-
-ATRENT: ottimo!
-
-- fixare eventuali spazi strani
-
-- revisione 
-
-- mettere la bibliografia in ordine 
+NOTE:
 
 - https://www.unimi.it/sites/default/files/2019-03/Schema%20di%20stesura%20del%20riassunto%20dell%E2%80%99attivit%C3%A0%20svolta%20informatica%20triennali.pdf
+
+
+
+
