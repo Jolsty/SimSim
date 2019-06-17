@@ -1,33 +1,63 @@
-INTRO:
+ /**********************************\									
+ *		Consigli prof 				*
+ *									*
+ * - scopo del lavoro 				*
+ * - componenti che hai integrato 	*
+ * - problemi che hai affrontato 	*
+ * - cose da migliorare				*
+ \**********************************/								  
+
+
+SLIDE 1 (TITOLO):
 - yatta e tirocinio 
 - introduzione dei sistemi di controllo accessi
 - spiego brevemente il termine IoT nel titolo
-- ?
-SLIDE 1:
+- utilità del progetto nel mondo del controllo accessi
+
+SLIDE 2 (SOMMARIO):
+- slide solo illustrativa per il sommario, qui non parlo tanto
+- la slide dura qualche secondo
+
+SLIDE 3 (usecase diagram):
+- diverse modalità di riconoscimento dei soci: rfid, keypad, telecomando 
+- display per visualizzare ciò che sta succedendo (accesso consentito, negato, inserimento pw ecc..)
+- a seguito di ogni accesso avvenuto con successo apre la serratura di una porta e salva il log nel database remoto
+(database con soci, tessere, log)
+- interfaccia grafica per l'amministratore per gestire il database
+
+SLIDE 4 (sviluppo del sistema embedded):
+- Spiego come si integrano i componenti
+
+SLIDE 5 (sviluppo del sito web):
+- back-end: pattern MVC, node.js, DBMS, tecnica REST
 
 
-SLIDE 2:
+SLIDE 6 (sviluppo del sito web):
+- pattern MVC
 
 
-SLIDE 3:
+SLIDE 7 (sviluppo del sito web):
+- back-end: tecnologie, REST
+
+SLIDE 8 (problemi affrontati):
+- RTC 
+- openSUSE 
+- router
+- scheduler
+
+SLIDE 9 (possibili miglioramenti):
+- cose da fare prima di essere messo in utilizzo
+- login 
+- fascia oraria 
+- sensore rilevamento 
+- videocamera 
+- sistema di allarme
+
+SLIDE 10 (prototipo SimSim):
+- modello 3D (ringraziamento Cecilia)
+- Arduino Day
+SLIDE 11 (addio): 
+
+- Ringrazio commissione per l'attenzione, relatore/correlatore, genitori, amici presenti (e non)
 
 
-SLIDE 4:
-
-
-SLIDE 5:
-
-
-SLIDE 6:
-
-
-SLIDE 7:
-
-
-SLIDE 8:
-
-
-SLIDE 9:
-
-
-SLIDE 10:
