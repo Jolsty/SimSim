@@ -782,7 +782,7 @@ Dopo aver effettuato la connessione, l'ESP-01 si mette in ascolto sulla porta se
 void loop() {
 	if ( WiFi.status() == WL_CONNECTED ) {
 		if ( Serial.available() ) {
-		String from_arduinoJSON = Serial.readString();
+			String from_arduinoJSON = Serial.readString();
 			if (from_arduinoJSON.startsWith("check")) {
 				checkTessera(from_arduinoJSON.substring(5));
 			}
@@ -804,7 +804,7 @@ boolean checkCard(String serial) {
 			allowed = true;
 			break;
 		... // altri casi
-		}
+	}
 	return allowed;
 }
 \end{lstlisting}	
@@ -1055,8 +1055,7 @@ app.use(function(req, res, next) {
 });
 	
 app.use(function(err, req, res, next) {
-
-// render the error page
+	// render the error page
 	if (err.status === 404) res.render('404');
 	else { // other types of errors
 		res.status(err.status || 500);
