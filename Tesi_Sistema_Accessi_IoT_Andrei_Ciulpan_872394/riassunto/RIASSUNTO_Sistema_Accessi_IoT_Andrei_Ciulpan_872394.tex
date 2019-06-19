@@ -1,7 +1,12 @@
-\documentclass[11pt]{report}
+\documentclass[11pt]{article}
 
 \usepackage[a4paper]{geometry}
 \usepackage[italian]{babel}
+\usepackage[hyphens,spaces,obeyspaces]{url}
+\usepackage{hyperref}
+\usepackage{tesi}
+
+\renewcommand{\UrlFont}{\footnotesize}
 
 
 \begin{document}
@@ -29,34 +34,90 @@
 	\newline
 	\noindent\textbf{\large 3. Obiettivi del lavoro} \\
 	\newline 
-	L’attività principale del tirocinio è stata la realizzazione di un sistema di controllo accessi IoT,
-	da applicare presso varchi. I requisiti principali sono stati: 
+	L’attività principale del tirocinio è stata la realizzazione di un sistema di controllo accessi basato su Arduino o MCU analogo, da applicare presso varchi. I requisiti principali sono stati: 
 	\begin{itemize}
 		\item diverse modalità di riconoscimento: tessere RFID, tastierino numerico, telecomando;
-		\item database per salvare i log/soci/tessere (in questo caso il database risiede in locale);
-		\item interfaccia grafica (in questo caso sito web) per gestire il database tramite operazioni CRUD;
-		\item a seguito di ogni accesso avvenuto con successo, deve aprire la serratura di una porta e salvare il log nel database.
+		\item a seguito di ogni accesso avvenuto con successo, deve aprire la serratura di una porta;
+		\item a seguito di ogni accesso avvenuto con successo, deve salvare il log su scheda SD o su sistema remoto (LAN o Cloud) connesso via WiFi.  
 	\end{itemize} 
 	\pagebreak
 	\noindent\textbf{\large 4. Descrizione del lavoro svolto} \\
 	\newline 
-	a \\
+	Il frutto di questo progetto è stato il prototipo di un sistema di controllo accessi IoT \cite{IoT,smart_objects, controllo_accessi} per l'azienda ospitante del tirocinio. Durante lo sviluppo del progetto, l'idea è evoluta: oltre ai requisiti iniziali, è stato sviluppato anche un server/database ospitato nella LAN di una rete privata accessibile solo dall'amministratore. Il database è stato creato per memorizzare i log, i soci e le tessere dell'azienda. Inoltre è stata sviluppata un'interfaccia grafica (in questo caso un sito web in locale) per gestire il database tramite semplici operazioni CRUD. \\
 	\newline
 	\noindent\textbf{\large 5. Tecnologie coinvolte} \\
 	\newline 
-	a \\
-	\newline
+	Sistema embedded: 
+	\begin{itemize}
+		\item componenti: Arduino UNO\cite{sistemi_embedded_atrent}, Raspberry Pi, Ricevitore RF, Keypad, RTC, Servomotore, Lettore RFID, ESP8266\cite{esp_ds}; 
+		\item linguaggi di programmazione: Arduino Programming Language.
+	\end{itemize} 
+	
+	\noindent Sito web:
+	\begin{itemize}
+		\item design patterns: MVC, REST;
+		\item tecnologie: Node.js e alcune sue librerie, MongoDB\cite{mongodb_driver, mongoose}, jQuery, W3CSS, AJAX;
+		\item linguaggi di programmazione: HTML5, CSS, JavaScript (client-side e server-side).
+		\\
+	\end{itemize}
 	\noindent\textbf{\large 6. Competenze e risultati raggiunti} \\
 	\newline 
-	a \\
+	\noindent Il prototipo è funzionante e abbastanza completo, ma prima di essere messo in funzione potrebbero essere necessari
+	alcuni ritocchi e miglioramenti per renderlo più moderno secondo gli standard dei sistemi commerciali attualmente in uso.
 	\newline
-	\noindent\textbf{\large 7. Bibliografia} \\
-	\newline 
-	Alcuni riferimenti utilizzati: \\ 
+	L'esperienza di tirocinio è stata, secondo me, un successo e mi ha insegnato come lavorare in autonomia ma allo stesso tempo tenendo conto anche del teamworking (discussione degli specifici e delle varie tecnologie da usare, creazione del modello 3D del prototipo assieme alla collega).
 	\newline
 	
+	\noindent Problemi affrontati:
+	\begin{itemize}
+		\item incompatibilità tra Raspbian (sistema operativo su 32 bit) e le ultime versioni di MongoDB $\rightarrow$ installazione del sistema operativo openSUSE (64 bit) sulla Raspberry Pi
+		\item problema di sicurezza all'interno della rete locale dovuta alla mancanza di un sistema di login $\rightarrow$ rete LAN privata accessibile solo dall'amministratore
+		\item disattivazione automatica delle tessere dei soci non più iscritti $\rightarrow$ implementazione di uno scheduler
+		\item problema dei timestamp nei log dovuto al fatto che la Raspberry Pi senza connessione Internet non è in grado di tenere traccia del tempo $\rightarrow$ RTC
+	\end{itemize}
+
+\begin{thebibliography}{00}
+	%
+	\bibitem{IoT}
+	M. Rouse, Internet of Things (IoT), ultimo aggiornamento Marzo 2019.
+	\url{https://internetofthingsagenda.techtarget.com/definition/Internet-of-Things-IoT}
+	% 
 	
+	%
+	\bibitem{smart_objects}
+	A. Tumino, Internet of Things: gli oggetti intelligenti prima di ogni \textquotedblleft{} cosa \textquotedblright{}, 24 Gennaio, 2018.
+	\url{https://blog.osservatori.net/it\_it/internet-of-things-oggetti-intelligenti-prima-di-ogni-cosa}
+	%
+
+	%
+	\bibitem{controllo_accessi}
+	J. Allen, Opening new doors with IP access control, 16 Marzo, 2018. \url{https://www.axis.com/blog/secure-insights/opening-new-doors-with-ip-access-control/}
+	%
 	
-%	\noindent L'obiettivo della tesi è quello di analizzare il prototipo di un sistema di controllo accessi creato durante l'attività di tirocinio presso \emph{Yatta}. Si tratta di un sistema \emph{Internet of Things} (IoT), ovvero un sistema in cui la connessione Internet viene estesa anche al mondo degli oggetti (e.g. porte, macchine ecc.). I cosiddetti oggetti \textquotedblleft{} intelligenti \textquotedblright{} %
+	%
+	\bibitem{sistemi_embedded_atrent}
+	A. Carraturo, A. Trentini, Sistemi Embedded: Teoria e Pratica, prima edizione: Settembre 2017.
+	\url{http://www.ledizioni.it/prodotto/a-carraturo-a-trentini-sistemi-embedded-teoria-pratica/}
+	%
+	
+	%
+	\bibitem{esp_ds}
+	Ai-Thinker Team, ESP-01 WiFi Module (Version1.0).
+	\url{http://www.microchip.ua/wireless/esp01.pdf}
+	%
+	
+	%
+	\bibitem{mongodb_driver}
+	MongoDB, MongoDB Node.js Driver Documentation v3.2
+	(\url{https://mongodb.github.io/node-mongodb-native/3.2/}
+	%
+	
+	%
+	\bibitem{mongoose}
+	Mongoose, elegant mongodb object modeling for node.js.
+	\url{https://mongoosejs.com/}
+	%
+	
+\end{thebibliography}
 	
 \end{document}
