@@ -9,24 +9,57 @@
 
 
 SLIDE 1 (TITOLO):
-- yatta e tirocinio 
-- introduzione dei sistemi di controllo accessi
-- spiego brevemente il termine IoT nel titolo
-- utilità del progetto nel mondo del controllo accessi
+
+Buongiorno, sono Andrei Ciulpan (nr. matricola 872394) e oggi presento
+il progetto su cui ho lavorato durante il tirocinio all'interno di Yatta, 
+un makerspace in centro a Milano, munito di un laboratorio in cui gli studenti
+tirocinanti sono inseriti per partecipare allo sviluppo di progetti di physical computing.
+Il progetto ha portato alla creazione di un prototipo (chiamato SimSim) 
+di un sistema di controlli accessi basato su un microcontrollore da applicare poi all'interno dell'azienda. 
+Si tratta di un sistema IoT (che sta per Internet of Things) in cui la connessione 
+Internet viene estesa anche al mondo degli oggetti fisici comunemente chiamati "oggetti smart".  
+Questi oggetti sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado
+di mandare dati in rete verso il back-end di un'applicazione dove potranno poi essere salvati ed elaborati.
+
 
 SLIDE 2 (SOMMARIO):
-- slide solo illustrativa per il sommario, qui non parlo tanto
-- la slide dura qualche secondo
+
+Qui ho preparato un piccolo sommario con i punti che verranno elaborati nella presentazione.
+
 
 SLIDE 3 (usecase diagram):
-- diverse modalità di riconoscimento dei soci: rfid, keypad, telecomando 
-- display per visualizzare ciò che sta succedendo (accesso consentito, negato, inserimento pw ecc..)
-- a seguito di ogni accesso avvenuto con successo apre la serratura di una porta e salva il log nel database remoto
-(database con soci, tessere, log)
-- interfaccia grafica per l'amministratore per gestire il database
+
+I requisiti principali sono descritti da questo diagramma dei casi d'uso
+I requisiti iniziali del progetto erano più semplificati, 
+nel senso che non includevano ancora il database dell'azienda 
+e il sito web per gestirlo. Questi dettagli sono stati poi
+aggiunti durante la fase di sviluppo del prototipo.
+Principalmente il sistema deve essere in grado di 
+funzionare con tre diverse modalità di riconoscimento: 
+tessere RFID, tastierino numerico (e quindi password), telecomando 
+A seguito di ogni accesso avvenuto con successo, il sistema 
+deve aprire la serratura di una porta e salvare automaticamente il log nel database. 
+Oltre ai log degli accessi, vanno salvati anche i soci e le tessere dell'azienda.
+Infatti l'amministratore deve essere in grado di fare, tramite un'interfaccia grafica (in questo 
+caso un sito web), semplici operazioni CRUD (quindi di aggiungere/modificare/leggere/cancellare 
+i soci e le tessere, e visualizzare i log degli accessi) 
 
 SLIDE 4 (sviluppo del sistema embedded):
-- Spiego come si integrano i componenti
+
+Questi sono i componenti principali del sistema embedded, che riescono a lavorare insieme 
+grazie all'Arduino.
+Per implementare la funzione del microcontrollore, è stato scelto l'Arduino UNO, una board 
+di basso costo e open-source e facile da programmare tramite il linguaggio di programmazione 
+appositamente chiamato Arduino Programming Language.
+Il ricevitore RF serve per comunicare con il telecomando per via di frequenze radio
+Il lettore RFID per leggere le tessere dei soci
+Poi abbiamo il tastierino numerico, per dare la possibilità di entrare per via password 
+L'LCD per dare informazioni all'utente (e.g. accesso consentito/negato ecc.) 
+Il servomotore è l'attuatore che apre la serratura della porta 
+Siccome l'Arduino UNO non può connettersi alla rete locale via WiFi, 
+è stato aggiunto un chip chiamato ESP8266 che fa da intermediario tra 
+l'Arduino UNO e il server.
+
 
 SLIDE 5 (sviluppo del sito web):
 - back-end: pattern MVC, node.js, DBMS, tecnica REST
