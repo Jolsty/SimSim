@@ -1,0 +1,35 @@
+\babel@toc {italian}{}
+\babel@toc {italian}{}
+\contentsline {chapter}{\numberline {1}Introduzione}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Nascita ed evoluzione del progetto all'interno dell'azienda}{2}{section.1.1}
+\contentsline {section}{\numberline {1.2}Requisiti del progetto}{4}{section.1.2}
+\contentsline {chapter}{\numberline {2}Sviluppo del sistema embedded}{7}{chapter.2}
+\contentsline {section}{\numberline {2.1}Raspberry Pi}{7}{section.2.1}
+\contentsline {section}{\numberline {2.2}Arduino UNO}{9}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Arduino Programming Language}{10}{subsection.2.2.1}
+\contentsline {section}{\numberline {2.3}Real-time Clock}{11}{section.2.3}
+\contentsline {section}{\numberline {2.4}Trasmettitore-ricevitore RF}{12}{section.2.4}
+\contentsline {section}{\numberline {2.5}Servomotore}{14}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}PWM}{15}{subsection.2.5.1}
+\contentsline {section}{\numberline {2.6}RFID Reader}{17}{section.2.6}
+\contentsline {section}{\numberline {2.7}Display LCD 16x2}{19}{section.2.7}
+\contentsline {section}{\numberline {2.8}Keypad}{21}{section.2.8}
+\contentsline {section}{\numberline {2.9}ESP8266}{23}{section.2.9}
+\contentsline {subsection}{\numberline {2.9.1}Comunicazione tra l'Arduino UNO e l'ESP-01 }{27}{subsection.2.9.1}
+\contentsline {section}{\numberline {2.10}Protocolli di comunicazione tra dispositivi}{29}{section.2.10}
+\contentsline {subsection}{\numberline {2.10.1}I$^2$C}{29}{subsection.2.10.1}
+\contentsline {subsection}{\numberline {2.10.2}SPI}{31}{subsection.2.10.2}
+\contentsline {chapter}{\numberline {3}Sviluppo del sito web}{32}{chapter.3}
+\contentsline {section}{\numberline {3.1}Back-End}{33}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Tecnologie utilizzate}{33}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Database}{38}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}RESTful API}{42}{subsection.3.1.3}
+\contentsline {section}{\numberline {3.2}Front-End}{45}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Tecnologie utilizzate}{45}{subsection.3.2.1}
+\contentsline {chapter}{\numberline {4}Analisi e Conclusioni}{50}{chapter.4}
+\contentsline {section}{\numberline {4.1}Problemi affrontati}{50}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Incompatibilit\IeC {\`a} tra Raspbian e le ultime versioni di MongoDB}{50}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Problema di sicurezza all'interno della rete locale}{50}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Disattivazione delle tessere dei soci non pi\IeC {\`u} iscritti}{51}{subsection.4.1.3}
+\contentsline {section}{\numberline {4.2}Possibili miglioramenti}{52}{section.4.2}
+\contentsline {section}{\numberline {4.3}Conclusioni}{52}{section.4.3}

@@ -1,0 +1,33 @@
+\BOOKMARK [0][-]{chapter.1}{Introduzione}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Nascita ed evoluzione del progetto all'interno dell'azienda}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Requisiti del progetto}{chapter.1}% 3
+\BOOKMARK [0][-]{chapter.2}{Sviluppo del sistema embedded}{}% 4
+\BOOKMARK [1][-]{section.2.1}{Raspberry Pi}{chapter.2}% 5
+\BOOKMARK [1][-]{section.2.2}{Arduino UNO}{chapter.2}% 6
+\BOOKMARK [2][-]{subsection.2.2.1}{Arduino Programming Language}{section.2.2}% 7
+\BOOKMARK [1][-]{section.2.3}{Real-time Clock}{chapter.2}% 8
+\BOOKMARK [1][-]{section.2.4}{Trasmettitore-ricevitore RF}{chapter.2}% 9
+\BOOKMARK [1][-]{section.2.5}{Servomotore}{chapter.2}% 10
+\BOOKMARK [2][-]{subsection.2.5.1}{PWM}{section.2.5}% 11
+\BOOKMARK [1][-]{section.2.6}{RFID Reader}{chapter.2}% 12
+\BOOKMARK [1][-]{section.2.7}{Display LCD 16x2}{chapter.2}% 13
+\BOOKMARK [1][-]{section.2.8}{Keypad}{chapter.2}% 14
+\BOOKMARK [1][-]{section.2.9}{ESP8266}{chapter.2}% 15
+\BOOKMARK [2][-]{subsection.2.9.1}{Comunicazione tra l'Arduino UNO e l'ESP-01 }{section.2.9}% 16
+\BOOKMARK [1][-]{section.2.10}{Protocolli di comunicazione tra dispositivi}{chapter.2}% 17
+\BOOKMARK [2][-]{subsection.2.10.1}{I2C}{section.2.10}% 18
+\BOOKMARK [2][-]{subsection.2.10.2}{SPI}{section.2.10}% 19
+\BOOKMARK [0][-]{chapter.3}{Sviluppo del sito web}{}% 20
+\BOOKMARK [1][-]{section.3.1}{Back-End}{chapter.3}% 21
+\BOOKMARK [2][-]{subsection.3.1.1}{Tecnologie utilizzate}{section.3.1}% 22
+\BOOKMARK [2][-]{subsection.3.1.2}{Database}{section.3.1}% 23
+\BOOKMARK [2][-]{subsection.3.1.3}{RESTful API}{section.3.1}% 24
+\BOOKMARK [1][-]{section.3.2}{Front-End}{chapter.3}% 25
+\BOOKMARK [2][-]{subsection.3.2.1}{Tecnologie utilizzate}{section.3.2}% 26
+\BOOKMARK [0][-]{chapter.4}{Analisi e Conclusioni}{}% 27
+\BOOKMARK [1][-]{section.4.1}{Problemi affrontati}{chapter.4}% 28
+\BOOKMARK [2][-]{subsection.4.1.1}{Incompatibilit\340 tra Raspbian e le ultime versioni di MongoDB}{section.4.1}% 29
+\BOOKMARK [2][-]{subsection.4.1.2}{Problema di sicurezza all'interno della rete locale}{section.4.1}% 30
+\BOOKMARK [2][-]{subsection.4.1.3}{Disattivazione delle tessere dei soci non pi\371 iscritti}{section.4.1}% 31
+\BOOKMARK [1][-]{section.4.2}{Possibili miglioramenti}{chapter.4}% 32
+\BOOKMARK [1][-]{section.4.3}{Conclusioni}{chapter.4}% 33

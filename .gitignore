@@ -1,22 +1,25 @@
-wifi_secrets.h
-/client
-node_modules
-tesi_di_altri
-*.aux
-*.bbl
-*.blg
-*.fdb_latexmk
-*.fls
-*.log
-*.out
-*.pdf
-*.synctex.gz
-*.tdo
-texcount*
-*.tex~txs0
-*.toc
-*~
+# Deny
+
+	wifi_secrets.h
+	/client
+	node_modules
+	tesi_di_altri
+	*.aux
+	*.bbl
+	*.blg
+	*.fdb_latexmk
+	*.fls
+	*.log
+	*.out
+	*.pdf
+	*.synctex.gz
+	*.tdo
+	texcount*
+	*.tex~txs0
+	*.toc
+	*~
 
 # Allow
-!Sistema Accessi IoT_PDFoutput_18_06_2019.pdf
-!RIASSUNTO_Sistema_Accessi_IoT_Andrei_Ciulpan_872394.pdf
+
+	!Sistema_Accessi_IoT_presentazione_23_06_2019.pdf
+	!RIASSUNTO_Sistema_Accessi_IoT_Andrei_Ciulpan_872394.pdf

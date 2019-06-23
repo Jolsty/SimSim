@@ -49,7 +49,7 @@ SLIDE 4 (sviluppo del sistema embedded):
 Questi sono i componenti principali del sistema embedded, che riescono a lavorare insieme 
 grazie all'Arduino.
 Per implementare la funzione del microcontrollore, è stato scelto l'Arduino UNO, una board 
-di basso costo e open-source e facile da programmare tramite il linguaggio di programmazione 
+di basso costo, open-source e facile da programmare tramite il linguaggio di programmazione 
 appositamente chiamato Arduino Programming Language.
 Il ricevitore RF serve per comunicare con il telecomando per via di frequenze radio
 Il lettore RFID per leggere le tessere dei soci
@@ -62,12 +62,43 @@ l'Arduino UNO e il server.
 
 
 SLIDE 5 (sviluppo del sito web):
-- back-end: pattern MVC, node.js, DBMS, tecnica REST
+
+Il server Web è stato sviluppato su un Raspberry Pi ed è hostato in locale 
+all'interno di una rete privata e dedicata solo al progetto. 
+Il lato server è stato implementato in JavaScript, particolarmente 
+utilizzando Node.js, un framework open-source che esegue codice JavaScript 
+al di fuori di un browser. Alcuni vantaggi principali di Node.js, oltre al fatto 
+di poter creare il back-end utilizzando JavaScript, sono la programmazione a eventi (un'azione 
+viene lanciata solo dopo che si è verificato un evento aumentando l'efficienza 
+soprattutto nell'ambito di networking dove capita spesso di dover rimanere in attesa 
+di una risposta), la scalabilità del software e NPM (node package manager - 
+il più grande ecosistema di librerie open-source al mondo)
+Il DBMS utilizzato è MongoDB: un DBMS open-source di tipo NoSQL ed è
+orientato ai documenti. Questo significa che, anzichè avere le tipiche tabelle
+di un database relazionale definite secondo uno schema rigido e fisso, si hanno dei 
+documenti in formato BSON - binary JSON, ovvero la serializzazione codificata 
+in binario del formato JSON - facilitando quindi l'integrazione dei dati con quasi tutte 
+le applicazioni web.
+Infine, la comunicazione tra il client (ovvero browser) e il server è basata sull'approccio 
+REST (Representational State Transfer) in cui il concetto più importante è l'esistenza 
+di risorse del server a cui si possono accedere tramite identificatori univoci chiamati URI.
+Generalmente le API RESTful sfruttano le chiamate HTTP per dare la possibilità ai client di 
+leggere, aggiornare, creare e rimuovere risorse.
 
 
 SLIDE 6 (sviluppo del sito web):
-- pattern MVC
 
+L'applicazione web segue uno dei più famosi pattern architetturali conosciuti: MVC (model-view-controller)
+L'idea consiste nella modularizzazione del codice per garantire l'indipendenza tra i dati e l'interfaccia,
+rendendo il codice più facile da comprendere, più scalabile e riutilizzabile.
+Infatti l'applicazione è separata in tre principali componenti: il modello, la vista e il controller 
+Il modello corrisponde alla struttura e alla logica dei dati dell'applicazione (in questo caso corrisponde 
+agli schemi dei documenti di MongoDB). Il modello è manipulato dal controller ed è usato per aggiornare la vista.
+La vista corrisponde all'interfaccia utente dell'applicazione e rappresenta il modo in cui vengono presentati 
+i dati all'utente.
+Il controller, invece, accetta l'input dell'utente - normalmente interagendo con l'interfaccia grafica 
+(e.g. invio modulo, click su un pulsante ecc.) e lo trasforma in comandi per il modello per recuperare 
+i dati e le invia alla vista.
 
 SLIDE 7 (sviluppo del sito web):
 - back-end: tecnologie, REST
