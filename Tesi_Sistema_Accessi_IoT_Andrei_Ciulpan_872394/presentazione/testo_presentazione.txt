@@ -44,7 +44,7 @@ Infatti l'amministratore deve essere in grado di fare, tramite un'interfaccia gr
 caso un sito web), semplici operazioni CRUD (quindi di aggiungere/modificare/leggere/cancellare 
 i soci e le tessere, e visualizzare i log degli accessi) 
 
-SLIDE 4 (sviluppo del sistema embedded):
+SLIDE 4 (sviluppo del sistema embedded, componenti):
 
 Questi sono i componenti principali del sistema embedded, che riescono a lavorare insieme 
 grazie all'Arduino.
@@ -61,7 +61,7 @@ Siccome l'Arduino UNO non può connettersi alla rete locale via WiFi,
 l'Arduino UNO e il server.
 
 
-SLIDE 5 (sviluppo del sito web):
+SLIDE 5 (sviluppo del sito web, back-end):
 
 Il server Web è stato sviluppato su un Raspberry Pi ed è hostato in locale 
 all'interno di una rete privata e dedicata solo al progetto. 
@@ -86,7 +86,7 @@ Generalmente le API RESTful sfruttano le chiamate HTTP per dare la possibilità 
 leggere, aggiornare, creare e rimuovere risorse.
 
 
-SLIDE 6 (sviluppo del sito web):
+SLIDE 6 (sviluppo del sito web, mvc):
 
 L'applicazione web segue uno dei più famosi pattern architetturali conosciuti: MVC (model-view-controller)
 L'idea consiste nella modularizzazione del codice per garantire l'indipendenza tra i dati e l'interfaccia,
@@ -100,28 +100,68 @@ Il controller, invece, accetta l'input dell'utente - normalmente interagendo con
 (e.g. invio modulo, click su un pulsante ecc.) e lo trasforma in comandi per il modello per recuperare 
 i dati e le invia alla vista.
 
-SLIDE 7 (sviluppo del sito web):
-- back-end: tecnologie, REST
+SLIDE 7 (sviluppo del sito web, front-end):
+
+Il termine front-end rappresenta l'interfaccia dell'applicazione, 
+ovvero la parte visibile agli utenti e quella con cui essi interagiscono.
+Sono stati usati i tipici linguaggi come HTML per la struttura e il contenuto, 
+JavaScript per aggiungere dinamicità e CSS per lo stile.
+Per quanto riguarda JavaScript ho usato jQuery, una libreria molto diffusa (soprattutto
+qualche anno fa) proposta a ridurre e semplificare il codice, ad un basso costo di performance.
+Per il passaggio dei dati dal server al client ho usato EJS, un linguaggio di templating che permette
+di incorporare codice JavaScript all'interno dei documenti HTML. 
+Per quanto riguarda lo stile, ho usato un template della W3CSS.
+L'intero sito web è responsivo, ovvero è stato progettato per essere visualizzabile 
+su qualsiasi tipo di dispositivo.
 
 SLIDE 8 (problemi affrontati):
-- RTC 
-- openSUSE 
-- router
-- scheduler
+
+Siccome il server è ospitato in locale, non c'era bisogno di avere la connessione Internet sul Raspberry Pi:
+la mancanza di connessione ha sollevato un problema: il Raspberry Pi non ha un orologio interno e per tenere traccia 
+del tempo deve connettersi a dei server NTP. Questo significa che non poteva salvare i log con la data e l'ora corrente.
+Per aggirare il problema, ho usato un RTC (real-time clock) che può essere interrogato direttamente dall'Arduino.
+In questo modo l'Arduino può incorporare la data e l'ora direttamente all'interno del log.
+
+Durante lo sviluppo ho scoperto che Raspbian, il sistema operativo 
+progettato per i Raspberry Pi, non è ancora stato aggiornato 
+per essere un sistema operativo a 64 bit, perciò non poteva sfruttare al meglio 
+l'architettura ARM a 64 bit del modello usato. Questo comportava alcune incompatibilità:
+MongoDB su 32 bit era limitato a 2 GB di dati e aveva problemi a connettersi 
+con l'ultima versione di Node.js.
+Come soluzione a questo problema ho deciso di installare openSUSE, che non è stato progettato 
+per il Raspberry Pi e quindi offriva una prestazione minore, ma non ha creato grossi problemi.
+
+L'ingresso nello spazio di Yatta è regolato da un tesseramento: ogni anno, tutte le tessere non rinnovate 
+vengono disattivate: per evitare di farlo manualmente, ho implementato uno scheduler che viene eseguito automaticamente 
+una volta all'anno.
+
 
 SLIDE 9 (possibili miglioramenti):
-- cose da fare prima di essere messo in utilizzo
-- login 
-- fascia oraria 
-- sensore rilevamento 
-- videocamera 
-- sistema di allarme
+
+Prima di essere messo in utilizzo, ci sono alcuni possibili miglioramenti 
+per portare il prototipo più verso lo standard attuale dei sistemi commerciali.
+
+Al momento, il progetto dispone di una rete LAN privata a cui può accedere solo l'amministratore. 
+Si potrebbe evitare questa cosa con un sistema di login sul sito web, per far sì che possano accedere 
+solo le persone verificate. 
+
+E' possibile far sì che l'Arduino sia attivo soltanto durante la fascia oraria di lavoro, quando c'è qualcuno 
+presente in sede. 
+
+L'Arduino è stato programmato per chiudere la porta dopo un certo intervallo di tempo. E' possibile aggiungere 
+un sensore per il rilevamento delle persone per far in modo che la porta venga chiusa solo quando non ci sono 
+più persone nella vicinanza.
+
+Inoltre si potrebbe installare un sistema di allarme per quando la porta viene aperta forzatamente durante la fascia oraria 
+di inattività. 
 
 SLIDE 10 (prototipo SimSim):
-- modello 3D (ringraziamento Cecilia)
-- Arduino Day
+
+Questo è il prototipo finale che è stato presentato anche all'Arduino Day. 
+Vorrei ringraziare la mia collega Cecilia per la creazione del modello 3D 
+
 SLIDE 11 (addio): 
 
-- Ringrazio commissione per l'attenzione, relatore/correlatore, genitori, amici presenti (e non)
+Ringrazio la commissione e tutti quelli presenti per l'attenzione.
 
 
