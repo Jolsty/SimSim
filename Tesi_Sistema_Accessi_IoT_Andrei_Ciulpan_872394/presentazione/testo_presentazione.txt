@@ -65,7 +65,7 @@ SLIDE 5 (sviluppo del sito web, back-end):
 
 Il server Web è stato sviluppato su un Raspberry Pi ed è hostato in locale 
 all'interno di una rete privata e dedicata solo al progetto. 
-Il lato server è stato implementato in JavaScript, particolarmente 
+Il lato server è stato implementato in JavaScript, in particolare
 utilizzando Node.js, un framework open-source che esegue codice JavaScript 
 al di fuori di un browser. Alcuni vantaggi principali di Node.js, oltre al fatto 
 di poter creare il back-end utilizzando JavaScript, sono la programmazione a eventi (un'azione 
@@ -96,15 +96,14 @@ Il modello corrisponde alla struttura e alla logica dei dati dell'applicazione (
 agli schemi dei documenti di MongoDB). Il modello è manipulato dal controller ed è usato per aggiornare la vista.
 La vista corrisponde all'interfaccia utente dell'applicazione e rappresenta il modo in cui vengono presentati 
 i dati all'utente.
-Il controller, invece, accetta l'input dell'utente - normalmente interagendo con l'interfaccia grafica 
-(e.g. invio modulo, click su un pulsante ecc.) e lo trasforma in comandi per il modello per recuperare 
-i dati e le invia alla vista.
+Tramite l'interfaccia grafica (e.g. click di un pulsante) il controller accetta l'input dell'utente e lo trasforma in comandi 
+per il modello, così da recuperare i dati richiesti e inviarli alla vista.
 
 SLIDE 7 (sviluppo del sito web, front-end):
 
 Il termine front-end rappresenta l'interfaccia dell'applicazione, 
 ovvero la parte visibile agli utenti e quella con cui essi interagiscono.
-Sono stati usati i tipici linguaggi come HTML per la struttura e il contenuto, 
+Ho usato HTML per la struttura e il contenuto, 
 JavaScript per aggiungere dinamicità e CSS per lo stile.
 Per quanto riguarda JavaScript ho usato jQuery, una libreria molto diffusa (soprattutto
 qualche anno fa) proposta a ridurre e semplificare il codice, ad un basso costo di performance.
@@ -142,8 +141,7 @@ Prima di essere messo in utilizzo, ci sono alcuni possibili miglioramenti
 per portare il prototipo più verso lo standard attuale dei sistemi commerciali.
 
 Al momento, il progetto dispone di una rete LAN privata a cui può accedere solo l'amministratore. 
-Si potrebbe evitare questa cosa con un sistema di login sul sito web, per far sì che possano accedere 
-solo le persone verificate. 
+Per evitarlo, si potrebbe creare un sistema di login sul sito web per far sì che possano accedere solo le persone verificate 
 
 E' possibile far sì che l'Arduino sia attivo soltanto durante la fascia oraria di lavoro, quando c'è qualcuno 
 presente in sede. 
@@ -162,6 +160,6 @@ Vorrei ringraziare la mia collega Cecilia per la creazione del modello 3D
 
 SLIDE 11 (addio): 
 
-Ringrazio la commissione e tutti quelli presenti per l'attenzione.
+Ringrazio la commissione, il mio relatore Dott. Andrea Trentini e correlatore Marco Lanza, e tutti quelli presenti per l'attenzione.
 
 

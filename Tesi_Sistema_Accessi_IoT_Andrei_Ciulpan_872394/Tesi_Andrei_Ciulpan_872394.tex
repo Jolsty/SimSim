@@ -21,11 +21,13 @@
 %
 %			PREAMBOLO
 %
+
+
+
+
 \usepackage[a4paper]{geometry}
 \usepackage{amssymb,amsmath,amsthm}
 \usepackage{graphicx}
-\usepackage[hyphens,spaces,obeyspaces]{url}
-\usepackage{hyperref}
 \usepackage{epsfig}
 \usepackage[italian]{babel}
 \usepackage{tesi}
@@ -40,7 +42,7 @@
 \usepackage{xcolor}
 \usepackage{listings}
 
-\renewcommand{\UrlFont}{\footnotesize}
+
 
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 
@@ -120,6 +122,24 @@
 % per le accentate
 \usepackage[utf8]{inputenc}
 %
+
+\usepackage[spaces, hyphens, obeyspaces]{url}
+\usepackage[pdfa]{hyperref}
+\usepackage{colorprofiles}
+\usepackage[a-1a]{pdfx}
+
+\RequirePackage{filecontents}
+\begin{filecontents*}{\jobname.xmpdata}
+	\Title{Sistema Accessi IoT}
+	\Author{Andrei Ciulpan}
+	\Language{it-IT}
+	\Subject{Tesi di Laurea Triennale}
+	\Keywords{Sviluppo Web\sep Sistemi Embedded\sep MongoDB\sep Arduino\sep Node.js}
+\end{filecontents*}
+
+
+\renewcommand{\UrlFont}{\footnotesize}
+
 \newtheorem{myteor}{Teorema}[section]
 %
 \newenvironment{teor}{\begin{myteor}\sl}{\end{myteor}}
@@ -199,7 +219,7 @@ La sequenza temporale delle attività svolte si può vedere nella Figura \ref{fi
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\linewidth]{./img/simsim.jpeg}
+	\includegraphics[width=0.8\linewidth]{./img/simsim.jpg}
 	\caption{Prototipo di SimSim}
 	\label{fig:simsim}
 \end{figure}

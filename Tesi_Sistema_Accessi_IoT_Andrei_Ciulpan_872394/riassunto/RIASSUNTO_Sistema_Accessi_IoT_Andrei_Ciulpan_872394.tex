@@ -2,25 +2,25 @@
 
 \usepackage[a4paper]{geometry}
 \usepackage[italian]{babel}
-\usepackage[hyphens,spaces,obeyspaces]{url}
-\usepackage{hyperref}
 \usepackage{tesi}
+\usepackage[spaces, hyphens, obeyspaces]{url}
+\usepackage[pdfa]{hyperref}
+\usepackage{colorprofiles}
+\usepackage[a-1a]{pdfx}
+
+\RequirePackage{filecontents}
+\begin{filecontents*}{\jobname.xmpdata}
+	\Title{Riassunto di tesi: Sistema Accessi IoT}
+	\Author{Andrei Ciulpan}
+	\Language{it-IT}
+	\Subject{Riassunto di Tesi di Laurea Triennale}
+	\Keywords{Sviluppo Web\sep Sistemi Embedded\sep MongoDB\sep Arduino\sep Node.js}
+\end{filecontents*}
 
 \renewcommand{\UrlFont}{\footnotesize}
 
 
 \begin{document}
-	
-	\noindent\textbf{\large RIASSUNTO TESI DI LAUREA \textquotedblleft{} SISTEMA ACCESSI IOT \textquotedblright{}} 
-	\vspace*{30px} \\
-	\textbf{Corso}: Informatica F1X - Laurea Triennale \\
-	\textbf{Laureando}: Andrei CIULPAN \\
-	\textbf{Matricola}: 872394 \\
-	\textbf{Relatore}: Dott. Andrea TRENTINI \\
-	\textbf{Correlatore}: Marco LANZA \\
-	\textbf{Data di termine dello stage}: 22 Febbraio 2019
-	\vspace*{30px} \\
-	
 	\noindent\textbf{\large 1. Ente presso cui è stato svolto il lavoro di stage} \\
 	\newline 
 	Il lavoro di stage è stato svolto presso \emph{Yatta}, il primo makerspace in centro a Milano. Yatta è uno spazio attrezzato con tecnologie e macchinari digitali destinato alla prototipazione
@@ -38,9 +38,9 @@
 	\begin{itemize}
 		\item diverse modalità di riconoscimento: tessere RFID, tastierino numerico, telecomando;
 		\item a seguito di ogni accesso avvenuto con successo, deve aprire la serratura di una porta;
-		\item a seguito di ogni accesso avvenuto con successo, deve salvare il log su scheda SD o su sistema remoto (LAN o Cloud) connesso via WiFi.  
+		\item a seguito di ogni accesso avvenuto con successo, deve salvare il log su scheda SD o su sistema remoto (LAN o Cloud) connesso via WiFi.  \\ 
 	\end{itemize} 
-	\pagebreak
+
 	\noindent\textbf{\large 4. Descrizione del lavoro svolto} \\
 	\newline 
 	Il frutto di questo progetto è stato il prototipo di un sistema di controllo accessi IoT \cite{IoT,smart_objects, controllo_accessi} per l'azienda ospitante del tirocinio. Durante lo sviluppo del progetto, l'idea è evoluta: oltre ai requisiti iniziali, è stato sviluppato anche un server/database ospitato nella LAN di una rete privata accessibile solo dall'amministratore. Il database è stato creato per memorizzare i log, i soci e le tessere dell'azienda. Inoltre è stata sviluppata un'interfaccia grafica (in questo caso un sito web in locale) per gestire il database tramite semplici operazioni CRUD. \\
@@ -52,7 +52,7 @@
 		\item componenti: Arduino UNO\cite{sistemi_embedded_atrent}, Raspberry Pi, Ricevitore RF, Keypad, RTC, Servomotore, Lettore RFID, ESP8266\cite{esp_ds}; 
 		\item linguaggi di programmazione: Arduino Programming Language.
 	\end{itemize} 
-	
+	\pagebreak
 	\noindent Sito web:
 	\begin{itemize}
 		\item design patterns: MVC, REST;
