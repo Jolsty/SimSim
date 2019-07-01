@@ -13,13 +13,14 @@ SLIDE 1 (TITOLO):
 Buongiorno, sono Andrei Ciulpan (nr. matricola 872394) e oggi presento
 il progetto su cui ho lavorato durante il tirocinio all'interno di Yatta, 
 un makerspace in centro a Milano, munito di un laboratorio in cui gli studenti
-tirocinanti sono inseriti per partecipare allo sviluppo di progetti di physical computing.
-Il progetto ha portato alla creazione di un prototipo (chiamato SimSim) 
-di un sistema di controlli accessi basato su un microcontrollore da applicare poi all'interno dell'azienda. 
+tirocinanti partecipano allo sviluppo di progetti di physical computing.
+Il mio progetto ha avuto come scopo la creazione di un prototipo (chiamato SimSim) 
+di un sistema di controllo accessi basato su un microcontrollore da applicare poi all'interno dell'azienda. 
 Si tratta di un sistema IoT (che sta per Internet of Things) in cui la connessione 
-Internet viene estesa anche al mondo degli oggetti fisici comunemente chiamati "oggetti smart".  
+Internet viene estesa anche al mondo degli oggetti fisici.
 Questi oggetti sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado
 di mandare dati in rete verso il back-end di un'applicazione dove potranno poi essere salvati ed elaborati.
+
 
 
 SLIDE 2 (SOMMARIO):
@@ -29,66 +30,57 @@ Qui ho preparato un piccolo sommario con i punti che verranno elaborati nella pr
 
 SLIDE 3 (usecase diagram):
 
-I requisiti principali sono descritti da questo diagramma dei casi d'uso
-I requisiti iniziali del progetto erano più semplificati, 
+Innanzittutto abbiamo i requisiti che sono descritti da questo diagramma dei casi d’uso.
+C’è da notare che i requisiti iniziali del progetto erano più semplificati, 
 nel senso che non includevano ancora il database dell'azienda 
 e il sito web per gestirlo. Questi dettagli sono stati poi
 aggiunti durante la fase di sviluppo del prototipo.
 Principalmente il sistema deve essere in grado di 
 funzionare con tre diverse modalità di riconoscimento: 
-tessere RFID, tastierino numerico (e quindi password), telecomando 
-A seguito di ogni accesso avvenuto con successo, il sistema 
+tessere RFID, tastierino numerico (e quindi password), telecomando e,
+a seguito di ogni accesso avvenuto con successo, 
 deve aprire la serratura di una porta e salvare automaticamente il log nel database. 
 Oltre ai log degli accessi, vanno salvati anche i soci e le tessere dell'azienda.
 Infatti l'amministratore deve essere in grado di fare, tramite un'interfaccia grafica (in questo 
 caso un sito web), semplici operazioni CRUD (quindi di aggiungere/modificare/leggere/cancellare 
 i soci e le tessere, e visualizzare i log degli accessi) 
 
+
 SLIDE 4 (sviluppo del sistema embedded, componenti):
 
-Questi sono i componenti principali del sistema embedded, che riescono a lavorare insieme 
-grazie all'Arduino.
-Per implementare la funzione del microcontrollore, è stato scelto l'Arduino UNO, una board 
-di basso costo, open-source e facile da programmare tramite il linguaggio di programmazione 
-appositamente chiamato Arduino Programming Language.
-Il ricevitore RF serve per comunicare con il telecomando per via di frequenze radio
+La prima parte del progetto consiste nel sistema embedded, e quindi tutto ciò che gira 
+intorno al microcontrollore montato sull’Arduino UNO, una board 
+di basso costo, open-source e facile da programmare tramite Arduino Programming Language.
+Poi abbiamo il ricevitore RF che serve per comunicare con il telecomando per via di frequenze radio
 Il lettore RFID per leggere le tessere dei soci
 Poi abbiamo il tastierino numerico, per dare la possibilità di entrare per via password 
 L'LCD per dare informazioni all'utente (e.g. accesso consentito/negato ecc.) 
 Il servomotore è l'attuatore che apre la serratura della porta 
-Siccome l'Arduino UNO non può connettersi alla rete locale via WiFi, 
+Infine, siccome l'Arduino UNO non può connettersi alla rete locale via WiFi, 
 è stato aggiunto un chip chiamato ESP8266 che fa da intermediario tra 
 l'Arduino UNO e il server.
 
 
+
 SLIDE 5 (sviluppo del sito web, back-end):
 
-Il server Web è stato sviluppato su un Raspberry Pi ed è hostato in locale 
-all'interno di una rete privata e dedicata solo al progetto. 
-Il lato server è stato implementato in JavaScript, in particolare
-utilizzando Node.js, un framework open-source che esegue codice JavaScript 
-al di fuori di un browser. Alcuni vantaggi principali di Node.js, oltre al fatto 
-di poter creare il back-end utilizzando JavaScript, sono la programmazione a eventi (un'azione 
-viene lanciata solo dopo che si è verificato un evento aumentando l'efficienza 
-soprattutto nell'ambito di networking dove capita spesso di dover rimanere in attesa 
-di una risposta), la scalabilità del software e NPM (node package manager - 
-il più grande ecosistema di librerie open-source al mondo)
-Il DBMS utilizzato è MongoDB: un DBMS open-source di tipo NoSQL ed è
-orientato ai documenti. Questo significa che, anzichè avere le tipiche tabelle
-di un database relazionale definite secondo uno schema rigido e fisso, si hanno dei 
-documenti in formato BSON - binary JSON, ovvero la serializzazione codificata 
-in binario del formato JSON - facilitando quindi l'integrazione dei dati con quasi tutte 
-le applicazioni web.
-Infine, la comunicazione tra il client (ovvero browser) e il server è basata sull'approccio 
-REST (Representational State Transfer) in cui il concetto più importante è l'esistenza 
-di risorse del server a cui si possono accedere tramite identificatori univoci chiamati URI.
-Generalmente le API RESTful sfruttano le chiamate HTTP per dare la possibilità ai client di 
-leggere, aggiornare, creare e rimuovere risorse.
+Il server web è in esecuzione su un Raspberry Pi all'interno di una LAN dedicata solo al progetto. 
+Il lato server è stato implementato in JavaScript, in particolare utilizzando Node.js, un framework open-source che esegue codice JavaScript 
+al di fuori di un browser. Alcuni vantaggi principali di Node.js sono la programmazione 
+a eventi (in cui un'azione viene lanciata solo al verificarsi di un evento, aumentando l'efficienza soprattutto nell'ambito di networking dove capita spesso 
+di dover rimanere in attesa di una risposta), la scalabilità del software e NPM (node package manager - il più grande ecosistema di librerie open-source al mondo)
+Il DBMS utilizzato è MongoDB: un DBMS open-source di tipo NoSQL e orientato ai documenti. Questo significa che, anzichè avere le tipiche tabelle
+di un database relazionale definite secondo uno schema rigido e fisso, si hanno dei documenti in formato BSON - binary JSON, ovvero la serializzazione codificata 
+in binario del formato JSON - facilitando quindi l'integrazione dei dati con quasi tutte le applicazioni web. Infine, la comunicazione tra il client e
+ il server è basata sull'approccio REST (Representational State Transfer) in cui il concetto più importante è l'esistenza di risorse del server a cui si possono accedere 
+tramite identificatori univoci chiamati URI. 
+| Generalmente le API RESTful sfruttano le chiamate HTTP per dare la possibilità ai client di leggere, aggiornare, creare e rimuovere risorse. | -> cancello l’ultima frase?
+
 
 
 SLIDE 6 (sviluppo del sito web, mvc):
 
-L'applicazione web segue uno dei più famosi pattern architetturali conosciuti: MVC (model-view-controller)
+Per quanto riguarda la scalabilità, l’applicazione web segue uno dei più famosi pattern architetturali conosciuti: MVC (model-view-controller)
 L'idea consiste nella modularizzazione del codice per garantire l'indipendenza tra i dati e l'interfaccia,
 rendendo il codice più facile da comprendere, più scalabile e riutilizzabile.
 Infatti l'applicazione è separata in tre principali componenti: il modello, la vista e il controller 
@@ -99,6 +91,7 @@ i dati all'utente.
 Tramite l'interfaccia grafica (e.g. click di un pulsante) il controller accetta l'input dell'utente e lo trasforma in comandi 
 per il modello, così da recuperare i dati richiesti e inviarli alla vista.
 
+
 SLIDE 7 (sviluppo del sito web, front-end):
 
 Il termine front-end rappresenta l'interfaccia dell'applicazione, 
@@ -108,31 +101,27 @@ JavaScript per aggiungere dinamicità e CSS per lo stile.
 Per quanto riguarda JavaScript ho usato jQuery, una libreria molto diffusa (soprattutto
 qualche anno fa) proposta a ridurre e semplificare il codice, ad un basso costo di performance.
 Per il passaggio dei dati dal server al client ho usato EJS, un linguaggio di templating che permette
-di incorporare codice JavaScript all'interno dei documenti HTML. 
+di incorporare codice JavaScript, con cui si possono manipolare i dati in maniera semplice e veloce, all'interno dei documenti HTML. 
 Per quanto riguarda lo stile, ho usato un template della W3CSS.
 L'intero sito web è responsivo, ovvero è stato progettato per essere visualizzabile 
 su qualsiasi tipo di dispositivo.
 
+
 SLIDE 8 (problemi affrontati):
 
-Siccome il server è ospitato in locale, non c'era bisogno di avere la connessione Internet sul Raspberry Pi:
-la mancanza di connessione ha sollevato un problema: il Raspberry Pi non ha un orologio interno e per tenere traccia 
-del tempo deve connettersi a dei server NTP. Questo significa che non poteva salvare i log con la data e l'ora corrente.
-Per aggirare il problema, ho usato un RTC (real-time clock) che può essere interrogato direttamente dall'Arduino.
-In questo modo l'Arduino può incorporare la data e l'ora direttamente all'interno del log.
+Siccome il server è ospitato in locale, non c’è bisogno di avere la connessione Internet sul Raspberry Pi, ma ciò ha sollevato un problema: 
+il Raspberry Pi non ha un orologio interno e per tenere traccia del tempo deve connettersi a dei server NTP. 
+Questo significa che non può salvare i log con la data e l'ora corrente. Per aggirare il problema, ho usato un RTC (real-time clock) 
+che può essere interrogato direttamente dall'Arduino. In questo modo l'Arduino può incorporare la data e l'ora direttamente all'interno dell’oggetto contenente il log
+Durante lo sviluppo ho scoperto che Raspbian, il sistema operativo progettato per i Raspberry Pi, non è ancora stato aggiornato 
 
-Durante lo sviluppo ho scoperto che Raspbian, il sistema operativo 
-progettato per i Raspberry Pi, non è ancora stato aggiornato 
-per essere un sistema operativo a 64 bit, perciò non poteva sfruttare al meglio 
-l'architettura ARM a 64 bit del modello usato. Questo comportava alcune incompatibilità:
-MongoDB su 32 bit era limitato a 2 GB di dati e aveva problemi a connettersi 
-con l'ultima versione di Node.js.
-Come soluzione a questo problema ho deciso di installare openSUSE, che non è stato progettato 
-per il Raspberry Pi e quindi offriva una prestazione minore, ma non ha creato grossi problemi.
+per essere un sistema operativo a 64 bit, perciò non poteva sfruttare al meglio l'architettura ARM a 64 bit del modello usato. Questo comportava alcune incompatibilità:
+MongoDB su 32 bit era limitato a 2 GB di dati e inoltre aveva problemi a connettersi con le ultime versioni di Node.js. Come soluzione a questo problema
+ho deciso di installare openSUSE, che non è stato progettato per il Raspberry Pi e quindi offriva una prestazione minore, ma non ha creato grossi problemi.
 
-L'ingresso nello spazio di Yatta è regolato da un tesseramento: ogni anno, tutte le tessere non rinnovate 
-vengono disattivate: per evitare di farlo manualmente, ho implementato uno scheduler che viene eseguito automaticamente 
-una volta all'anno.
+L'ingresso nello spazio di Yatta è regolato da un tesseramento: ogni anno, tutte le tessere non rinnovate vengono disattivate: per evitare di farlo manualmente, 
+ho implementato uno scheduler che viene eseguito automaticamente una volta all'anno e che disattiva tutte le tessere non rinnovate nell’anno corrente.
+
 
 
 SLIDE 9 (possibili miglioramenti):
@@ -152,6 +141,7 @@ più persone nella vicinanza.
 
 Inoltre si potrebbe installare un sistema di allarme per quando la porta viene aperta forzatamente durante la fascia oraria 
 di inattività. 
+
 
 SLIDE 10 (prototipo SimSim):
 
