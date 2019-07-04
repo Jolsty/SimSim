@@ -10,16 +10,14 @@
 
 SLIDE 1 (TITOLO):
 
-Buongiorno, sono Andrei Ciulpan (nr. matricola 872394) e oggi presento
-il progetto su cui ho lavorato durante il tirocinio all'interno di Yatta, 
-un makerspace in centro a Milano, munito di un laboratorio in cui gli studenti
-tirocinanti partecipano allo sviluppo di progetti di physical computing.
+Buongiorno, sono Andrei Ciulpan (nr. matricola 872394) e oggi presento il progetto al quale ho lavorato durante il tirocinio presso YATTA,  il laboratorio per maker, cioè un makerspace, di Milano. YATTA è attrezzato per dare modo alle persone di ideare e partecipare allo sviluppo di progetti di physical computing.  Inoltre è un posto ideale per svolgere anche i tirocini universitari perché ci sono i materiali necessari alla sperimentazione e di norma i progetti proposti si possono realizzare nell’arco di 3 mesi.
 Il mio progetto ha avuto come scopo la creazione di un prototipo (chiamato SimSim) 
 di un sistema di controllo accessi basato su un microcontrollore da applicare poi all'interno dell'azienda. 
 Si tratta di un sistema IoT (che sta per Internet of Things) in cui la connessione 
 Internet viene estesa anche al mondo degli oggetti fisici.
 Questi oggetti sono normalmente dotati di un processore embedded, sensori e attuatori e sono in grado
 di mandare dati in rete verso il back-end di un'applicazione dove potranno poi essere salvati ed elaborati.
+
 
 
 
